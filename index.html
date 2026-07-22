@@ -15,7 +15,7 @@
       --muted: #b7c3cf;
       --button-red: #e11d48;
       --card-width: 460px;
-      --card-media-height: 420px; /* fallback height when aspect-ratio not supported */
+      --card-media-height: 420px;
     }
 
     html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial; background:var(--bg); color:#fff; -webkit-font-smoothing:antialiased}
@@ -44,6 +44,28 @@
       background:#000;
     }
 
+    /* big centered play overlay (shows only if autoplay blocked) */
+    .play-overlay{
+      position:absolute;
+      z-index:70;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:auto;
+    }
+    .play-btn{
+      background: rgba(0,0,0,0.6);
+      border: 2px solid rgba(255,255,255,0.08);
+      color: #fff;
+      padding: 18px 26px;
+      border-radius: 12px;
+      font-weight:800;
+      font-size:18px;
+      cursor:pointer;
+      box-shadow:0 12px 40px rgba(0,0,0,0.6);
+    }
+
     /* ---------- Selection overlay ---------- */
     .selection-overlay{
       position:fixed;
@@ -60,13 +82,14 @@
     }
     .selection-overlay.visible{ opacity:1; pointer-events:auto; }
 
-    .selection-inner{ max-width:1200px; width:100%; text-align:center; }
+    .selection-inner{ max-width:1200px; width:100%; text-align:center; padding-top:10px; } /* small padding so title drops down a bit */
 
     .selection-title{
       font-size:36px;
       color:var(--muted);
       letter-spacing:6px;
       margin-bottom:28px;
+      margin-top:12px; /* moved down a bit as requested */
       font-weight:800;
     }
 
@@ -87,18 +110,17 @@
       flex-direction:column;
       align-items:stretch;
       box-shadow:0 12px 40px rgba(2,6,23,0.6);
-      transition:box-shadow .28s ease; /* removed transform scale/translate to avoid "phóng to" */
+      transition:box-shadow .28s ease;
       cursor:pointer;
       overflow:visible;
     }
-    /* keep hover effect but no scale/translate */
     .card:hover{ box-shadow:0 20px 60px rgba(0,0,0,0.6); }
 
     /* enforce 3:4 crop region but provide fallback height */
     .card-media{
       width:100%;
-      aspect-ratio:3/4;              /* used if supported */
-      height:var(--card-media-height); /* fallback */
+      aspect-ratio:3/4;
+      height:var(--card-media-height);
       display:block;
       overflow:hidden;
       border-radius:12px;
@@ -112,11 +134,11 @@
       object-position:50% 50%;
       display:block;
       filter:drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-      transition:none; /* prevent any scaling animation */
+      transition:none; /* no scale/zoom */
     }
 
-    /* adjust PYLYLY portrait so face sits higher (fine-tune if needed) */
-    .card-pylyly .card-media img{ object-position:50% 22%; } /* lower number = face higher */
+    /* adjust PYLYLY portrait so face sits higher (tune as needed) */
+    .card-pylyly .card-media img{ object-position:50% 22%; }
 
     /* Iron Man center */
     .card-iron .card-media img{ object-position:50% 50%; }
@@ -127,7 +149,7 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      flex:0 0 auto; /* ensure body area stays visible */
+      flex:0 0 auto;
     }
 
     .card h3{
@@ -209,12 +231,16 @@
 </head>
 <body>
 
-  <!-- Intro stage (video only). Will play to completion, then fade -> selection. -->
+  <!-- Intro stage (video only). If autoplay blocked, show play overlay. -->
   <div id="introStage" class="intro-stage" aria-hidden="false">
     <video id="introVideo" class="intro-video" autoplay muted playsinline>
       <source src="YTDown.com_YouTube_Marvel-Comics-Intro_Media_Ok5PXdmQV-s_001_1080p.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+
+    <div id="playOverlay" class="play-overlay" style="display:none;">
+      <button id="playBtn" class="play-btn" aria-label="Play intro">PLAY INTRO</button>
+    </div>
   </div>
 
   <!-- Selection overlay (hidden until intro completes) -->
@@ -226,8 +252,7 @@
         <!-- IRON MAN -->
         <div class="card card-iron" role="listitem" id="cardIron" data-hero="iron" tabindex="0" aria-label="Iron Man">
           <div class="card-media">
-            <!-- updated path per your request -->
-            <img src="files/Iron_Man.jpg" alt="Iron Man">
+            <img src="Iron_Man.jpg" alt="Iron Man">
           </div>
           <div class="card-body">
             <h3>IRON MAN</h3>
@@ -238,8 +263,7 @@
         <!-- PYLYLY -->
         <div class="card card-pylyly" role="listitem" id="cardPy" data-hero="pylyly" tabindex="0" aria-label="Pylyly">
           <div class="card-media">
-            <!-- updated path per your request -->
-            <img src="files/pll.jpg" alt="PYLYLY portrait">
+            <img src="pll.jpg" alt="PYLYLY portrait">
           </div>
           <div class="card-body">
             <h3>PYLYLY</h3>
@@ -250,7 +274,7 @@
     </div>
   </div>
 
-  <!-- Cinematic messages overlay -->
+  <!-- Cinematic messages -->
   <div id="cinematic" class="cinematic" aria-hidden="true" style="display:none;">
     <div class="cinematic-text" id="cineText"></div>
   </div>
@@ -269,6 +293,9 @@
       const introStage = document.getElementById('introStage');
       const selection = document.getElementById('selection');
 
+      const playOverlay = document.getElementById('playOverlay');
+      const playBtn = document.getElementById('playBtn');
+
       const selectPy = document.getElementById('selectPy');
       const selectIron = document.getElementById('selectIron');
 
@@ -278,9 +305,31 @@
       const finalTitle = document.getElementById('finalTitle');
       const finalSubtitle = document.getElementById('finalSubtitle');
 
-      // When video ends -> fade intro out (2s), then fade selection in (1.8s)
+      // Try to autoplay; if blocked, show play overlay and wait for user interaction.
+      function tryAutoplay(){
+        introVideo.play().then(()=>{
+          // autoplay worked — hide overlay just in case
+          playOverlay.style.display = 'none';
+        }).catch(()=> {
+          // autoplay blocked — show big play button, do NOT auto-skip
+          playOverlay.style.display = 'flex';
+        });
+      }
+
+      // When user clicks play
+      playBtn.addEventListener('click', ()=> {
+        playOverlay.style.display = 'none';
+        introVideo.play().catch(()=>{ /* ignore */ });
+      });
+
+      // If video plays (via autoplay or user), ensure overlay hidden
+      introVideo.addEventListener('play', ()=> {
+        playOverlay.style.display = 'none';
+      });
+
+      // When video ends -> fade intro out (2s), then fade selection in
       introVideo.addEventListener('ended', () => {
-        introStage.classList.add('hidden');
+        introStage.classList.add('hidden'); // fade out (2s)
         setTimeout(()=> {
           introStage.style.display = 'none';
           selection.style.display = 'flex';
@@ -291,27 +340,16 @@
         }, 2000);
       });
 
-      // Fallback if autoplay blocked: after 8s hide intro & show selection
-      const fallback = setTimeout(()=>{
-        if(introStage.style.display !== 'none'){
-          try { introVideo.pause(); } catch(e){}
-          introStage.style.display = 'none';
-          selection.style.display = 'flex';
-          requestAnimationFrame(()=> selection.classList.add('visible'));
-        }
-      }, 8000);
+      // If video metadata loads, attempt autoplay
+      if (introVideo.readyState >= 2) {
+        tryAutoplay();
+      } else {
+        introVideo.addEventListener('loadedmetadata', tryAutoplay);
+        // Also attempt after a small delay
+        setTimeout(tryAutoplay, 1200);
+      }
 
-      // skip on click
-      document.addEventListener('click', function skipOnce(){
-        if(introStage.style.display !== 'none'){
-          try { introVideo.pause(); } catch(e){}
-          introStage.style.display = 'none';
-          selection.style.display = 'flex';
-          requestAnimationFrame(()=> selection.classList.add('visible'));
-        }
-        document.removeEventListener('click', skipOnce);
-      });
-
+      // cinematic helper
       function playCinematic(messages, interval = 2500){
         cinematic.style.display = 'flex';
         cinematic.classList.add('visible');
@@ -343,13 +381,12 @@
         requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
       }
 
-      // PYLYLY selection
+      // select handlers
       selectPy.addEventListener('click', ()=> {
         selection.classList.remove('visible');
         setTimeout(()=> { selection.style.display = 'none'; showFinal('Pylyly'); }, 420);
       });
 
-      // IRON selection -> cinematic -> PYLYLY
       selectIron.addEventListener('click', ()=> {
         const msgs = [
           'IRON MAN SELECTED',
