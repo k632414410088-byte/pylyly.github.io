@@ -287,43 +287,6 @@
     </div>
   </div>
 
-  function showPortfolioTransition(duration = 2000, delayBefore = 900) {
-      const finalScreen = document.getElementById('finalScreen');
-      const portfolio = document.getElementById('portfolio');
-      const portfolioBg = document.getElementById('portfolioBg');
-
-      if(!portfolio) return;
-
-      // Hiển thị portfolio
-      portfolio.style.display = 'flex';
-      portfolio.style.transition = `opacity ${duration}ms ease`;
-      portfolio.style.opacity = 0;
-      portfolio.setAttribute('aria-hidden','false');
-
-      // Chờ sau đó fade out finalScreen và fade in portfolio
-      setTimeout(()=>{
-        if(finalScreen && finalScreen.style.display !== 'none') {
-          finalScreen.style.transition = `opacity ${duration}ms ease`;
-          finalScreen.style.opacity = 0;
-          setTimeout(()=> {
-            finalScreen.style.display = 'none';
-            finalScreen.classList.remove('show');
-          }, duration);
-        }
-
-        // Play video
-        if(portfolioBg){
-          portfolioBg.currentTime = 0;
-          portfolioBg.play().catch(()=>{});
-        }
-
-        // Fade in portfolio
-        requestAnimationFrame(()=> {
-          portfolio.style.opacity = 1;
-        });
-      }, delayBefore);
-    }
-  
   <script>
     (function(){
       const introVideo = document.getElementById('introVideo');
@@ -415,14 +378,8 @@
         finalTitle.textContent = name.toUpperCase();
         finalSubtitle.textContent = (name.toLowerCase() === 'pylyly') ? 'THE SELECTED HERO' : 'ALTERNATE HERO';
         finalScreen.style.display = 'flex';
-         requestAnimationFrame(()=> { 
-    finalScreen.classList.add('show'); 
-    finalScreen.setAttribute('aria-hidden','false'); 
-  });
-  
-  // ✅ THÊM DÒNG NÀY - chuyển sang portfolio sau 2 giây
-  setTimeout(()=> showPortfolioTransition(2000, 600), 2900);
-}
+        requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
+      }
 
       // select handlers
       selectPy.addEventListener('click', ()=> {
@@ -459,28 +416,5 @@
     })();
   </script>
 
-  <!-- START: Portfolio (hidden initially) -->
-<section id="portfolio" class="portfolio" aria-hidden="true" style="display:none; opacity:0;">
-  <video id="portfolioBg" class="portfolio-bg" autoplay muted loop playsinline>
-    <source src="files/1784744635213_2201971040815987897_6044169520360234710.mp4" type="video/mp4">
-  </video>
-
-  <div class="portfolio-overlay">
-    <div class="portfolio-inner">
-      <div class="portfolio-left">
-        <h1 class="portfolio-name">LÊ<br>PHƯƠNG<br>LINH</h1>
-      </div>
-
-      <div class="portfolio-right">
-        <div class="profile-frame">
-          <img src="files/1784739057228_2201971040815987897_6044169520360234710_e1b752765b3074aa5d6a36237e759da7.jpg" alt="LE PHUONG LINH">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- END: Portfolio -->
-
 </body>
 </html>
-
