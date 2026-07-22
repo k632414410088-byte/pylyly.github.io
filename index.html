@@ -82,14 +82,14 @@
     }
     .selection-overlay.visible{ opacity:1; pointer-events:auto; }
 
-    .selection-inner{ max-width:1200px; width:100%; text-align:center; padding-top:10px; } /* small padding so title drops down a bit */
+    .selection-inner{ max-width:1200px; width:100%; text-align:center; padding-top:10px; }
 
     .selection-title{
       font-size:36px;
       color:var(--muted);
       letter-spacing:6px;
       margin-bottom:28px;
-      margin-top:12px; /* moved down a bit as requested */
+      margin-top:12px;
       font-weight:800;
     }
 
@@ -116,7 +116,6 @@
     }
     .card:hover{ box-shadow:0 20px 60px rgba(0,0,0,0.6); }
 
-    /* enforce 3:4 crop region but provide fallback height */
     .card-media{
       width:100%;
       aspect-ratio:3/4;
@@ -134,13 +133,10 @@
       object-position:50% 50%;
       display:block;
       filter:drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-      transition:none; /* no scale/zoom */
+      transition:none;
     }
 
-    /* adjust PYLYLY portrait so face sits higher (tune as needed) */
     .card-pylyly .card-media img{ object-position:50% 22%; }
-
-    /* Iron Man center */
     .card-iron .card-media img{ object-position:50% 50%; }
 
     .card-body{
@@ -221,11 +217,121 @@
     .final-inner h2{ font-size:36px; margin:0 0 12px 0; letter-spacing:4px }
     .final-inner p{ margin:0; color:var(--muted) }
 
-    @media (max-width:980px){
-      .cards{ flex-direction:column; gap:18px; align-items:center; }
-      .card{ width:92%; }
-      .card-media{ height:320px; aspect-ratio:3/4; }
-      .card-pylyly .card-media img{ object-position:50% 20%; }
+    /* ---------- PORTFOLIO SECTION ---------- */
+    .portfolio-screen{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:20;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 2s ease;
+      overflow:hidden;
+    }
+    .portfolio-screen.show{ opacity:1; pointer-events:auto; }
+
+    .portfolio-bg-video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:0;
+      filter: brightness(0.6) contrast(1.1);
+    }
+
+    .portfolio-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, rgba(2,6,23,0.92) 0%, rgba(2,6,23,0.75) 50%, rgba(2,6,23,0.5) 100%);
+      z-index:1;
+    }
+
+    .portfolio-content{
+      position:relative;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:100%;
+      max-width:1200px;
+      padding:0 60px;
+      gap:80px;
+    }
+
+    .portfolio-left{
+      flex:1;
+      text-align:left;
+    }
+
+    .portfolio-name{
+      font-family:'Anton',Impact,Arial Black,Arial;
+      font-size:72px;
+      font-weight:900;
+      color:#fff;
+      letter-spacing:3px;
+      margin:0;
+      text-transform:uppercase;
+      line-height:1;
+      text-shadow:0 2px 20px rgba(225,29,72,0.3);
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+      word-break:break-word;
+    }
+
+    .portfolio-right{
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .profile-image-wrapper{
+      position:relative;
+      width:360px;
+      height:450px;
+      border-radius:24px;
+      overflow:hidden;
+      border:4px solid rgba(255,255,255,0.8);
+      box-shadow:0 0 30px rgba(225,29,72,0.4), 0 0 60px rgba(255,255,255,0.2);
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+    }
+
+    .profile-image-wrapper img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:50% 50%;
+      display:block;
+    }
+
+    @media (max-width:1200px){
+      .portfolio-content{
+        flex-direction:column;
+        padding:0 40px;
+        gap:40px;
+      }
+      .portfolio-name{
+        font-size:48px;
+      }
+      .profile-image-wrapper{
+        width:300px;
+        height:375px;
+      }
+    }
+
+    @media (max-width:768px){
+      .portfolio-left{
+        text-align:center;
+      }
+      .portfolio-name{
+        font-size:36px;
+      }
+      .profile-image-wrapper{
+        width:240px;
+        height:300px;
+      }
     }
   </style>
 </head>
@@ -279,11 +385,29 @@
     <div class="cinematic-text" id="cineText"></div>
   </div>
 
-  <!-- Final placeholder -->
+  <!-- Final placeholder (PYLYLY THE SELECTED HERO) -->
   <div id="finalScreen" class="final-screen" aria-hidden="true" style="display:none;">
     <div class="final-inner">
       <h2 id="finalTitle"></h2>
       <p id="finalSubtitle"></p>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO SCREEN -->
+  <div id="portfolioScreen" class="portfolio-screen" aria-hidden="true" style="display:none;">
+    <video id="portfolioBgVideo" class="portfolio-bg-video" autoplay muted playsinline loop>
+      <source src="2201971040815987897_6044169520360234710.mp4" type="video/mp4">
+    </video>
+    <div class="portfolio-overlay"></div>
+    <div class="portfolio-content">
+      <div class="portfolio-left">
+        <h1 class="portfolio-name">LÊ PHƯƠNG LINH</h1>
+      </div>
+      <div class="portfolio-right">
+        <div class="profile-image-wrapper">
+          <img src="2201971040815987897_6044169520360234710.jpg" alt="Profile - Lê Phương Linh">
+        </div>
+      </div>
     </div>
   </div>
 
@@ -304,14 +428,15 @@
       const finalScreen = document.getElementById('finalScreen');
       const finalTitle = document.getElementById('finalTitle');
       const finalSubtitle = document.getElementById('finalSubtitle');
+      
+      const portfolioScreen = document.getElementById('portfolioScreen');
+      const portfolioBgVideo = document.getElementById('portfolioBgVideo');
 
       // Try to autoplay; if blocked, show play overlay and wait for user interaction.
       function tryAutoplay(){
         introVideo.play().then(()=>{
-          // autoplay worked — hide overlay just in case
           playOverlay.style.display = 'none';
         }).catch(()=> {
-          // autoplay blocked — show big play button, do NOT auto-skip
           playOverlay.style.display = 'flex';
         });
       }
@@ -329,7 +454,7 @@
 
       // When video ends -> fade intro out (2s), then fade selection in
       introVideo.addEventListener('ended', () => {
-        introStage.classList.add('hidden'); // fade out (2s)
+        introStage.classList.add('hidden');
         setTimeout(()=> {
           introStage.style.display = 'none';
           selection.style.display = 'flex';
@@ -345,7 +470,6 @@
         tryAutoplay();
       } else {
         introVideo.addEventListener('loadedmetadata', tryAutoplay);
-        // Also attempt after a small delay
         setTimeout(tryAutoplay, 1200);
       }
 
@@ -381,10 +505,26 @@
         requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
       }
 
+      function showPortfolio(){
+        // Fade out final screen
+        finalScreen.classList.remove('show');
+        setTimeout(()=>{
+          finalScreen.style.display = 'none';
+          // Show portfolio with fade in (2s)
+          portfolioScreen.style.display = 'flex';
+          requestAnimationFrame(()=>{
+            portfolioScreen.classList.add('show');
+            portfolioScreen.setAttribute('aria-hidden','false');
+          });
+        }, 450);
+      }
+
       // select handlers
       selectPy.addEventListener('click', ()=> {
         selection.classList.remove('visible');
         setTimeout(()=> { selection.style.display = 'none'; showFinal('Pylyly'); }, 420);
+        // After final screen shows (1-2s), transition to portfolio (2s after that)
+        setTimeout(()=> { showPortfolio(); }, 2500);
       });
 
       selectIron.addEventListener('click', ()=> {
@@ -400,6 +540,8 @@
         setTimeout(()=> { selection.style.display='none'; playCinematic(msgs, 2500); }, 420);
         const total = msgs.length * 2500 + 400;
         setTimeout(()=> { showFinal('Pylyly'); }, total);
+        // Transition to portfolio after cinematic + final
+        setTimeout(()=> { showPortfolio(); }, total + 2500);
       });
 
       // keyboard access
