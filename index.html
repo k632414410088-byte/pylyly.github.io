@@ -1,4 +1,3 @@
-<!-- name=index.html -->
 <!doctype html>
 <html lang="vi">
 <head>
@@ -8,7 +7,6 @@
 
   <!-- Round/gamey font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-
   <style>
     :root{
       --bg:#07060a;
@@ -18,104 +16,67 @@
     }
     html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial; background:var(--bg); color:#fff; -webkit-font-smoothing:antialiased}
     /* full-screen intro stage */
-    .intro-stage{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center; overflow:hidden;
-      background:#000;
-    }
-    .intro-bg{
-      position:absolute; inset:0; background-size:cover; background-position:center; filter:brightness(.55) saturate(.95);
-      transform:scale(1); transition:transform 3.2s ease-out, filter 1.6s linear;
-      will-change:transform;
-    }
-    /* animated title overlay */
-    .intro-title{
-      position:relative; z-index:3; text-align:center; pointer-events:none;
-      transform:translateY(4px); opacity:0; transition:opacity .9s ease, transform .9s ease;
-    }
-    .intro-title h1{
-      font-size:84px; margin:0; letter-spacing:6px; color:#fff; text-transform:uppercase;
-      text-shadow:0 8px 30px rgba(0,0,0,0.6);
-    }
-    .intro-title p{color:var(--muted); margin-top:10px; font-weight:600; letter-spacing:2px}
+    .intro-stage{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#000; z-index:50}
+    .intro-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; filter:contrast(.9) saturate(.95);}
+    .intro-title{position:relative; z-index:3; text-align:center; pointer-events:none; color:#fff}
+    .intro-title h1{font-size:72px; margin:0; letter-spacing:8px; text-transform:uppercase; text-shadow:0 10px 40px rgba(0,0,0,0.6)}
+    .intro-title p{color:var(--muted); margin-top:12px; font-weight:600; letter-spacing:2px}
 
-    /* selection overlay (hidden initially) */
-    .selection-overlay{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(180deg, rgba(2,6,23,0.85), rgba(2,6,23,0.9));
-      z-index:10; opacity:0; pointer-events:none; transition:opacity .5s ease;
-      padding:40px;
-    }
+    /* selection overlay (hidden until intro finishes) */
+    .selection-overlay{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(2,6,23,0.88), rgba(2,6,23,0.96)); z-index:10; opacity:0; pointer-events:none; transition:opacity .5s ease; padding:40px}
     .selection-overlay.visible{opacity:1; pointer-events:auto}
 
     .selection-inner{max-width:1100px; width:100%; text-align:center}
-    .selection-title{font-size:28px; color:var(--muted); letter-spacing:4px; margin-bottom:20px; font-weight:700}
+    .selection-title{font-size:36px; color:var(--muted); letter-spacing:6px; margin-bottom:28px; font-weight:800}
 
     .cards{display:flex; gap:28px; justify-content:center; align-items:stretch}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:16px; padding:18px; width:420px; display:flex; flex-direction:column; align-items:center;
-      box-shadow:0 8px 40px rgba(2,6,23,0.6); transition:transform .28s ease, box-shadow .28s ease;
-      cursor:pointer;
-    }
-    .card:hover{ transform:translateY(-8px); box-shadow:0 20px 60px rgba(0,0,0,0.6) }
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:18px; padding:18px; width:460px; display:flex; flex-direction:column; align-items:center; box-shadow:0 12px 40px rgba(2,6,23,0.6); transition:transform .28s ease, box-shadow .28s ease; cursor:pointer}
+    .card:hover{ transform:translateY(-10px); box-shadow:0 30px 80px rgba(0,0,0,0.6) }
 
     /* media container: same height for both so faces are equal */
-    .card-media{ width:100%; height:420px; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative }
-    /* show only person silhouette; assumes uploaded images already have transparent background or cropped */
+    .card-media{ width:100%; height:420px; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(255,255,255,0.02)); border-radius:12px }
+    /* center & crop to make both portraits visually similar */
     .card-media img{
-      max-height:100%; max-width:100%; object-fit:contain; display:block; border-radius:12px;
-      /* center & keep proportion */
+      height:100%; width:auto; object-fit:cover; display:block; transform:translateY(0); /* keep proportions, center vertically */
+      filter:drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+      /* if your images have backgrounds, best to upload PNG/WebP with alpha — CSS can't remove complex backgrounds reliably */
     }
 
     .card-body{ margin-top:14px; display:flex; align-items:center; justify-content:space-between; width:100%; gap:12px }
     .card h3{margin:0; font-size:20px; font-weight:800; letter-spacing:2px}
     .card .card-btn{
-      background:#000; color:var(--button-red); border:2px solid rgba(255,255,255,0.04);
-      padding:10px 16px; border-radius:12px; font-weight:700; cursor:pointer; font-size:14px;
-      transition:transform .12s ease, box-shadow .12s ease;
+      background:#000; color:var(--button-red); border:2px solid rgba(255,255,255,0.04); padding:12px 18px; border-radius:12px; font-weight:800; cursor:pointer; font-size:14px;
     }
     .card .card-btn:active{ transform:translateY(2px) }
-    .card .card-btn:focus{ outline:2px solid rgba(225,29,72,0.16) }
+    .card .card-btn:focus{ outline:2px solid rgba(225,29,72,0.14) }
 
     /* cinematic overlay */
-    .cinematic{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:40; pointer-events:none;
-      background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
-      opacity:0; transition:opacity .18s ease;
-    }
+    .cinematic{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:40; pointer-events:none; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.85)); opacity:0; transition:opacity .18s ease}
     .cinematic.visible{ opacity:1; pointer-events:auto }
+    .cinematic-text{ color:#fff; font-size:30px; letter-spacing:2px; text-transform:uppercase; text-align:center; padding:20px 28px; border-radius:12px; background:rgba(0,0,0,0.28); box-shadow:0 12px 40px rgba(0,0,0,0.6); font-weight:800; }
 
-    .cinematic-text{
-      color:#fff; font-size:30px; letter-spacing:2px; text-transform:uppercase; text-align:center;
-      padding:20px 28px; border-radius:12px; background:rgba(0,0,0,0.28); box-shadow:0 12px 40px rgba(0,0,0,0.6);
-      font-weight:800;
-    }
-
-    /* final hero screen (placeholder) */
-    .final-screen{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:30;
-      opacity:0; pointer-events:none; transition:opacity .45s ease;
-      background:linear-gradient(180deg, rgba(2,6,23,0.7), rgba(2,6,23,0.95));
-      color:#fff; text-align:center; padding:24px;
-    }
+    /* final / hero selected screen */
+    .final-screen{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:30; opacity:0; pointer-events:none; transition:opacity .45s ease; background:linear-gradient(180deg, rgba(2,6,23,0.7), rgba(2,6,23,0.95)); color:#fff; text-align:center; padding:24px}
     .final-screen.show{ opacity:1; pointer-events:auto }
     .final-inner h2{ font-size:36px; margin:0 0 12px 0; letter-spacing:4px }
     .final-inner p{ margin:0; color:var(--muted) }
 
-    /* small screens */
     @media (max-width:980px){
       .cards{flex-direction:column; gap:18px}
       .card{width:100%}
-      .card-media{height:340px}
-      .intro-title h1{font-size:46px}
+      .card-media{height:320px}
+      .intro-title h1{font-size:42px}
     }
   </style>
 </head>
 <body>
 
-  <!-- INTRO STAGE: background image animates -->
+  <!-- INTRO STAGE: use actual mp4 you uploaded -->
   <div class="intro-stage" id="introStage" aria-hidden="false">
-    <div id="introBg" class="intro-bg" style="background-image:url('/bg.avif');"></div>
+    <video id="introVideo" class="intro-video" autoplay muted playsinline>
+      <source src="YTDown.com_YouTube_Marvel-Comics-Intro_Media_Ok5PXdmQV-s_001_1080p.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
 
     <div class="intro-title" id="introTitle" aria-hidden="true">
       <h1>MARVEL‑STYLE REVEAL</h1>
@@ -123,7 +84,7 @@
     </div>
   </div>
 
-  <!-- Selection (hidden until intro done) -->
+  <!-- Selection (hidden until intro finishes) -->
   <div id="selection" class="selection-overlay" aria-hidden="true" style="display:none;">
     <div class="selection-inner">
       <div class="selection-title">CHOOSE YOUR HERO</div>
@@ -132,18 +93,19 @@
         <!-- Iron Man card -->
         <div class="card" role="listitem" id="cardIron" data-hero="iron" aria-label="Iron Man">
           <div class="card-media">
-            <img src="/Profile_-_Iron_Man.webp" alt="Iron Man">
+            <!-- use relative path (no leading slash) so Pages serves correctly -->
+            <img src="Profile_-_Iron_Man.webp" alt="Iron Man">
           </div>
           <div class="card-body">
             <h3>IRON MAN</h3>
-            <button class="card-btn" id="selectIron">SELECT</button>
+            <button class="card-btn" id="selectIron">SELECT HERO</button>
           </div>
         </div>
 
         <!-- PYLYLY card -->
         <div class="card" role="listitem" id="cardPy" data-hero="pylyly" aria-label="Pylyly">
           <div class="card-media">
-            <img src="/1784736130032_2201971040815987897_6044169520360234710_2f69b91b7d78cfb21b0cc8ccc2089bb3.jpg" alt="PYLYLY portrait">
+            <img src="1784736130032_2201971040815987897_6044169520360234710_2f69b91b7d78cfb21b0cc8ccc2089bb3.jpg" alt="PYLYLY portrait">
           </div>
           <div class="card-body">
             <h3>PYLYLY</h3>
@@ -168,12 +130,9 @@
   </div>
 
   <script>
-    // Simple intro -> selection -> cinematic flow
     (function(){
-      const introBg = document.getElementById('introBg');
-      const introTitle = document.getElementById('introTitle');
+      const introVideo = document.getElementById('introVideo');
       const introStage = document.getElementById('introStage');
-
       const selection = document.getElementById('selection');
       const cinematic = document.getElementById('cinematic');
       const cineText = document.getElementById('cineticText');
@@ -184,32 +143,41 @@
       const selectPy = document.getElementById('selectPy');
       const selectIron = document.getElementById('selectIron');
 
-      // 1) run intro animation: zoom background & fade-in title
-      function startIntro(){
-        // slight zoom
-        requestAnimationFrame(()=> {
-          introBg.style.transform = 'scale(1.08)';
-          introTitle.style.opacity = '1';
-          introTitle.style.transform = 'translateY(0)';
-        });
-
-        // after intro duration show selection
-        setTimeout(()=> {
-          // hide intro stage with fade and reveal selection
-          introStage.style.transition = 'opacity .8s ease';
-          introStage.style.opacity = '0';
-          setTimeout(()=> { introStage.style.display = 'none'; showSelection(); }, 800);
-        }, 3500); // 3.5s intro
-      }
-
+      // When intro video ends -> show selection
       function showSelection(){
         selection.style.display = 'flex';
-        // small timeout to allow display -> then add visible to fade
         requestAnimationFrame(()=> { selection.classList.add('visible'); selection.setAttribute('aria-hidden','false'); });
       }
 
-      // show cinematic messages sequentially (array of strings)
-      function playCinematic(messages, interval=900){
+      // If video fails to autoplay or long, also fallback to show selection after timeout
+      let fallbackTimer = setTimeout(() => {
+        // only show selection if video still visible
+        if(introStage.style.display !== 'none'){
+          // stop video if it's still playing
+          try{ introVideo.pause(); }catch(e){}
+          introStage.style.display = 'none';
+          showSelection();
+        }
+      }, 6000); // 6s fallback
+
+      introVideo.addEventListener('ended', ()=>{
+        clearTimeout(fallbackTimer);
+        introStage.style.display = 'none';
+        showSelection();
+      });
+
+      // If video autoplay is blocked but user interacts, allow clicking anywhere to skip to selection
+      document.addEventListener('click', function once(){
+        if(introStage && introStage.style.display !== 'none'){
+          try{ introVideo.pause(); }catch(e){}
+          introStage.style.display = 'none';
+          showSelection();
+        }
+        document.removeEventListener('click', once);
+      });
+
+      // cinematic messages: interval set to 2500ms per your request
+      function playCinematic(messages, interval=2500){
         cinematic.style.display = 'flex';
         cinematic.classList.add('visible');
         cinematic.setAttribute('aria-hidden','false');
@@ -217,13 +185,11 @@
         cineText.textContent = '';
         function next(){
           if(i>=messages.length){
-            // end cinematic
             cinematic.classList.remove('visible');
             setTimeout(()=> { cinematic.style.display='none'; cinematic.setAttribute('aria-hidden','true'); }, 300);
             return;
           }
           cineText.style.opacity = '0';
-          // small text update
           setTimeout(()=> {
             cineText.textContent = messages[i];
             cineText.style.transition = 'opacity .18s ease';
@@ -242,16 +208,14 @@
         requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
       }
 
-      // On PYLYLY select -> direct hero screen
+      // PYLYLY selected -> immediate final
       selectPy.addEventListener('click', ()=> {
-        // small animation: scale card (optional)
         selection.classList.remove('visible');
         setTimeout(()=> { selection.style.display='none'; showFinal('Pylyly'); }, 420);
       });
 
-      // On IRON select -> cinematic sequence then switch to Pylyly
+      // IRON selected -> cinematic messages (slower)
       selectIron.addEventListener('click', ()=> {
-        // messages sequence as requested
         const msgs = [
           'IRON MAN SELECTED',
           'Checking availability...',
@@ -260,27 +224,21 @@
           "BUT TODAY'S HERO IS...",
           'PYLYLY'
         ];
-        // hide selection quickly
         selection.classList.remove('visible');
-        setTimeout(()=> { selection.style.display='none'; playCinematic(msgs, 900); }, 420);
-        // when cinematic finishes, show final pylyly - after total duration
-        const total = msgs.length * 900 + 600;
+        setTimeout(()=> { selection.style.display='none'; playCinematic(msgs, 2500); }, 420);
+        const total = msgs.length * 2500 + 400;
         setTimeout(()=> { showFinal('Pylyly'); }, total);
       });
 
-      // keyboard support: Enter on card triggers button
+      // keyboard: Enter on card triggers select
       document.querySelectorAll('.card').forEach(card=>{
         card.addEventListener('keydown', (e)=>{
           if(e.key === 'Enter' || e.key === ' '){
             const hero = card.getAttribute('data-hero');
-            if(hero === 'pylyly'){ selectPy.click(); }
-            else { selectIron.click(); }
+            if(hero === 'pylyly'){ selectPy.click(); } else { selectIron.click(); }
           }
         });
       });
-
-      // start
-      startIntro();
 
     })();
   </script>
