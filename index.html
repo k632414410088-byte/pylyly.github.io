@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Intro — CHOOSE YOUR HERO</title>
 
-  <!-- Round/gamey font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -15,232 +14,60 @@
       --button-red:#e11d48;
     }
     html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial; background:var(--bg); color:#fff; -webkit-font-smoothing:antialiased}
-    /* full-screen intro stage */
-    .intro-stage{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#000; z-index:50}
-    .intro-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; filter:contrast(.9) saturate(.95);}
-    .intro-title{position:relative; z-index:3; text-align:center; pointer-events:none; color:#fff}
-    .intro-title h1{font-size:72px; margin:0; letter-spacing:8px; text-transform:uppercase; text-shadow:0 10px 40px rgba(0,0,0,0.6)}
-    .intro-title p{color:var(--muted); margin-top:12px; font-weight:600; letter-spacing:2px}
 
-    /* selection overlay (hidden until intro finishes) */
-    .selection-overlay{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(2,6,23,0.88), rgba(2,6,23,0.96)); z-index:10; opacity:0; pointer-events:none; transition:opacity .5s ease; padding:40px}
-    .selection-overlay.visible{opacity:1; pointer-events:auto}
+    /* -------- Intro stage (video only) -------- */
+    .intro-stage{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center; overflow:hidden;
+      background:#000; z-index:60;
+      transition:opacity 2s ease;
+    }
+    .intro-stage.hidden{ opacity:0; pointer-events:none; }
 
-    .selection-inner{max-width:1100px; width:100%; text-align:center}
-    .selection-title{font-size:36px; color:var(--muted); letter-spacing:6px; margin-bottom:28px; font-weight:800}
-
-    .cards{display:flex; gap:28px; justify-content:center; align-items:stretch}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:18px; padding:18px; width:460px; display:flex; flex-direction:column; align-items:center; box-shadow:0 12px 40px rgba(2,6,23,0.6); transition:transform .28s ease, box-shadow .28s ease; cursor:pointer}
-    .card:hover{ transform:translateY(-10px); box-shadow:0 30px 80px rgba(0,0,0,0.6) }
-
-    /* media container: same height for both so faces are equal */
-    .card-media{ width:100%; height:420px; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(255,255,255,0.02)); border-radius:12px }
-    /* center & crop to make both portraits visually similar */
-    .card-media img{
-      height:100%; width:auto; object-fit:cover; display:block; transform:translateY(0); /* keep proportions, center vertically */
-      filter:drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-      /* if your images have backgrounds, best to upload PNG/WebP with alpha — CSS can't remove complex backgrounds reliably */
+    .intro-video{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+      background:#000;
     }
 
+    /* -------- Selection (cards) -------- */
+    .selection-overlay{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(180deg, rgba(2,6,23,0.88), rgba(2,6,23,0.96));
+      z-index:10; opacity:0; pointer-events:none; transition:opacity 2s ease; padding:40px;
+    }
+    .selection-overlay.visible{ opacity:1; pointer-events:auto; }
+
+    .selection-inner{ max-width:1100px; width:100%; text-align:center; }
+    .selection-title{ font-size:36px; color:var(--muted); letter-spacing:6px; margin-bottom:28px; font-weight:800 }
+
+    .cards{ display:flex; gap:28px; justify-content:center; align-items:stretch; }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px; padding:18px; width:460px; display:flex; flex-direction:column; align-items:center;
+      box-shadow:0 12px 40px rgba(2,6,23,0.6); transition:transform .28s ease, box-shadow .28s ease;
+      cursor:pointer;
+    }
+    .card:hover{ transform:translateY(-10px); box-shadow:0 30px 80px rgba(0,0,0,0.6) }
+
+    /* card media: enforce 3:4 crop so both portraits match */
+    .card-media{ width:100%; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:12px; background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(255,255,255,0.02)); }
+    .card-media img{
+      width:100%; height:100%; object-fit:cover; display:block; /* cover ensures cropping to fill 3:4 */
+      filter:drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+    }
+    /* adjust pylyly crop (shift up) so face is closer to top like Iron Man */
+    .card-pylyly .card-media img{ object-position:50% 22%; } /* tweak 22% to move image up/down */
+
+    /* iron man center */
+    .card-iron .card-media img{ object-position:50% 50%; }
+
     .card-body{ margin-top:14px; display:flex; align-items:center; justify-content:space-between; width:100%; gap:12px }
-    .card h3{margin:0; font-size:20px; font-weight:800; letter-spacing:2px}
+    .card h3{ margin:0; font-size:20px; font-weight:800; letter-spacing:2px }
     .card .card-btn{
       background:#000; color:var(--button-red); border:2px solid rgba(255,255,255,0.04); padding:12px 18px; border-radius:12px; font-weight:800; cursor:pointer; font-size:14px;
     }
-    .card .card-btn:active{ transform:translateY(2px) }
-    .card .card-btn:focus{ outline:2px solid rgba(225,29,72,0.14) }
 
     /* cinematic overlay */
-    .cinematic{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:40; pointer-events:none; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.85)); opacity:0; transition:opacity .18s ease}
-    .cinematic.visible{ opacity:1; pointer-events:auto }
-    .cinematic-text{ color:#fff; font-size:30px; letter-spacing:2px; text-transform:uppercase; text-align:center; padding:20px 28px; border-radius:12px; background:rgba(0,0,0,0.28); box-shadow:0 12px 40px rgba(0,0,0,0.6); font-weight:800; }
-
-    /* final / hero selected screen */
-    .final-screen{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:30; opacity:0; pointer-events:none; transition:opacity .45s ease; background:linear-gradient(180deg, rgba(2,6,23,0.7), rgba(2,6,23,0.95)); color:#fff; text-align:center; padding:24px}
-    .final-screen.show{ opacity:1; pointer-events:auto }
-    .final-inner h2{ font-size:36px; margin:0 0 12px 0; letter-spacing:4px }
-    .final-inner p{ margin:0; color:var(--muted) }
-
-    @media (max-width:980px){
-      .cards{flex-direction:column; gap:18px}
-      .card{width:100%}
-      .card-media{height:320px}
-      .intro-title h1{font-size:42px}
-    }
-  </style>
-</head>
-<body>
-
-  <!-- INTRO STAGE: use actual mp4 you uploaded -->
-  <div class="intro-stage" id="introStage" aria-hidden="false">
-    <video id="introVideo" class="intro-video" autoplay muted playsinline>
-      <source src="YTDown.com_YouTube_Marvel-Comics-Intro_Media_Ok5PXdmQV-s_001_1080p.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-
-    <div class="intro-title" id="introTitle" aria-hidden="true">
-      <h1>MARVEL‑STYLE REVEAL</h1>
-      <p>Prepare to choose your hero</p>
-    </div>
-  </div>
-
-  <!-- Selection (hidden until intro finishes) -->
-  <div id="selection" class="selection-overlay" aria-hidden="true" style="display:none;">
-    <div class="selection-inner">
-      <div class="selection-title">CHOOSE YOUR HERO</div>
-
-      <div class="cards" role="list">
-        <!-- Iron Man card -->
-        <div class="card" role="listitem" id="cardIron" data-hero="iron" aria-label="Iron Man">
-          <div class="card-media">
-            <!-- use relative path (no leading slash) so Pages serves correctly -->
-            <img src="Profile_-_Iron_Man.webp" alt="Iron Man">
-          </div>
-          <div class="card-body">
-            <h3>IRON MAN</h3>
-            <button class="card-btn" id="selectIron">SELECT HERO</button>
-          </div>
-        </div>
-
-        <!-- PYLYLY card -->
-        <div class="card" role="listitem" id="cardPy" data-hero="pylyly" aria-label="Pylyly">
-          <div class="card-media">
-            <img src="1784736130032_2201971040815987897_6044169520360234710_2f69b91b7d78cfb21b0cc8ccc2089bb3.jpg" alt="PYLYLY portrait">
-          </div>
-          <div class="card-body">
-            <h3>PYLYLY</h3>
-            <button class="card-btn" id="selectPy">SELECT HERO</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- cinematic messages -->
-  <div id="cinematic" class="cinematic" aria-hidden="true" style="display:none;">
-    <div class="cinematic-text" id="cineticText"></div>
-  </div>
-
-  <!-- final / hero selected screen -->
-  <div id="finalScreen" class="final-screen" aria-hidden="true" style="display:none;">
-    <div class="final-inner">
-      <h2 id="finalTitle"></h2>
-      <p id="finalSubtitle"></p>
-    </div>
-  </div>
-
-  <script>
-    (function(){
-      const introVideo = document.getElementById('introVideo');
-      const introStage = document.getElementById('introStage');
-      const selection = document.getElementById('selection');
-      const cinematic = document.getElementById('cinematic');
-      const cineText = document.getElementById('cineticText');
-      const finalScreen = document.getElementById('finalScreen');
-      const finalTitle = document.getElementById('finalTitle');
-      const finalSubtitle = document.getElementById('finalSubtitle');
-
-      const selectPy = document.getElementById('selectPy');
-      const selectIron = document.getElementById('selectIron');
-
-      // When intro video ends -> show selection
-      function showSelection(){
-        selection.style.display = 'flex';
-        requestAnimationFrame(()=> { selection.classList.add('visible'); selection.setAttribute('aria-hidden','false'); });
-      }
-
-      // If video fails to autoplay or long, also fallback to show selection after timeout
-      let fallbackTimer = setTimeout(() => {
-        // only show selection if video still visible
-        if(introStage.style.display !== 'none'){
-          // stop video if it's still playing
-          try{ introVideo.pause(); }catch(e){}
-          introStage.style.display = 'none';
-          showSelection();
-        }
-      }, 6000); // 6s fallback
-
-      introVideo.addEventListener('ended', ()=>{
-        clearTimeout(fallbackTimer);
-        introStage.style.display = 'none';
-        showSelection();
-      });
-
-      // If video autoplay is blocked but user interacts, allow clicking anywhere to skip to selection
-      document.addEventListener('click', function once(){
-        if(introStage && introStage.style.display !== 'none'){
-          try{ introVideo.pause(); }catch(e){}
-          introStage.style.display = 'none';
-          showSelection();
-        }
-        document.removeEventListener('click', once);
-      });
-
-      // cinematic messages: interval set to 2500ms per your request
-      function playCinematic(messages, interval=2500){
-        cinematic.style.display = 'flex';
-        cinematic.classList.add('visible');
-        cinematic.setAttribute('aria-hidden','false');
-        let i=0;
-        cineText.textContent = '';
-        function next(){
-          if(i>=messages.length){
-            cinematic.classList.remove('visible');
-            setTimeout(()=> { cinematic.style.display='none'; cinematic.setAttribute('aria-hidden','true'); }, 300);
-            return;
-          }
-          cineText.style.opacity = '0';
-          setTimeout(()=> {
-            cineText.textContent = messages[i];
-            cineText.style.transition = 'opacity .18s ease';
-            cineText.style.opacity = '1';
-            i++;
-            setTimeout(next, interval);
-          }, 160);
-        }
-        next();
-      }
-
-      function showFinal(heroName){
-        finalTitle.textContent = heroName.toUpperCase();
-        finalSubtitle.textContent = (heroName.toLowerCase()==='pylyly') ? 'THE SELECTED HERO' : 'ALTERNATE HERO';
-        finalScreen.style.display = 'flex';
-        requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
-      }
-
-      // PYLYLY selected -> immediate final
-      selectPy.addEventListener('click', ()=> {
-        selection.classList.remove('visible');
-        setTimeout(()=> { selection.style.display='none'; showFinal('Pylyly'); }, 420);
-      });
-
-      // IRON selected -> cinematic messages (slower)
-      selectIron.addEventListener('click', ()=> {
-        const msgs = [
-          'IRON MAN SELECTED',
-          'Checking availability...',
-          "Tony Stark is currently unavailable.",
-          'IRON MAN WILL RETURN.',
-          "BUT TODAY'S HERO IS...",
-          'PYLYLY'
-        ];
-        selection.classList.remove('visible');
-        setTimeout(()=> { selection.style.display='none'; playCinematic(msgs, 2500); }, 420);
-        const total = msgs.length * 2500 + 400;
-        setTimeout(()=> { showFinal('Pylyly'); }, total);
-      });
-
-      // keyboard: Enter on card triggers select
-      document.querySelectorAll('.card').forEach(card=>{
-        card.addEventListener('keydown', (e)=>{
-          if(e.key === 'Enter' || e.key === ' '){
-            const hero = card.getAttribute('data-hero');
-            if(hero === 'pylyly'){ selectPy.click(); } else { selectIron.click(); }
-          }
-        });
-      });
-
-    })();
-  </script>
-</body>
-</html>
+    .cinematic{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:40; pointer-events:none; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.85)); opacity:0; transition:opacity .18s ease; }
+    .cinematic.visible{ opacity*
+
