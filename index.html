@@ -87,11 +87,12 @@
       flex-direction:column;
       align-items:stretch;
       box-shadow:0 12px 40px rgba(2,6,23,0.6);
-      transition:transform .28s ease, box-shadow .28s ease;
+      transition:box-shadow .28s ease; /* removed transform scale/translate to avoid "phóng to" */
       cursor:pointer;
       overflow:visible;
     }
-    .card:hover{ transform:translateY(-10px); box-shadow:0 30px 80px rgba(0,0,0,0.6); }
+    /* keep hover effect but no scale/translate */
+    .card:hover{ box-shadow:0 20px 60px rgba(0,0,0,0.6); }
 
     /* enforce 3:4 crop region but provide fallback height */
     .card-media{
@@ -111,6 +112,7 @@
       object-position:50% 50%;
       display:block;
       filter:drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+      transition:none; /* prevent any scaling animation */
     }
 
     /* adjust PYLYLY portrait so face sits higher (fine-tune if needed) */
@@ -224,7 +226,8 @@
         <!-- IRON MAN -->
         <div class="card card-iron" role="listitem" id="cardIron" data-hero="iron" tabindex="0" aria-label="Iron Man">
           <div class="card-media">
-            <img src="Profile_-_Iron_Man.webp" alt="Iron Man">
+            <!-- updated path per your request -->
+            <img src="files/Iron_Man.jpg" alt="Iron Man">
           </div>
           <div class="card-body">
             <h3>IRON MAN</h3>
@@ -235,7 +238,8 @@
         <!-- PYLYLY -->
         <div class="card card-pylyly" role="listitem" id="cardPy" data-hero="pylyly" tabindex="0" aria-label="Pylyly">
           <div class="card-media">
-            <img src="1784736130032_2201971040815987897_6044169520360234710_2f69b91b7d78cfb21b0cc8ccc2089bb3.jpg" alt="PYLYLY portrait">
+            <!-- updated path per your request -->
+            <img src="files/pll.jpg" alt="PYLYLY portrait">
           </div>
           <div class="card-body">
             <h3>PYLYLY</h3>
@@ -274,22 +278,20 @@
       const finalTitle = document.getElementById('finalTitle');
       const finalSubtitle = document.getElementById('finalSubtitle');
 
-      // When video ends -> fade intro out (2s), then fade selection in (2s)
+      // When video ends -> fade intro out (2s), then fade selection in (1.8s)
       introVideo.addEventListener('ended', () => {
-        // fade out intro stage
         introStage.classList.add('hidden');
         setTimeout(()=> {
           introStage.style.display = 'none';
-          // show selection
           selection.style.display = 'flex';
           requestAnimationFrame(()=> {
             selection.classList.add('visible');
             selection.setAttribute('aria-hidden','false');
           });
-        }, 2000); // wait for fade-out to finish
+        }, 2000);
       });
 
-      // Fallback if autoplay blocked or video doesn't play: after 8s hide intro & show selection
+      // Fallback if autoplay blocked: after 8s hide intro & show selection
       const fallback = setTimeout(()=>{
         if(introStage.style.display !== 'none'){
           try { introVideo.pause(); } catch(e){}
@@ -299,7 +301,7 @@
         }
       }, 8000);
 
-      // If user clicks while video playing, skip intro and go to selection
+      // skip on click
       document.addEventListener('click', function skipOnce(){
         if(introStage.style.display !== 'none'){
           try { introVideo.pause(); } catch(e){}
@@ -310,7 +312,6 @@
         document.removeEventListener('click', skipOnce);
       });
 
-      // cinematic sequence helper (interval in ms)
       function playCinematic(messages, interval = 2500){
         cinematic.style.display = 'flex';
         cinematic.classList.add('visible');
@@ -342,13 +343,13 @@
         requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
       }
 
-      // PYLYLY selection: immediate (close selection then show final)
+      // PYLYLY selection
       selectPy.addEventListener('click', ()=> {
         selection.classList.remove('visible');
         setTimeout(()=> { selection.style.display = 'none'; showFinal('Pylyly'); }, 420);
       });
 
-      // IRON selection: cinematic messages then show PYLYLY
+      // IRON selection -> cinematic -> PYLYLY
       selectIron.addEventListener('click', ()=> {
         const msgs = [
           'IRON MAN SELECTED',
@@ -359,12 +360,12 @@
           'PYLYLY'
         ];
         selection.classList.remove('visible');
-        setTimeout(()=> { selection.style.display = 'none'; playCinematic(msgs, 2500); }, 420);
+        setTimeout(()=> { selection.style.display='none'; playCinematic(msgs, 2500); }, 420);
         const total = msgs.length * 2500 + 400;
         setTimeout(()=> { showFinal('Pylyly'); }, total);
       });
 
-      // keyboard access (Enter/Space)
+      // keyboard access
       document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('keydown', (e) => {
           if(e.key === 'Enter' || e.key === ' '){
