@@ -7,6 +7,47 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
+/* ===== Crop portraits to 3:4 and keep original layout text/buttons visible ===== */
+.card-media {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  height: auto;
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(255,255,255,0.01));
+}
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  display: block;
+}
+.card-pylyly .card-media img {
+  object-position: 50% 24%; /* chỉnh cao/ thấp khuôn mặt ở đây nếu cần */
+}
+.card-iron .card-media img {
+  object-position: 50% 50%;
+}
+.card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 14px;
+}
+.card h3, .card .card-btn {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+@media (max-width:980px) {
+  .card-media { aspect-ratio: 3/4; height: auto; }
+  .card-pylyly .card-media img { object-position: 50% 20%; }
+}
+</style>
+  <style>
     :root{
       --bg:#07060a;
       --accent:#e11d48;
