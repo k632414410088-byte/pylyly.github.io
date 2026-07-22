@@ -220,34 +220,38 @@
 
     /* ---------- PORTFOLIO SECTION ---------- */
     .portfolio-screen{
-      position:fixed;
-      inset:0;
+      position:relative;
+      min-height:100vh;
       display:flex;
-      align-items:center;
-      justify-content:center;
+      flex-direction:column;
       z-index:20;
-      opacity:0;
-      pointer-events:none;
-      transition:opacity 2s ease;
-      overflow:hidden;
+      overflow:visible;
+      background:#07060a;
     }
+
     .portfolio-screen.show{ opacity:1; pointer-events:auto; }
 
     .portfolio-bg-video{
-      position:absolute;
-      inset:0;
+      position:fixed;
+      top:0;
+      left:0;
       width:100%;
-      height:100%;
+      height:100vh;
       object-fit:cover;
       z-index:0;
-      filter: brightness(0.6) contrast(1.1);
+      filter: brightness(0.5) contrast(1.1);
+      pointer-events:none;
     }
 
     .portfolio-overlay{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(90deg, rgba(2,6,23,0.92) 0%, rgba(2,6,23,0.75) 50%, rgba(2,6,23,0.5) 100%);
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100vh;
+      background:linear-gradient(90deg, rgba(2,6,23,0.95) 0%, rgba(2,6,23,0.90) 50%, rgba(2,6,23,0.75) 100%);
       z-index:1;
+      pointer-events:none;
     }
 
     .portfolio-content{
@@ -258,8 +262,10 @@
       justify-content:space-between;
       width:100%;
       max-width:1200px;
-      padding:0 60px;
+      margin:0 auto;
+      padding:60px 60px;
       gap:80px;
+      min-height:100vh;
     }
 
     .portfolio-left{
@@ -267,32 +273,32 @@
       text-align:left;
     }
 
-   .portfolio-name{
-  font-family:'Anton',Impact,Arial Black,Arial;
-  font-size:96px;
-  font-weight:900;
-  color:#fff;
-  letter-spacing:3px;
-  margin:0 0 12px 0;
-  padding-top:10px;
-  text-transform:uppercase;
-  line-height:1.1;
-  text-shadow:0 2px 20px rgba(225,29,72,0.3);
-  filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
-  word-break:break-word;
-}
+    .portfolio-name{
+      font-family:'Anton',Impact,Arial Black,Arial;
+      font-size:96px;
+      font-weight:900;
+      color:#fff;
+      letter-spacing:3px;
+      margin:0 0 12px 0;
+      padding-top:10px;
+      text-transform:uppercase;
+      line-height:1.1;
+      text-shadow:0 2px 20px rgba(225,29,72,0.3);
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+      word-break:break-word;
+    }
 
-.portfolio-subtitle{
-  font-family:'Poppins',system-ui,Arial;
-  font-size:18px;
-  font-weight:600;
-  color:rgba(255,255,255,0.85);
-  letter-spacing:2px;
-  margin:0;
-  text-transform:uppercase;
-  text-shadow:0 2px 10px rgba(225,29,72,0.2);
-  filter: drop-shadow(0 0 5px rgba(255,255,255,0.15));
-}
+    .portfolio-subtitle{
+      font-family:'Poppins',system-ui,Arial;
+      font-size:18px;
+      font-weight:600;
+      color:rgba(255,255,255,0.85);
+      letter-spacing:2px;
+      margin:0;
+      text-transform:uppercase;
+      text-shadow:0 2px 10px rgba(225,29,72,0.2);
+      filter: drop-shadow(0 0 5px rgba(255,255,255,0.15));
+    }
 
     .portfolio-right{
       flex:0 0 auto;
@@ -320,18 +326,170 @@
       display:block;
     }
 
+    .portfolio-section{
+      position:relative;
+      z-index:2;
+      width:100%;
+      background:rgba(7,6,10,0.85);
+      backdrop-filter:blur(10px);
+      padding:80px 60px;
+      border-top:1px solid rgba(255,255,255,0.05);
+    }
+
+    .portfolio-section h2{
+      font-size:32px;
+      color:#fff;
+      margin:0 0 24px 0;
+      letter-spacing:2px;
+      font-weight:800;
+    }
+
+    .portfolio-section p{
+      font-size:14px;
+      color:rgba(255,255,255,0.8);
+      line-height:1.8;
+      margin:0 0 16px 0;
+    }
+
+    /* CHARACTER STATS STYLES */
+    .stats-container{
+      display:grid;
+      gap:32px;
+      max-width:800px;
+    }
+
+    .stat-item{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .stat-label{
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:2px;
+      color:rgba(255,255,255,0.7);
+      text-transform:uppercase;
+    }
+
+    .stat-bar-wrapper{
+      position:relative;
+      width:100%;
+      height:28px;
+      background:rgba(255,255,255,0.08);
+      border-radius:6px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat-bar{
+      position:absolute;
+      left:0;
+      top:0;
+      height:100%;
+      width:var(--percentage);
+      background:linear-gradient(90deg, var(--color), rgba(255,255,255,0.2));
+      border-radius:6px;
+      display:flex;
+      align-items:center;
+      padding-right:12px;
+      justify-content:flex-end;
+      animation:barFill 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      box-shadow:0 0 20px var(--color), inset 0 0 10px var(--color);
+    }
+
+    @keyframes barFill{
+      from{
+        width:0;
+        opacity:0;
+      }
+      to{
+        width:var(--percentage);
+        opacity:1;
+      }
+    }
+
+    .stat-value{
+      font-size:12px;
+      font-weight:800;
+      color:#fff;
+      text-shadow:0 0 10px currentColor;
+      animation:pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse{
+      0%, 100%{
+        text-shadow:0 0 10px currentColor;
+      }
+      50%{
+        text-shadow:0 0 20px currentColor;
+      }
+    }
+
+    .stat-badge{
+      position:absolute;
+      top:-8px;
+      right:12px;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.2);
+      padding:4px 8px;
+      border-radius:4px;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1px;
+      color:#fbbf24;
+      animation:floatBadge 3s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge{
+      0%, 100%{
+        transform:translateY(0);
+      }
+      50%{
+        transform:translateY(-8px);
+      }
+    }
+
+    .stat-glow{
+      position:absolute;
+      bottom:-8px;
+      left:0;
+      width:100%;
+      height:2px;
+      background:linear-gradient(90deg, var(--color), transparent);
+      filter:blur(8px);
+      opacity:0;
+      animation:glowPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse{
+      0%, 100%{
+        opacity:0;
+        transform:scaleX(0);
+      }
+      50%{
+        opacity:1;
+        transform:scaleX(1);
+      }
+    }
+
     @media (max-width:1200px){
       .portfolio-content{
         flex-direction:column;
-        padding:0 40px;
+        padding:60px 40px;
         gap:40px;
       }
       .portfolio-name{
-        font-size:48px;
+        font-size:72px;
       }
       .profile-image-wrapper{
         width:300px;
         height:375px;
+      }
+      .portfolio-section{
+        padding:60px 40px;
       }
     }
 
@@ -340,11 +498,23 @@
         text-align:center;
       }
       .portfolio-name{
-        font-size:36px;
+        font-size:48px;
+      }
+      .portfolio-subtitle{
+        font-size:14px;
       }
       .profile-image-wrapper{
         width:240px;
         height:300px;
+      }
+      .portfolio-section{
+        padding:40px 24px;
+      }
+      .portfolio-section h2{
+        font-size:24px;
+      }
+      .stats-container{
+        gap:24px;
       }
     }
   </style>
@@ -407,23 +577,74 @@
     </div>
   </div>
 
-  <!-- PORTFOLIO SCREEN -->
+  <!-- PORTFOLIO SCREEN (SCROLLABLE) -->
   <div id="portfolioScreen" class="portfolio-screen" aria-hidden="true" style="display:none;">
     <video id="portfolioBgVideo" class="portfolio-bg-video" autoplay muted playsinline loop>
       <source src="1784744635213_2201971040815987897_6044169520360234710.mp4" type="video/mp4">
     </video>
     <div class="portfolio-overlay"></div>
+    
+    <!-- Hero Section -->
     <div class="portfolio-content">
-     <div class="portfolio-left">
-  <h1 class="portfolio-name">LÊ PHƯƠNG LINH</h1>
-  <p class="portfolio-subtitle">Foreign Trade University | International Economics</p>
-</div>
+      <div class="portfolio-left">
+        <h1 class="portfolio-name">LÊ PHƯƠNG LINH</h1>
+        <p class="portfolio-subtitle">Foreign Trade University | International Economics</p>
+      </div>
       <div class="portfolio-right">
         <div class="profile-image-wrapper">
           <img src="1784739057228_2201971040815987897_6044169520360234710_e1b752765b3074aa5d6a36237e759da7.jpg" alt="Profile - Lê Phương Linh">
         </div>
       </div>
     </div>
+
+    <!-- CHARACTER STATS -->
+    <div class="portfolio-section">
+      <h2>01. CHARACTER STATS</h2>
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-label">HIGH SCHOOL GPA</div>
+          <div class="stat-bar-wrapper">
+            <div class="stat-bar" style="--percentage: 93%; --color: #e11d48;">
+              <span class="stat-value">9.3/10</span>
+            </div>
+          </div>
+          <div class="stat-glow" style="--color: #e11d48;"></div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">SAT SCORE</div>
+          <div class="stat-bar-wrapper">
+            <div class="stat-bar" style="--percentage: 87%; --color: #3b82f6;">
+              <span class="stat-value">1450</span>
+            </div>
+          </div>
+          <div class="stat-badge">TOP 5%</div>
+          <div class="stat-glow" style="--color: #3b82f6;"></div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">HSA SCORE</div>
+          <div class="stat-bar-wrapper">
+            <div class="stat-bar" style="--percentage: 90%; --color: #fbbf24;">
+              <span class="stat-value">103</span>
+            </div>
+          </div>
+          <div class="stat-badge">TOP 1.89%</div>
+          <div class="stat-glow" style="--color: #fbbf24;"></div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">UNIVERSITY GPA</div>
+          <div class="stat-bar-wrapper">
+            <div class="stat-bar" style="--percentage: 87%; --color: #a855f7;">
+              <span class="stat-value">3.48/4.0</span>
+            </div>
+          </div>
+          <div class="stat-glow" style="--color: #a855f7;"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -526,10 +747,11 @@
         setTimeout(()=>{
           finalScreen.style.display = 'none';
           // Show portfolio with fade in (2s)
-          portfolioScreen.style.display = 'flex';
+          portfolioScreen.style.display = 'block';
           requestAnimationFrame(()=>{
             portfolioScreen.classList.add('show');
             portfolioScreen.setAttribute('aria-hidden','false');
+            window.scrollTo(0, 0);
           });
         }, 450);
       }
@@ -538,7 +760,6 @@
       selectPy.addEventListener('click', ()=> {
         selection.classList.remove('visible');
         setTimeout(()=> { selection.style.display = 'none'; showFinal('Pylyly'); }, 420);
-        // After final screen shows (1-2s), transition to portfolio (2s after that)
         setTimeout(()=> { showPortfolio(); }, 2500);
       });
 
@@ -555,7 +776,6 @@
         setTimeout(()=> { selection.style.display='none'; playCinematic(msgs, 2500); }, 420);
         const total = msgs.length * 2500 + 400;
         setTimeout(()=> { showFinal('Pylyly'); }, total);
-        // Transition to portfolio after cinematic + final
         setTimeout(()=> { showPortfolio(); }, total + 2500);
       });
 
