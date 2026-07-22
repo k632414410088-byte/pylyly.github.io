@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio — Tên Bạn</title>
+  <meta name="description" content="Portfolio cá nhân — Giới thiệu, dự án và liên hệ" />
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/script.js"></script>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#">Tên Bạn</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>Xin chào — Tôi là Tên Bạn</h1>
+          <p class="lead">Full‑stack developer — React, Node.js, HTML/CSS. Tôi xây dựng sản phẩm web dễ dùng và nhanh chóng.</p>
+          <a class="btn" href="#projects">Xem dự án</a>
+        </div>
+        <div class="hero-image">
+          <img src="https://via.placeholder.com/520x360.png?text=Your+Photo" alt="Ảnh đại diện">
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about container">
+      <h2>About</h2>
+      <p>Viết vài câu ngắn về bạn: học vấn, kinh nghiệm, mục tiêu nghề nghiệp.</p>
+      <ul class="skills">
+        <li>React</li>
+        <li>Node.js</li>
+        <li>HTML &amp; CSS</li>
+        <li>Git</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="projects container">
+      <h2>Dự án</h2>
+      <div class="grid">
+        <article class="card">
+          <img src="https://via.placeholder.com/640x360.png?text=Project+1" alt="Project 1">
+          <h3>Project 1</h3>
+          <p>Mô tả ngắn: một web app quản lý công việc.</p>
+          <div class="card-links">
+            <a href="#" target="_blank">Live</a>
+            <a href="#" target="_blank">Code</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://via.placeholder.com/640x360.png?text=Project+2" alt="Project 2">
+          <h3>Project 2</h3>
+          <p>Mô tả ngắn: trang thương mại điện tử demo.</p>
+          <div class="card-links">
+            <a href="#" target="_blank">Live</a>
+            <a href="#" target="_blank">Code</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://via.placeholder.com/640x360.png?text=Project+3" alt="Project 3">
+          <h3>Project 3</h3>
+          <p>Mô tả ngắn: portfolio cá nhân (này!).</p>
+          <div class="card-links">
+            <a href="#" target="_blank">Live</a>
+            <a href="#" target="_blank">Code</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact container">
+      <h2>Contact</h2>
+      <p>Nếu bạn muốn nhận email từ form, hãy thay đổi biến <code>recipientEmail</code> trong <code>js/script.js</code> thành email của bạn; form sẽ mở ứng dụng mail của người gửi.</p>
+
+      <form id="contact-form">
+        <label>
+          Tên
+          <input type="text" name="name" required>
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required>
+        </label>
+        <label>
+          Tin nhắn
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <button type="submit">Gửi</button>
+      </form>
+
+      <p>Hoặc bạn có thể gửi email trực tiếp tới: <a id="contact-email" href="mailto:your.email@example.com">your.email@example.com</a></p>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <p>© 2026 Tên Bạn — <a href="https://github.com/pylyly" target="_blank">GitHub</a></p>
+  </footer>
+</body>
+</html>
