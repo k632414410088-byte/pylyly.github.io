@@ -378,8 +378,14 @@
         finalTitle.textContent = name.toUpperCase();
         finalSubtitle.textContent = (name.toLowerCase() === 'pylyly') ? 'THE SELECTED HERO' : 'ALTERNATE HERO';
         finalScreen.style.display = 'flex';
-        requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
-      }
+         requestAnimationFrame(()=> { 
+    finalScreen.classList.add('show'); 
+    finalScreen.setAttribute('aria-hidden','false'); 
+  });
+  
+  // ✅ THÊM DÒNG NÀY - chuyển sang portfolio sau 2 giây
+  setTimeout(()=> showPortfolioTransition(2000, 600), 2900);
+}
 
       // select handlers
       selectPy.addEventListener('click', ()=> {
