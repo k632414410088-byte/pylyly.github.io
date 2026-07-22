@@ -475,6 +475,410 @@
       }
     }
 
+    /* ABILITIES UNLOCKED */
+    .abilities-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:20px;
+      margin-top:24px;
+    }
+
+    .ability-card{
+      background:linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.1);
+      border-left:4px solid var(--ability-color);
+      border-radius:12px;
+      padding:20px;
+      transition:all 0.3s ease;
+      cursor:pointer;
+    }
+
+    .ability-card:hover{
+      transform:translateY(-4px);
+      border-left:4px solid var(--ability-color);
+      box-shadow:0 0 20px var(--ability-color), inset 0 0 20px rgba(255,255,255,0.03);
+      background:linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    }
+
+    .ability-icon{
+      font-size:32px;
+      margin-bottom:12px;
+    }
+
+    .ability-card h3{
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:1px;
+      margin:0 0 12px 0;
+      text-transform:uppercase;
+      color:#fff;
+    }
+
+    .ability-level{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+
+    .level-bars{
+      font-size:14px;
+      color:var(--ability-color);
+      font-weight:800;
+    }
+
+    .level-badge{
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1px;
+      padding:4px 8px;
+      border-radius:4px;
+      background:var(--ability-color);
+      color:#fff;
+      text-transform:uppercase;
+    }
+
+    .level-badge.elite{
+      background:rgba(59, 130, 246, 0.8);
+    }
+
+    .level-badge.developing{
+      background:rgba(107, 114, 128, 0.8);
+    }
+
+    /* MISSION FILES */
+    .missions-container{
+      display:grid;
+      gap:24px;
+      margin-top:24px;
+    }
+
+    .mission-card{
+      background:linear-gradient(135deg, rgba(225,29,72,0.1), rgba(59,130,246,0.05));
+      border:1px solid rgba(225,29,72,0.3);
+      border-radius:12px;
+      padding:28px;
+      transition:all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .mission-card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:2px;
+      background:linear-gradient(90deg, #e11d48, transparent);
+    }
+
+    .mission-card:hover{
+      transform:translateX(8px);
+      box-shadow:0 0 30px rgba(225,29,72,0.2);
+      border-color:rgba(225,29,72,0.5);
+    }
+
+    .mission-number{
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:2px;
+      color:#e11d48;
+      margin-bottom:8px;
+    }
+
+    .mission-title{
+      font-size:20px;
+      font-weight:800;
+      margin:0 0 12px 0;
+      color:#fff;
+      letter-spacing:1px;
+    }
+
+    .mission-company{
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:1px;
+      color:rgba(59,130,246,0.9);
+      margin-bottom:6px;
+      text-transform:uppercase;
+    }
+
+    .mission-role{
+      font-size:13px;
+      color:rgba(255,255,255,0.8);
+      margin-bottom:4px;
+    }
+
+    .mission-subtitle{
+      font-size:12px;
+      color:rgba(255,255,255,0.6);
+      font-style:italic;
+    }
+
+    /* THE ALLIANCE */
+    .alliance-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+      gap:24px;
+      margin-top:24px;
+    }
+
+    .alliance-item{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:12px;
+      padding:20px;
+      transition:all 0.3s ease;
+    }
+
+    .alliance-item:hover{
+      transform:translateY(-6px);
+      background:rgba(255,255,255,0.08);
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+      border-color:rgba(255,255,255,0.2);
+    }
+
+    .alliance-icon{
+      font-size:28px;
+      margin-bottom:12px;
+      display:block;
+    }
+
+    .alliance-item h3{
+      font-size:14px;
+      font-weight:700;
+      margin:0 0 6px 0;
+      color:#fff;
+      letter-spacing:0.5px;
+    }
+
+    .alliance-role{
+      font-size:12px;
+      font-weight:600;
+      color:#e11d48;
+      margin-bottom:8px;
+      text-transform:uppercase;
+    }
+
+    .alliance-org{
+      font-size:12px;
+      color:rgba(255,255,255,0.7);
+      margin-bottom:10px;
+      font-weight:600;
+    }
+
+    .alliance-item p{
+      font-size:12px;
+      color:rgba(255,255,255,0.7);
+      margin:0;
+      line-height:1.6;
+    }
+
+    /* NEXT CHAPTER */
+    .next-chapter-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+      margin-top:24px;
+    }
+
+    .next-chapter-column h3{
+      font-size:18px;
+      font-weight:800;
+      margin:0 0 20px 0;
+      color:#fff;
+      letter-spacing:1px;
+    }
+
+    .path-item{
+      display:flex;
+      gap:16px;
+      margin-bottom:24px;
+      padding:16px;
+      background:rgba(255,255,255,0.03);
+      border-radius:8px;
+      border-left:3px solid rgba(225,29,72,0.5);
+      transition:all 0.3s ease;
+    }
+
+    .path-item:hover{
+      background:rgba(255,255,255,0.06);
+      border-left-color:#e11d48;
+      transform:translateX(4px);
+    }
+
+    .path-icon{
+      font-size:24px;
+      flex-shrink:0;
+    }
+
+    .path-content h4{
+      font-size:13px;
+      font-weight:800;
+      margin:0 0 6px 0;
+      color:#fff;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+
+    .path-content p{
+      font-size:12px;
+      color:rgba(255,255,255,0.7);
+      margin:2px 0;
+    }
+
+    .long-term-quest{
+      background:linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,247,0.1));
+      border:1px solid rgba(59,130,246,0.3);
+      border-radius:12px;
+      padding:20px;
+      margin-bottom:20px;
+    }
+
+    .long-term-quest h3{
+      font-size:14px;
+      font-weight:800;
+      margin:0 0 12px 0;
+      color:#fff;
+      letter-spacing:1px;
+    }
+
+    .long-term-quest p{
+      font-size:12px;
+      color:rgba(255,255,255,0.8);
+      margin:0;
+      line-height:1.6;
+    }
+
+    .core-directive{
+      background:linear-gradient(135deg, rgba(225,29,72,0.2), rgba(225,29,72,0.1));
+      border:2px solid rgba(225,29,72,0.4);
+      border-radius:12px;
+      padding:20px;
+      text-align:center;
+    }
+
+    .core-directive h3{
+      font-size:14px;
+      font-weight:900;
+      margin:0 0 12px 0;
+      color:#e11d48;
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+
+    .core-directive p{
+      font-size:12px;
+      color:rgba(255,255,255,0.85);
+      margin:4px 0;
+      font-weight:600;
+      letter-spacing:0.5px;
+    }
+
+    /* POST-CREDIT SCENE */
+    .post-credit{
+      background:linear-gradient(180deg, rgba(0,0,0,0.3), rgba(225,29,72,0.1));
+      text-align:center;
+      padding:100px 60px !important;
+      position:relative;
+    }
+
+    .post-credit-content{
+      margin-bottom:60px;
+    }
+
+    .post-credit-title{
+      font-size:48px;
+      font-weight:900;
+      margin:0 0 20px 0;
+      color:#fff;
+      letter-spacing:3px;
+      animation:fadeInScale 1s ease-out;
+    }
+
+    @keyframes fadeInScale{
+      from{
+        opacity:0;
+        transform:scale(0.8);
+      }
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+
+    .post-credit-text{
+      font-size:16px;
+      color:rgba(255,255,255,0.8);
+      font-style:italic;
+      margin:0;
+      letter-spacing:1px;
+    }
+
+    .contact-footer{
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:12px;
+      padding:40px 30px;
+    }
+
+    .contact-footer h3{
+      font-size:24px;
+      font-weight:900;
+      margin:0 0 20px 0;
+      color:#fff;
+      letter-spacing:2px;
+    }
+
+    .contact-info{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .contact-item{
+      font-size:13px;
+      color:rgba(255,255,255,0.85);
+      letter-spacing:0.5px;
+    }
+
+    @media (max-width:1024px){
+      .next-chapter-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+      .abilities-grid{
+        grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+      }
+      .alliance-grid{
+        grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+      }
+    }
+
+    @media (max-width:768px){
+      .post-credit{
+        padding:60px 24px !important;
+      }
+      .post-credit-title{
+        font-size:32px;
+      }
+      .abilities-grid{
+        grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+        gap:16px;
+      }
+      .alliance-grid{
+        grid-template-columns:1fr;
+      }
+      .next-chapter-grid{
+        grid-template-columns:1fr;
+      }
+      .mission-card{
+        padding:20px;
+      }
+    }
+    
     @media (max-width:1200px){
       .portfolio-content{
         flex-direction:column;
@@ -642,6 +1046,212 @@
           </div>
           <div class="stat-glow" style="--color: #a855f7;"></div>
         </div>
+            <!-- ABILITIES UNLOCKED -->
+    <div class="portfolio-section">
+      <h2>02. ABILITIES UNLOCKED</h2>
+      <div class="abilities-grid">
+        <div class="ability-card" style="--ability-color: #e11d48;">
+          <div class="ability-icon">🖥️</div>
+          <h3>MICROSOFT OFFICE</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■■</div>
+            <span class="level-badge">MASTER</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #3b82f6;">
+          <div class="ability-icon">🌐</div>
+          <h3>ENGLISH</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■□</div>
+            <span class="level-badge elite">ELITE</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #10b981;">
+          <div class="ability-icon">👥</div>
+          <h3>TEAMWORK</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■■</div>
+            <span class="level-badge">MASTER</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #f59e0b;">
+          <div class="ability-icon">🎤</div>
+          <h3>PRESENTATION</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■■</div>
+            <span class="level-badge">MASTER</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #8b5cf6;">
+          <div class="ability-icon">🧩</div>
+          <h3>PROBLEM-SOLVING</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■□</div>
+            <span class="level-badge elite">ELITE</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #ec4899;">
+          <div class="ability-icon">✨</div>
+          <h3>CREATIVITY</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■□</div>
+            <span class="level-badge elite">ELITE</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #06b6d4;">
+          <div class="ability-icon">💻</div>
+          <h3>PROGRAMMING</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■□□□</div>
+            <span class="level-badge developing">DEVELOPING</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MISSION FILES -->
+    <div class="portfolio-section">
+      <h2>03. MISSION FILES</h2>
+      <div class="missions-container">
+        <div class="mission-card">
+          <div class="mission-number">MISSION 001</div>
+          <h3 class="mission-title">ENTERING THE FINANCIAL WORLD</h3>
+          <div class="mission-company">FPT SECURITIES</div>
+          <div class="mission-role">Corporate Finance Advisory Intern</div>
+        </div>
+
+        <div class="mission-card">
+          <div class="mission-number">MISSION 002</div>
+          <h3 class="mission-title">THE TUTORING LAB</h3>
+          <div class="mission-company">ENGLISH TUTOR</div>
+          <div class="mission-role">English Tutoring | Primary to High School</div>
+          <div class="mission-subtitle">HSA English preparation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE ALLIANCE -->
+    <div class="portfolio-section">
+      <h2>04. THE ALLIANCE</h2>
+      <div class="alliance-grid">
+        <div class="alliance-item">
+          <div class="alliance-icon">🎭</div>
+          <h3>MEMBER OF ART DEPARTMENT</h3>
+          <div class="alliance-org">FTU Youth Union</div>
+          <p>Performing on stage and contributing to the organization of university events.</p>
+        </div>
+
+        <div class="alliance-item">
+          <div class="alliance-icon">🧊</div>
+          <h3>WE - THE ICEBREAKERS | SEASON 6</h3>
+          <div class="alliance-role">Sub-Leader</div>
+          <p>Processing data for nearly 2,000 freshmen, developing event ideas and organizing large-scale events.</p>
+        </div>
+
+        <div class="alliance-item">
+          <div class="alliance-icon">💡</div>
+          <h3>XUHO MILITARY PROGRAM | COHORT 63</h3>
+          <div class="alliance-role">Sub-Leader, Idea Team</div>
+          <p>Developing event concepts and organizing events for university students.</p>
+        </div>
+
+        <div class="alliance-item">
+          <div class="alliance-icon">🏀</div>
+          <h3>HANOI OPEN CUP 3x3 | 2023</h3>
+          <div class="alliance-role">Organizing Team</div>
+          <p>Contributing to the organization and execution of a 3x3 basketball tournament.</p>
+        </div>
+
+        <div class="alliance-item">
+          <div class="alliance-icon">🏀</div>
+          <h3>HANOI BUFFALOES | VBA 2026</h3>
+          <div class="alliance-role">Staff</div>
+          <p>Contributing to the organization and execution of professional basketball events.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEXT CHAPTER -->
+    <div class="portfolio-section">
+      <h2>05. NEXT CHAPTER</h2>
+      <div class="next-chapter-grid">
+        <div class="next-chapter-column">
+          <h3>Potential Missions</h3>
+          <div class="path-item">
+            <div class="path-icon">🏦</div>
+            <div class="path-content">
+              <h4>FINANCE & INVESTMENT</h4>
+              <p>Corporate Finance Specialist</p>
+              <p>Investment Researcher</p>
+            </div>
+          </div>
+
+          <div class="path-item">
+            <div class="path-icon">📊</div>
+            <div class="path-content">
+              <h4>DATA</h4>
+              <p>Data Analyst</p>
+            </div>
+          </div>
+
+          <div class="path-item">
+            <div class="path-icon">🌍</div>
+            <div class="path-content">
+              <h4>ECONOMICS</h4>
+              <p>Economic Researcher</p>
+            </div>
+          </div>
+
+          <div class="path-item">
+            <div class="path-icon">🎓</div>
+            <div class="path-content">
+              <h4>EDUCATION</h4>
+              <p>English Teacher</p>
+              <p>Academic Tutor</p>
+              <p>Education Consultant</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-chapter-column">
+          <div class="long-term-quest">
+            <h3>Long-term Quest</h3>
+            <p>Pursue a Master's degree while continuing to learn, work and teach.</p>
+          </div>
+
+          <div class="core-directive">
+            <h3>CORE DIRECTIVE</h3>
+            <p>Keep learning.</p>
+            <p>Keep analyzing.</p>
+            <p>Keep teaching.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-CREDIT SCENE -->
+    <div class="portfolio-section post-credit">
+      <div class="post-credit-content">
+        <h2>06. POST-CREDIT SCENE</h2>
+        <h3 class="post-credit-title">THE STORY IS STILL BEING WRITTEN</h3>
+        <p class="post-credit-text">Still figuring things out. Always open to the next challenge.</p>
+      </div>
+
+      <div class="contact-footer">
+        <h3>LE PHUONG LINH</h3>
+        <div class="contact-info">
+          <div class="contact-item">📍 Hanoi, Vietnam</div>
+          <div class="contact-item">✉️ linhlp63.fyu@gmail.com</div>
+          <div class="contact-item">📱 0358491096</div>
+        </div>
+      </div>
+    </div>
       </div>
     </div>
 
