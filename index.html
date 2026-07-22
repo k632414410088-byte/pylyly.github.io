@@ -1,201 +1,163 @@
-<!-- INTRO OVERLAY with video background -->
-<div id="intro-overlay" class="intro-overlay">
-  <video id="intro-video" class="intro-video" autoplay muted playsinline loop poster="">
-    <source src="YTDown.com_YouTube_Marvel-Comics-Intro_Media_Ok5PXdmQV-s_001_1080p.mp4" type="video/mp4">
-    <!-- (optional) add webm if you upload one -->
-    Your browser does not support the video tag.
-  </video>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LE PHUONG LINH — Character Profile</title>
+  <meta name="description" content="LE PHUONG LINH — Character profile / Marvel-style portfolio" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/script.js"></script>
+</head>
+<body class="marvel">
+  <!-- Intro overlay (video background) -->
+  <div id="intro-overlay" class="intro-overlay" aria-hidden="false">
+    <video id="intro-video" class="intro-video" autoplay muted playsinline loop poster="">
+      <source src="YTDown.com_YouTube_Marvel-Comics-Intro_Media_Ok5PXdmQV-s_001_1080p.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
 
-  <div class="intro-inner">
-    <button id="intro-enter" class="btn intro-btn">ENTER</button>
-    <button id="intro-skip" class="intro-skip" aria-label="Skip intro">Skip</button>
+    <div class="intro-inner" role="dialog" aria-label="Intro">
+      <button id="intro-enter" class="btn intro-btn" aria-label="Enter site">ENTER</button>
+      <button id="intro-skip" class="intro-skip" aria-label="Skip intro">Skip</button>
+    </div>
   </div>
-</div>
 
-<!-- Reveal section -->
-<section id="reveal" class="panel reveal-section">
-  <div class="panel-head"><span class="index">00.</span> CHARACTER REVEAL</div>
-  <div class="reveal-content">
-    <h1>LE PHUONG LINH</h1>
-    <p class="lead muted">A scholar and rising financial maven</p>
-    <button id="reveal-start" class="btn">Start</button>
-  </div>
-</section>
+  <header class="site-header nav">
+    <div class="container nav-inner">
+      <div class="brand">LE PHUONG LINH</div>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#reveal">REVEAL</a>
+        <a href="#origin">ORIGIN</a>
+        <a href="#stats">STATS</a>
+        <a href="#abilities">ABILITIES</a>
+        <a href="#missions">MISSIONS</a>
+        <a href="#alliance">ALLIANCE</a>
+        <a href="#next">NEXT</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
 
-<!-- HERO (hidden until Start) -->
-<section id="hero" class="hero hero-hidden">
-  <div class="hero-grid container">
-    <div class="hero-left">
-      <div class="marvel-frame">
-        <img src="1784736130032_2201971040815987897_6044169520360234710_2f69b91b7d78cfb21b0cc8ccc2089bb3.jpg" alt="LE PHUONG LINH">
+  <main>
+    <!-- Reveal section (00.) -->
+    <section id="reveal" class="panel reveal-section">
+      <div class="panel-head"><span class="index">00.</span> CHARACTER REVEAL</div>
+      <div class="reveal-content container">
+        <h1>LE PHUONG LINH</h1>
+        <p class="lead muted">A scholar and rising financial maven</p>
+        <button id="reveal-start" class="btn">Start</button>
       </div>
-    </div>
-    <div class="hero-right">
-      <div class="info-block">
-        <h3>HOME BASE</h3>
-        <p>Hanoi, Vietnam</p>
+    </section>
+
+    <!-- Hero (hidden until Start) -->
+    <section id="hero" class="hero hero-hidden">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <div class="marvel-frame" aria-hidden="false">
+            <img src="1784736130032_2201971040815987897_6044169520360234710_2f69b91b7d78cfb21b0cc8ccc2089bb3.jpg" alt="LE PHUONG LINH">
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="info-block">
+            <h3>HOME BASE</h3>
+            <p>Hanoi, Vietnam</p>
+          </div>
+          <div class="info-block">
+            <h3>CURRENT UNIVERSE</h3>
+            <p>Foreign Trade University</p>
+          </div>
+          <div class="info-block">
+            <h3>FIELD</h3>
+            <p>International Economics</p>
+          </div>
+        </div>
       </div>
-      <div class="info-block">
-        <h3>CURRENT UNIVERSE</h3>
-        <p>Foreign Trade University</p>
+    </section>
+
+    <!-- Origin (expanded info) -->
+    <section id="origin" class="panel origin container">
+      <div class="panel-head"><span class="index">01.</span> ORIGIN STORY</div>
+      <h2>WHERE IT ALL STARTED</h2>
+      <div class="origin-grid">
+        <div>
+          <h3>HOME BASE</h3>
+          <p>Hanoi, Vietnam</p>
+        </div>
+        <div>
+          <h3>CURRENT UNIVERSE</h3>
+          <p>Foreign Trade University</p>
+        </div>
+        <div>
+          <h3>FIELD</h3>
+          <p>International Economics</p>
+        </div>
       </div>
-      <div class="info-block">
-        <h3>FIELD</h3>
-        <p>International Economics</p>
+    </section>
+
+    <!-- Stats, Abilities, Missions etc. (kept minimal) -->
+    <section id="stats" class="panel stats container">
+      <div class="panel-head"><span class="index">02.</span> CHARACTER STATS</div>
+      <h2>ACADEMIC POWER LEVEL</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value">9.3</div><div class="stat-label">HIGH SCHOOL GPA</div></div>
+        <div class="stat-card"><div class="stat-value">1450</div><div class="stat-label">SAT SCORE</div></div>
+        <div class="stat-card"><div class="stat-value">103</div><div class="stat-label">HSA SCORE</div></div>
+        <div class="stat-card"><div class="stat-value">3.48</div><div class="stat-label">UNIVERSITY GPA</div></div>
       </div>
-    </div>
-  </div>
-</section>
-<section id="reveal" class="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="subtitle">00. CHARACTER REVEAL</div>
-      <h1 class="hero-title">LE PHUONG LINH</h1>
-      <p class="hero-caption">THE STORY OF A SCHOLAR AND RISING FINANCIAL MAVEN — A HERO IN THE MAKING</p>
-    </div>
-    <div class="hero-visual">
-      <img src="1784736130032_2201971040815987897_6044169520360234710_2f69b91b7d78cfb21b0cc8ccc2089bb3.jpg" alt="LE PHUONG LINH">
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="origin" class="panel origin">
-  <div class="panel-head"><span class="index">01.</span> ORIGIN STORY</div>
-  <h2>WHERE IT ALL STARTED</h2>
-  <div class="origin-grid">
-    <div>
-      <h3>HOME BASE</h3>
-      <p>Hanoi, Vietnam</p>
-    </div>
-    <div>
-      <h3>CURRENT UNIVERSE</h3>
-      <p>Foreign Trade University</p>
-    </div>
-    <div>
-      <h3>FIELD</h3>
-      <p>International Economics</p>
-    </div>
-  </div>
-</section>
+    <section id="abilities" class="panel abilities container">
+      <div class="panel-head"><span class="index">03.</span> ABILITIES UNLOCKED</div>
+      <div class="abilities-grid">
+        <div class="ability"><div class="ability-name">MICROSOFT OFFICE</div><div class="ability-meter">■■■■■ <span class="tag">MASTER</span></div></div>
+        <div class="ability"><div class="ability-name">ENGLISH</div><div class="ability-meter">■■■■□ <span class="tag">ELITE</span></div></div>
+        <div class="ability"><div class="ability-name">TEAMWORK</div><div class="ability-meter">■■■■■ <span class="tag">MASTER</span></div></div>
+        <div class="ability"><div class="ability-name">PRESENTATION</div><div class="ability-meter">■■■■■ <span class="tag">MASTER</span></div></div>
+      </div>
+    </section>
 
-<section id="stats" class="panel stats">
-  <div class="panel-head"><span class="index">02.</span> CHARACTER STATS</div>
-  <h2>ACADEMIC POWER LEVEL</h2>
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-value">9.3</div>
-      <div class="stat-label">HIGH SCHOOL GPA</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">1450</div>
-      <div class="stat-label">SAT SCORE</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">103</div>
-      <div class="stat-label">HSA SCORE</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">3.48</div>
-      <div class="stat-label">UNIVERSITY GPA</div>
-    </div>
-  </div>
-</section>
+    <section id="missions" class="panel missions container">
+      <div class="panel-head"><span class="index">04.</span> MISSION FILES</div>
+      <div class="mission"><h3>MISSION 001: ENTERING THE FINANCIAL WORLD</h3><p class="muted">FPT SECURITIES — Corporate Finance Advisory Intern</p></div>
+      <div class="mission"><h3>MISSION 002: THE TUTORING LAB</h3><p class="muted">ENGLISH TUTOR — HSA preparation</p></div>
+    </section>
 
-<section id="abilities" class="panel abilities">
-  <div class="panel-head"><span class="index">03.</span> ABILITIES UNLOCKED</div>
-  <div class="abilities-grid">
-    <div class="ability">
-      <div class="ability-name">MICROSOFT OFFICE</div>
-      <div class="ability-meter" data-level="5">■■■■■ <span class="tag">MASTER</span></div>
-    </div>
-    <div class="ability">
-      <div class="ability-name">ENGLISH</div>
-      <div class="ability-meter" data-level="4">■■■■□ <span class="tag">ELITE</span></div>
-    </div>
-    <div class="ability">
-      <div class="ability-name">TEAMWORK</div>
-      <div class="ability-meter" data-level="5">■■■■■ <span class="tag">MASTER</span></div>
-    </div>
-    <div class="ability">
-      <div class="ability-name">PRESENTATION</div>
-      <div class="ability-meter" data-level="5">■■■■■ <span class="tag">MASTER</span></div>
-    </div>
-    <div class="ability">
-      <div class="ability-name">PROBLEM-SOLVING</div>
-      <div class="ability-meter" data-level="4">■■■■□ <span class="tag">ELITE</span></div>
-    </div>
-    <div class="ability">
-      <div class="ability-name">CREATIVITY</div>
-      <div class="ability-meter" data-level="4">■■■■□ <span class="tag">ELITE</span></div>
-    </div>
-    <div class="ability">
-      <div class="ability-name">PROGRAMMING</div>
-      <div class="ability-meter" data-level="2">■■□□□ <span class="tag">DEVELOPING</span></div>
-    </div>
-  </div>
-</section>
+    <section id="alliance" class="panel alliance container">
+      <div class="panel-head"><span class="index">05.</span> THE ALLIANCE</div>
+      <h3>ALLIANCE MEMBERS</h3>
+      <div class="alliance-list">
+        <div class="member"><h4>🎭 MEMBER OF ART DEPARTMENT — FTU Youth Union</h4></div>
+        <div class="member"><h4>🧊 WE - THE ICEBREAKERS | SEASON 6 — Sub-Leader</h4></div>
+      </div>
+    </section>
 
-<section id="missions" class="panel missions">
-  <div class="panel-head"><span class="index">04.</span> MISSION FILES</div>
-  <div class="mission">
-    <h3>MISSION 001: ENTERING THE FINANCIAL WORLD</h3>
-    <p class="muted">FPT SECURITIES — Corporate Finance Advisory Intern</p>
-  </div>
-  <div class="mission">
-    <h3>MISSION 002: THE TUTORING LAB</h3>
-    <p class="muted">ENGLISH TUTOR — English Tutoring | Primary to High School — HSA English preparation</p>
-  </div>
-</section>
+    <section id="next" class="panel next container">
+      <div class="panel-head"><span class="index">06.</span> NEXT CHAPTER</div>
+      <h2>POTENTIAL MISSIONS</h2>
+      <ul class="missions-list">
+        <li>FINANCE & INVESTMENT — Corporate Finance Specialist</li>
+        <li>DATA — Data Analyst</li>
+      </ul>
+      <p class="core">CORE DIRECTIVE — Keep learning. Keep analyzing. Keep teaching.</p>
+    </section>
 
-<section id="alliance" class="panel alliance">
-  <div class="panel-head"><span class="index">05.</span> THE ALLIANCE</div>
-  <h3>ALLIANCE MEMBERS</h3>
-  <div class="alliance-list">
-    <div class="member">
-      <h4>🎭 MEMBER OF ART DEPARTMENT — FTU Youth Union</h4>
-      <p>Performing on stage and contributing to the organization of university events.</p>
-    </div>
-    <div class="member">
-      <h4>🧊 WE - THE ICEBREAKERS | SEASON 6 — Sub-Leader</h4>
-      <p>Processing data for nearly 2,000 freshmen, developing event ideas and organizing large-scale events.</p>
-    </div>
-    <div class="member">
-      <h4>💡 XUHO MILITARY PROGRAM | COHORT 63 — Sub-Leader, Idea Team</h4>
-      <p>Developing event concepts and organizing events for university students.</p>
-    </div>
-    <div class="member">
-      <h4>🏀 HANOI OPEN CUP 3x3 | 2023 — Organizing Team</h4>
-    </div>
-    <div class="member">
-      <h4>🏀 HANOI BUFFALOES | VBA 2026 — Staff</h4>
-    </div>
-  </div>
-</section>
+    <section id="credits" class="panel credits container">
+      <div class="panel-head"><span class="index">07.</span> POST-CREDIT SCENE</div>
+      <h2>THE STORY IS STILL BEING WRITTEN</h2>
+      <div class="contact-card" id="contact">
+        <h3>LE PHUONG LINH</h3>
+        <p>📍 Hanoi, Vietnam</p>
+        <p>✉️ <a href="mailto:linhlp63.fyu@gmail.com">linhlp63.fyu@gmail.com</a></p>
+        <p>📞 0358491096</p>
+      </div>
+    </section>
+  </main>
 
-<section id="next" class="panel next">
-  <div class="panel-head"><span class="index">06.</span> NEXT CHAPTER</div>
-  <h2>POTENTIAL MISSIONS</h2>
-  <ul class="missions-list">
-    <li>FINANCE & INVESTMENT — Corporate Finance Specialist, Investment Researcher</li>
-    <li>DATA — Data Analyst</li>
-    <li>ECONOMICS — Economic Researcher</li>
-    <li>EDUCATION — English Teacher, Academic Tutor, Education Consultant</li>
-  </ul>
-  <p class="core">CORE DIRECTIVE — Keep learning. Keep analyzing. Keep teaching.</p>
-</section>
-
-<section id="credits" class="panel credits">
-  <div class="panel-head"><span class="index">07.</span> POST-CREDIT SCENE</div>
-  <h2>THE STORY IS STILL BEING WRITTEN</h2>
-  <p>Still figuring things out. Always open to the next challenge.</p>
-  <div class="contact-card" id="contact">
-    <h3>LE PHUONG LINH</h3>
-    <p>📍 Hanoi, Vietnam</p>
-    <p>✉️ <a href="mailto:linhlp63.fyu@gmail.com">linhlp63.fyu@gmail.com</a></p>
-    <p>📞 0358491096</p>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <p>© <span id="year"></span> LE PHUONG LINH — Character Profile</p>
-</footer>
+  <footer class="site-footer container">
+    <p>© <span id="year"></span> LE PHUONG LINH — Character Profile</p>
+  </footer>
+</body>
+</html>
