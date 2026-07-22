@@ -287,6 +287,43 @@
     </div>
   </div>
 
+  function showPortfolioTransition(duration = 2000, delayBefore = 900) {
+      const finalScreen = document.getElementById('finalScreen');
+      const portfolio = document.getElementById('portfolio');
+      const portfolioBg = document.getElementById('portfolioBg');
+
+      if(!portfolio) return;
+
+      // Hiển thị portfolio
+      portfolio.style.display = 'flex';
+      portfolio.style.transition = `opacity ${duration}ms ease`;
+      portfolio.style.opacity = 0;
+      portfolio.setAttribute('aria-hidden','false');
+
+      // Chờ sau đó fade out finalScreen và fade in portfolio
+      setTimeout(()=>{
+        if(finalScreen && finalScreen.style.display !== 'none') {
+          finalScreen.style.transition = `opacity ${duration}ms ease`;
+          finalScreen.style.opacity = 0;
+          setTimeout(()=> {
+            finalScreen.style.display = 'none';
+            finalScreen.classList.remove('show');
+          }, duration);
+        }
+
+        // Play video
+        if(portfolioBg){
+          portfolioBg.currentTime = 0;
+          portfolioBg.play().catch(()=>{});
+        }
+
+        // Fade in portfolio
+        requestAnimationFrame(()=> {
+          portfolio.style.opacity = 1;
+        });
+      }, delayBefore);
+    }
+  
   <script>
     (function(){
       const introVideo = document.getElementById('introVideo');
