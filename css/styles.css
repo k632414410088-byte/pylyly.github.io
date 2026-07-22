@@ -111,6 +111,7 @@ body.marvel{background:linear-gradient(180deg,#071022 0%, #08122a 60%);color:#ee
 
 /* Responsive */
 @media (max-width:900px){
+/* --- START: Intro overlay style (paste vào css/styles.css) --- / .intro-overlay{ position: fixed; inset: 0; / top:0; right:0; bottom:0; left:0; / z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); overflow: hidden; margin: 0; padding: 0; } .intro-video{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; } .intro-inner{ position: relative; z-index: 2; text-align:center; } .intro-btn{ padding:14px 28px; background:#e11d48; color:#fff; border:0; border-radius:8px; font-weight:700; cursor:pointer; } .intro-skip{ position:absolute; top:18px; right:18px; z-index:3; background:rgba(0,0,0,0.45); color:#fff; border:0; padding:8px 10px; border-radius:6px } / --- END --- */
   .hero-grid{grid-template-columns:1fr}
   .intro-skip{top:12px;right:12px}
   .marvel-frame img{max-width:100%}
