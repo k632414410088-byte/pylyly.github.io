@@ -41,6 +41,47 @@ const io = new IntersectionObserver((entries)=>{
       entry.target.classList.remove('reveal');
     }
   });
+  document.addEventListener('DOMContentLoaded', ()=>{
+
+  const overlay = document.getElementById('intro-overlay');
+  const video = document.getElementById('intro-video');
+  const enter = document.getElementById('intro-enter');
+  const skip = document.getElementById('intro-skip');
+  const revealSection = document.getElementById('reveal');
+  const revealStart = document.getElementById('reveal-start');
+  const heroSection = document.getElementById('hero');
+
+  // ENTER: hide overlay → show reveal
+  if(enter){
+    enter.addEventListener('click', ()=>{
+      if(video && !video.paused) video.pause();
+      overlay.style.transition = 'opacity .6s';
+      overlay.style.opacity = '0';
+      setTimeout(()=>{ overlay.style.display = 'none';
+        revealSection.classList.add('visible');
+        revealSection.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 650);
+    });
+  }
+
+  // SKIP same as enter
+  if(skip){ skip.addEventListener('click', ()=> enter && enter.click()); }
+
+  // Start: hide reveal → show hero
+  if(revealStart){
+    revealStart.addEventListener('click', ()=>{
+      revealSection.classList.remove('visible');
+      revealSection.style.transition = 'opacity .4s, transform .4s';
+      revealSection.style.opacity = '0';
+      revealSection.style.transform = 'translateY(-8px)';
+      setTimeout(()=>{
+        heroSection.classList.remove('hero-hidden');
+        heroSection.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 420);
+    });
+  }
+
+});
 },{threshold: 0.12});
 revealElems.forEach(el=>{
   el.classList.add('reveal');
