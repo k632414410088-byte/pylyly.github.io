@@ -11,6 +11,46 @@
 
   <style>    
 
+    /* ==========================================
+   FIX LỖI MÀN HÌNH SELECTED HERO BỊ TRẮNG / CHÌM CHỮ
+   ========================================== */
+#selectedNotice, 
+.selected-notice, 
+#cinematic, 
+.cinematic {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #07060a !important; /* Trả lại nền đen huyền bí */
+  background-color: #07060a !important;
+  z-index: 999999 !important; /* Nổi lên trên cùng khi xuất hiện */
+  color: #ffffff !important;
+  font-family: 'Anton', Impact, sans-serif !important;
+  font-size: clamp(28px, 5vh, 52px) !important;
+  font-weight: 900 !important;
+  letter-spacing: 4px !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  text-shadow: 
+    0 0 10px #e11d48,
+    0 0 20px #e11d48,
+    0 0 40px #e11d48,
+    0 0 80px rgba(225, 29, 72, 0.9) !important;
+  animation: pulseGlow 1.5s ease-in-out infinite alternate !important;
+}
+
+@keyframes pulseGlow {
+  from {
+    opacity: 0.85;
+    text-shadow: 0 0 10px #e11d48, 0 0 20px #e11d48, 0 0 30px #e11d48;
+  }
+  to {
+    opacity: 1;
+    text-shadow: 0 0 15px #e11d48, 0 0 30px #e11d48, 0 0 50px #e11d48, 0 0 80px #e11d48;
+  }
+}
+
 /* 1. XÓA BỎ HOÀN TOÀN MỌI LỚP NỀN TỐI & MỜ (Bật nền vũ trụ xuyên suốt) */
 html, body, 
 #portfolioScreen, .portfolio-screen, 
