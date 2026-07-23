@@ -21,25 +21,22 @@
 
    /* 1. Khóa thanh cuộn ngang toàn trang */
 html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
   max-width: 100%;
-  overflow-x: hidden; /* Cấm trượt ngang tuyệt đối */
+  overflow-x: hidden !important; /* Khóa cuộn ngang cấp hệ thống */
 }
 
-/* 2. Cấu hình khung Portfolio fit vừa màn hình ngang */
 .portfolio-screen {
   position: relative;
   min-height: 100vh;
   width: 100%;
-  max-width: 100vw;
-  display: flex;
-  flex-direction: column;
-  z-index: 20;
-  background: #07060a;
+  max-width: 100%; /* Dùng 100% thay vì 100vw để không bị dư thanh cuộn dọc */
+  overflow-x: hidden !important;
   box-sizing: border-box;
-  overflow-x: hidden; /* Đảm bảo chỉ cho cuộn dọc */
 }
 
-/* 3. Tối ưu Hero Section của Portfolio để không đẩy tràn lề */
 .portfolio-content {
   position: relative;
   z-index: 2;
@@ -49,10 +46,10 @@ html, body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 30px; /* Giảm padding để tránh tràn màn hình nhỏ */
-  gap: 40px;
+  padding: 40px 24px;
+  gap: 30px;
   min-height: 100vh;
-  box-sizing: border-box; /* Bắt buộc để padding không cộng thêm chiều rộng */
+  box-sizing: border-box; /* Giữ padding luôn nằm trong 100% chiều rộng */
 }
 
 /* 4. Co giãn Tên linh hoạt theo độ phân giải màn hình */
