@@ -11,77 +11,96 @@
 
   <style>    
 
-   /* ===================================================
-   1. FIX LỖI MÀN HÌNH "SELECTED HERO" BỊ TRẮNG NỀN
+  /* ===================================================
+   1. FIX DỨT ĐIỂM MÀN HÌNH "SELECTED HERO" BỊ TRẮNG NỀN
    =================================================== */
-#cinematic, .cinematic, 
-#selectedNotice, .selected-notice {
-  background: #07060a !important; /* Trả lại nền đen tuyệt đối */
-  background-color: #07060a !important;
+#selectedNotice, .selected-notice, 
+#cinematic, .cinematic,
+[id*="selected"], [class*="selected"],
+[id*="cine"], [class*="cine"] {
+  background-color: #07060a !important; /* Ép trả lại nền đen */
+  background: #07060a !important;
   color: #ffffff !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 999999 !important; /* Đổi ưu tiên hiển thị lên trên cùng */
+  z-index: 999999 !important;
 }
 
-/* Kiểu chữ Neon hồng/đỏ phát sáng cho thông báo */
-#cineText, .cinematic-text, 
-#selectedNotice, .selected-notice {
+/* Kiểu chữ Neon phát sáng cho thông báo Selected Hero */
+#cineText, .cinematic-text,
+#selectedNotice *, .selected-notice *,
+#cinematic *, .cinematic * {
   color: #ffffff !important;
   font-family: 'Anton', Impact, sans-serif !important;
-  font-size: clamp(28px, 5vw, 52px) !important;
-  font-weight: 900 !important;
-  letter-spacing: 3px !important;
-  text-transform: uppercase !important;
-  text-align: center !important;
   text-shadow: 
     0 0 10px #e11d48,
-    0 0 20px #e11d48,
-    0 0 40px #e11d48,
-    0 0 80px #e11d48 !important;
-  animation: pulseGlowNotice 1.2s infinite alternate ease-in-out !important;
+    0 0 25px #e11d48,
+    0 0 50px #e11d48 !important;
 }
 
-@keyframes pulseGlowNotice {
-  from { 
-    opacity: 0.8; 
-    text-shadow: 0 0 10px #e11d48, 0 0 20px #e11d48; 
-  }
-  to { 
-    opacity: 1; 
-    text-shadow: 0 0 20px #e11d48, 0 0 50px #e11d48, 0 0 80px #e11d48; 
-  }
-}
 
 /* ===================================================
-   2. FIX VIỀN ẢNH ĐẠI DIỆN PHÁT SÁNG NEON BLINK BLINK
+   2. HIỆU ỨNG BLINK BLINK CHO TÊN "LÊ PHƯƠNG LINH"
    =================================================== */
-@keyframes avatarBorderBlink {
+@keyframes blinkTextNeon {
+  0%, 100% {
+    text-shadow: 
+      0 0 10px #ffffff,
+      0 0 20px #e11d48,
+      0 0 40px #e11d48,
+      0 0 70px #ff2a5f !important;
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 
+      0 0 4px #ffffff,
+      0 0 10px #e11d48,
+      0 0 18px #e11d48 !important;
+    opacity: 0.8;
+  }
+}
+
+/* Quét tất cả thẻ tiêu đề chứa Tên trong Portfolio */
+#portfolioScreen h1, 
+#portfolioScreen h2,
+.portfolio-name, 
+.hero-title, 
+.character-name,
+[class*="name"],
+[class*="title"] {
+  animation: blinkTextNeon 1.2s infinite ease-in-out !important;
+}
+
+
+/* ===================================================
+   3. HIỆU ỨNG BLINK BLINK CHO VIỀN ẢNH ĐẠI DIỆN
+   =================================================== */
+@keyframes blinkBorderNeon {
   0%, 100% {
     border-color: #ffffff !important;
     box-shadow: 
-      0 0 15px #ffffff,
-      0 0 30px #e11d48,
-      0 0 60px #e11d48,
-      0 0 90px #ff2a5f !important;
+      0 0 20px #ffffff,
+      0 0 35px #e11d48,
+      0 0 65px #e11d48,
+      inset 0 0 15px #e11d48 !important;
   }
   50% {
-    border-color: rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
     box-shadow: 
-      0 0 5px #ffffff,
-      0 0 15px #e11d48,
-      0 0 30px rgba(225, 29, 72, 0.4) !important;
+      0 0 6px #ffffff,
+      0 0 15px rgba(225, 29, 72, 0.4) !important;
   }
 }
 
-/* Ép hiệu ứng sáng nhấp nháy vào khung chứa ảnh */
-.profile-image-wrapper {
-  border: 4px solid #ffffff !important;
-  border-radius: 24px !important;
-  animation: avatarBorderBlink 1.4s infinite ease-in-out !important;
+/* Quét cả thẻ img lẫn khung chứa ảnh đại diện */
+#portfolioScreen img,
+.profile-image-wrapper,
+.hero-avatar,
+.hero-image,
+[class*="avatar"],
+[class*="profile"],
+[class*="image-wrapper"] {
+  border: 3px solid #ffffff !important;
+  animation: blinkBorderNeon 1.2s infinite ease-in-out !important;
 }
-
 /* 1. XÓA BỎ HOÀN TOÀN MỌI LỚP NỀN TỐI & MỜ (Bật nền vũ trụ xuyên suốt) */
 html, body, 
 #portfolioScreen, .portfolio-screen, 
