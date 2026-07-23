@@ -11,96 +11,95 @@
 
   <style>    
 
-  /* ===================================================
-   1. FIX DỨT ĐIỂM MÀN HÌNH "SELECTED HERO" BỊ TRẮNG NỀN
+/* ===================================================
+   1. ĐẶT NỀN TỐI MẶC ĐỊNH CHO TRANG (CHỐNG TRẮNG MÀN HÌNH)
    =================================================== */
-#selectedNotice, .selected-notice, 
-#cinematic, .cinematic,
-[id*="selected"], [class*="selected"],
-[id*="cine"], [class*="cine"] {
-  background-color: #07060a !important; /* Ép trả lại nền đen */
-  background: #07060a !important;
-  color: #ffffff !important;
-  z-index: 999999 !important;
+html, body {
+  background-color: #07060a !important; /* Đảm bảo không bao giờ bị trắng trang */
+  margin: 0;
+  padding: 0;
 }
-
-/* Kiểu chữ Neon phát sáng cho thông báo Selected Hero */
-#cineText, .cinematic-text,
-#selectedNotice *, .selected-notice *,
-#cinematic *, .cinematic * {
-  color: #ffffff !important;
-  font-family: 'Anton', Impact, sans-serif !important;
-  text-shadow: 
-    0 0 10px #e11d48,
-    0 0 25px #e11d48,
-    0 0 50px #e11d48 !important;
-}
-
 
 /* ===================================================
-   2. HIỆU ỨNG BLINK BLINK CHO TÊN "LÊ PHƯƠNG LINH"
+   2. FIX MÀN HÌNH "THE SELECTED HERO" (NỀN ĐEN + CHỮ NEON)
    =================================================== */
-@keyframes blinkTextNeon {
+/* Ép khung thông báo luôn mang nền đen tuyền và đè lên trên cùng */
+#selectedNotice, .selected-notice,
+#cinematic, .cinematic,
+[class*="selected"], [id*="selected"],
+[class*="cine"], [id*="cine"] {
+  background-color: #07060a !important;
+  background: #07060a !important;
+  z-index: 9999999 !important;
+}
+
+/* Chữ "THE SELECTED HERO" phát sáng Neon màu hồng đỏ */
+[class*="selected"] *, [id*="selected"] *,
+[class*="cine"] *, [id*="cine"] * {
+  color: #ffffff !important;
+  text-shadow: 
+    0 0 10px #ff0055, 
+    0 0 25px #ff0055, 
+    0 0 50px #ff0055 !important;
+  font-weight: 900 !important;
+}
+
+/* ===================================================
+   3. HIỆU ỨNG BLINK BLINK CHO TÊN "LÊ PHƯƠNG LINH"
+   =================================================== */
+@keyframes neonTextBlink {
   0%, 100% {
     text-shadow: 
-      0 0 10px #ffffff,
-      0 0 20px #e11d48,
-      0 0 40px #e11d48,
-      0 0 70px #ff2a5f !important;
+      0 0 8px #ffffff,
+      0 0 20px #ff007f,
+      0 0 40px #ff007f,
+      0 0 70px #ff0055 !important;
     opacity: 1;
   }
   50% {
     text-shadow: 
-      0 0 4px #ffffff,
-      0 0 10px #e11d48,
-      0 0 18px #e11d48 !important;
-    opacity: 0.8;
+      0 0 2px #ffffff,
+      0 0 8px #ff007f !important;
+    opacity: 0.75;
   }
 }
 
-/* Quét tất cả thẻ tiêu đề chứa Tên trong Portfolio */
-#portfolioScreen h1, 
-#portfolioScreen h2,
-.portfolio-name, 
-.hero-title, 
-.character-name,
-[class*="name"],
-[class*="title"] {
-  animation: blinkTextNeon 1.2s infinite ease-in-out !important;
+/* Ép hiệu ứng vào tất cả thẻ Tiêu đề trong Portfolio */
+#portfolioScreen h1, #portfolioScreen h2, #portfolioScreen h3,
+.portfolio-screen h1, .portfolio-screen h2, .portfolio-screen h3,
+.hero-title, .portfolio-name, .character-name {
+  animation: neonTextBlink 1.3s infinite ease-in-out !important;
 }
 
-
 /* ===================================================
-   3. HIỆU ỨNG BLINK BLINK CHO VIỀN ẢNH ĐẠI DIỆN
+   4. HIỆU ỨNG BLINK BLINK CHO VIỀN ẢNH ĐẠI DIỆN
    =================================================== */
-@keyframes blinkBorderNeon {
+@keyframes neonBorderBlink {
   0%, 100% {
     border-color: #ffffff !important;
     box-shadow: 
-      0 0 20px #ffffff,
-      0 0 35px #e11d48,
-      0 0 65px #e11d48,
-      inset 0 0 15px #e11d48 !important;
+      0 0 15px #ffffff,
+      0 0 30px #ff007f,
+      0 0 60px #ff007f,
+      inset 0 0 15px rgba(255, 0, 127, 0.5) !important;
   }
   50% {
     border-color: rgba(255, 255, 255, 0.4) !important;
     box-shadow: 
-      0 0 6px #ffffff,
-      0 0 15px rgba(225, 29, 72, 0.4) !important;
+      0 0 5px #ffffff,
+      0 0 12px rgba(255, 0, 127, 0.3) !important;
   }
 }
 
-/* Quét cả thẻ img lẫn khung chứa ảnh đại diện */
-#portfolioScreen img,
-.profile-image-wrapper,
-.hero-avatar,
-.hero-image,
-[class*="avatar"],
-[class*="profile"],
-[class*="image-wrapper"] {
+/* Ép hiệu ứng vào ảnh đại diện và khung chứa ảnh */
+#portfolioScreen img, .portfolio-screen img,
+.profile-image-wrapper, .hero-avatar, .hero-image,
+.profile-card img, .hero-card img {
   border: 3px solid #ffffff !important;
-  animation: blinkBorderNeon 1.2s infinite ease-in-out !important;
+  border-radius: 20px !important;
+  animation: neonBorderBlink 1.3s infinite ease-in-out !important;
 }
+    
 /* 1. XÓA BỎ HOÀN TOÀN MỌI LỚP NỀN TỐI & MỜ (Bật nền vũ trụ xuyên suốt) */
 html, body, 
 #portfolioScreen, .portfolio-screen, 
