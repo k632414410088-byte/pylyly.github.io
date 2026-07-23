@@ -1220,6 +1220,112 @@ html, body {
         gap:24px;
       }
     }
+
+/* Stat boxes - Frosted glass cards with big number + subtitle */
+.stats-container {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:24px;
+  max-width:1000px;
+  margin: 0 auto;
+  align-items:stretch;
+}
+
+/* Re-usable stat box */
+.stat-item.stat-box {
+  --accent: #e11d48; /* override per-box with inline style if needed */
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:28px 20px;
+  min-height:140px;
+  border-radius:18px;
+  box-sizing:border-box;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.12));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.55), 0 0 40px rgba(0,0,0,0.35);
+  color: #fff;
+  text-align:center;
+  transition: transform .28s ease, box-shadow .28s ease;
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  overflow:hidden;
+}
+
+/* accent glow line near top (subtle) */
+.stat-item.stat-box::before {
+  content: "";
+  position:absolute;
+  top:10px;
+  left:12px;
+  right:12px;
+  height:1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border-radius:1px;
+  pointer-events:none;
+  mix-blend-mode: overlay;
+}
+
+/* hover lift */
+.stat-item.stat-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.6), 0 0 80px rgba(0,0,0,0.45);
+}
+
+/* Big number */
+.stat-number {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-weight:900;
+  font-size: clamp(28px, 5.2vw, 48px);
+  color: var(--accent);
+  text-shadow: 0 6px 24px rgba(0,0,0,0.6), 0 0 18px rgba(225,29,72,0.12);
+  line-height:1;
+  display:inline-block;
+}
+
+/* small suffix (like /4) */
+.stat-number sup {
+  font-size: .36em;
+  margin-left:6px;
+  color: rgba(255,255,255,0.85);
+  font-weight:800;
+  vertical-align: super;
+  opacity:0.95;
+}
+
+/* label under number */
+.stat-box-label {
+  font-size:14px;
+  color: rgba(255,255,255,0.86);
+  font-weight:700;
+  letter-spacing:0.8px;
+  margin-top:6px;
+}
+
+/* optional small description line */
+.stat-box-sub {
+  font-size:12px;
+  color: rgba(255,255,255,0.66);
+  margin-top:4px;
+  font-weight:600;
+}
+
+/* color variants: use on the container (inline style or class) */
+.stat-box.pink  { --accent: #e11d48; }
+.stat-box.blue  { --accent: #3b82f6; }
+.stat-box.gold  { --accent: #fbbf24; }
+.stat-box.purple{ --accent: #a855f7; }
+
+/* Responsive tweaks */
+@media (max-width:600px){
+  .stat-item.stat-box { padding:20px; min-height:120px; }
+  .stat-number { font-size: clamp(22px, 8vw, 36px); }
+  .stats-container { gap:16px; }
+}
+  
   </style>
 </head>
 <body>
@@ -1308,14 +1414,22 @@ html, body {
     <!-- CHARACTER STATS -->
     <div class="portfolio-section">
       <h2>01. CHARACTER STATS</h2>
-      <div class="stats-container">
-        <div class="stat-item">
-          <div class="stat-label">HIGH SCHOOL GPA</div>
-          <div class="stat-bar-wrapper">
-            <div class="stat-bar" style="--percentage: 93%; --color: #e11d48;">
-              <span class="stat-value">9.3/10</span>
-            </div>
-          </div>
+    <div class="stats-container">
+  <div class="stat-item stat-box pink" role="group" aria-label="Điểm tích lũy">
+    <div class="stat-number">3.95<sup>/4</sup></div>
+    <div class="stat-box-label">Điểm tích lũy (GPA)</div>
+  </div>
+
+  <div class="stat-item stat-box blue" role="group" aria-label="Chứng chỉ tiếng Anh">
+    <div class="stat-number">7.0</div>
+    <div class="stat-box-label">Chứng chỉ tiếng Anh</div>
+  </div>
+
+  <div class="stat-item stat-box gold" role="group" aria-label="Số học kỳ">
+    <div class="stat-number">2 <span style="font-size:.5em; font-weight:700; color:rgba(255,255,255,0.9);">Học kỳ</span></div>
+    <div class="stat-box-label">Học bổng KKHT loại A</div>
+  </div>
+</div>
           <div class="stat-glow" style="--color: #e11d48;"></div>
         </div>
 
@@ -1350,74 +1464,6 @@ html, body {
           </div>
           <div class="stat-glow" style="--color: #a855f7;"></div>
         </div>
-            <!-- ABILITIES UNLOCKED -->
-    <div class="portfolio-section">
-      <h2>02. ABILITIES UNLOCKED</h2>
-      <div class="abilities-grid">
-        <div class="ability-card" style="--ability-color: #e11d48;">
-          <div class="ability-icon">🖥️</div>
-          <h3>MICROSOFT OFFICE</h3>
-          <div class="ability-level">
-            <div class="level-bars">■■■■■</div>
-            <span class="level-badge">MASTER</span>
-          </div>
-        </div>
-
-        <div class="ability-card" style="--ability-color: #3b82f6;">
-          <div class="ability-icon">🌐</div>
-          <h3>ENGLISH</h3>
-          <div class="ability-level">
-            <div class="level-bars">■■■■□</div>
-            <span class="level-badge elite">ELITE</span>
-          </div>
-        </div>
-
-        <div class="ability-card" style="--ability-color: #10b981;">
-          <div class="ability-icon">👥</div>
-          <h3>TEAMWORK</h3>
-          <div class="ability-level">
-            <div class="level-bars">■■■■■</div>
-            <span class="level-badge">MASTER</span>
-          </div>
-        </div>
-
-        <div class="ability-card" style="--ability-color: #f59e0b;">
-          <div class="ability-icon">🎤</div>
-          <h3>PRESENTATION</h3>
-          <div class="ability-level">
-            <div class="level-bars">■■■■■</div>
-            <span class="level-badge">MASTER</span>
-          </div>
-        </div>
-
-        <div class="ability-card" style="--ability-color: #8b5cf6;">
-          <div class="ability-icon">🧩</div>
-          <h3>PROBLEM-SOLVING</h3>
-          <div class="ability-level">
-            <div class="level-bars">■■■■□</div>
-            <span class="level-badge elite">ELITE</span>
-          </div>
-        </div>
-
-        <div class="ability-card" style="--ability-color: #ec4899;">
-          <div class="ability-icon">✨</div>
-          <h3>CREATIVITY</h3>
-          <div class="ability-level">
-            <div class="level-bars">■■■■□</div>
-            <span class="level-badge elite">ELITE</span>
-          </div>
-        </div>
-
-        <div class="ability-card" style="--ability-color: #06b6d4;">
-          <div class="ability-icon">💻</div>
-          <h3>PROGRAMMING</h3>
-          <div class="ability-level">
-            <div class="level-bars">■■□□□</div>
-            <span class="level-badge developing">DEVELOPING</span>
-          </div>
-        </div>
-      </div>
-    </div>
 
 <script>
 (function(){
