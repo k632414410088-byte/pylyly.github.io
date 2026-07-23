@@ -179,7 +179,102 @@ video,
     text-shadow: 0 0 15px #e11d48, 0 0 30px #e11d48, 0 0 50px #e11d48, 0 0 70px #e11d48;
   }
 }
-    
+
+/* ===== Adjust: stats numbers glow, boxes more opaque, abilities color mapping ===== */
+
+/* force accent-red and neon glow for stat numbers */
+:root {
+  --accent-red: #e11d48;
+  --ability-master: #e11d48;
+  --ability-elite: #10b981;
+  --ability-developing: #ec4899;
+}
+
+/* make the big numbers red + glow */
+.stat-box .stat-large {
+  color: var(--accent-red) !important;
+  text-shadow:
+    0 2px 6px rgba(225,29,72,0.9),
+    0 0 18px rgba(225,29,72,0.45),
+    0 0 36px rgba(225,29,72,0.18);
+  transition: text-shadow .25s ease, transform .18s ease;
+}
+
+/* optional extra glow on hover */
+.stat-box:hover .stat-large {
+  transform: translateY(-2px);
+  text-shadow:
+    0 4px 10px rgba(225,29,72,1),
+    0 0 28px rgba(225,29,72,0.6),
+    0 0 48px rgba(225,29,72,0.25);
+}
+
+/* make stat boxes slightly more opaque (đục hơn một chút) */
+.stat-box{
+  background: rgba(7,6,10,0.22) !important; /* was 0.04 -> now darker */
+  border: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+/* ensure the tiny stat-fill bar uses the same red and is visible */
+.stat-box .stat-fill{
+  background: linear-gradient(90deg, var(--accent-red), rgba(255,255,255,0.10));
+  box-shadow: 0 0 18px rgba(225,29,72,0.35), inset 0 0 8px rgba(255,255,255,0.04);
+}
+
+/* abilities: make the background slightly darker/opaque */
+.ability{
+  background: rgba(7,6,10,0.18) !important; /* more opaque than before */
+  border: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+/* ability-fill defaults (will be overridden by specific classes) */
+.ability .ability-fill{
+  width:0;
+  opacity:1;
+  filter: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+  box-shadow: none;
+}
+
+/* MASTER = red (strong & neon) */
+.ability.master .ability-fill,
+.ability.master .ability-bar { /* ensure the bar area uses color */
+  background: rgba(225,29,72,0.08);
+}
+.ability.master .ability-fill{
+  background: linear-gradient(90deg, var(--ability-master), rgba(225,29,72,0.15));
+  box-shadow: 0 0 18px rgba(225,29,72,0.45);
+}
+
+/* ELITE = green */
+.ability.elite .ability-fill,
+.ability.elite .ability-bar {
+  background: rgba(16,185,129,0.06);
+}
+.ability.elite .ability-fill{
+  background: linear-gradient(90deg, var(--ability-elite), rgba(16,185,129,0.14));
+  box-shadow: 0 0 16px rgba(16,185,129,0.35);
+}
+
+/* DEVELOPING = pink/magenta */
+.ability.developing .ability-fill,
+.ability.developing .ability-bar {
+  background: rgba(236,72,153,0.05);
+}
+.ability.developing .ability-fill{
+  background: linear-gradient(90deg, var(--ability-developing), rgba(236,72,153,0.14));
+  box-shadow: 0 0 16px rgba(236,72,153,0.34);
+}
+
+/* show final widths when portfolio visible */
+.portfolio-screen.show .ability-fill{ width: var(--percentage) !important; }
+.portfolio-screen.show .stat-box .stat-fill{ width: var(--percentage) !important; }
+
+/* make ability-tag color match levels (optional) */
+.ability.master .ability-tag{ color: var(--ability-master); font-weight:900; }
+.ability.elite .ability-tag{ color: var(--ability-elite); font-weight:900; }
+.ability.developing .ability-tag{ color: var(--ability-developing); font-weight:900; }
+  
  :root{
       --bg: #07060a;
       --accent: #e11d48;
@@ -1310,29 +1405,23 @@ html, body {
 
   <div class="stats-center">
     <div class="stats-grid">
-      <div class="stat-box" style="--accent:#e11d48;">
-        <div class="stat-large">9.3<span class="small">/10</span></div>
-        <div class="stat-caption">HIGH SCHOOL GPA</div>
-        <div class="stat-mini">Academic Power Level</div>
-      </div>
+      <div class="ability master" style="--percentage:100%; --color:#e11d48;">
+  <div class="ability-label">MICROSOFT OFFICE</div>
+  <div class="ability-bar"><div class="ability-fill" style="--percentage:100%;"></div></div>
+  <div class="ability-tag">MASTER</div>
+</div>
 
-      <div class="stat-box" style="--accent:#3b82f6;">
-        <div class="stat-large">1450</div>
-        <div class="stat-caption">SAT SCORE</div>
-        <div class="stat-mini">TOP 5%</div>
-      </div>
+<div class="ability elite" style="--percentage:80%; --color:#10b981;">
+  <div class="ability-label">ENGLISH</div>
+  <div class="ability-bar"><div class="ability-fill" style="--percentage:80%;"></div></div>
+  <div class="ability-tag">ELITE</div>
+</div>
 
-      <div class="stat-box" style="--accent:#fbbf24;">
-        <div class="stat-large">103</div>
-        <div class="stat-caption">HSA SCORE</div>
-        <div class="stat-mini">TOP 1.89%</div>
-      </div>
-
-      <div class="stat-box" style="--accent:#a855f7;">
-        <div class="stat-large">3.48<span class="small">/4.0</span></div>
-        <div class="stat-caption">UNIVERSITY GPA</div>
-        <div class="stat-mini">Current GPA</div>
-      </div>
+<div class="ability developing" style="--percentage:40%; --color:#ec4899;">
+  <div class="ability-label">PROGRAMMING</div>
+  <div class="ability-bar"><div class="ability-fill" style="--percentage:40%;"></div></div>
+  <div class="ability-tag">DEVELOPING</div>
+</div>
     </div>
   </div>
 
