@@ -1221,196 +1221,20 @@ html, body {
       }
     }
 
-/* Stat boxes - Frosted glass cards with big number + subtitle */
-.stats-container {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap:24px;
-  max-width:1000px;
-  margin: 0 auto;
-  align-items:stretch;
-}
-
-/* Re-usable stat box */
-.stat-item.stat-box {
-  --accent: #e11d48; /* override per-box with inline style if needed */
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:28px 20px;
-  min-height:140px;
-  border-radius:18px;
-  box-sizing:border-box;
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.12));
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.55), 0 0 40px rgba(0,0,0,0.35);
-  color: #fff;
-  text-align:center;
-  transition: transform .28s ease, box-shadow .28s ease;
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-  overflow:hidden;
-}
-
-/* accent glow line near top (subtle) */
-.stat-item.stat-box::before {
-  content: "";
-  position:absolute;
-  top:10px;
-  left:12px;
-  right:12px;
-  height:1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-  border-radius:1px;
-  pointer-events:none;
-  mix-blend-mode: overlay;
-}
-
-/* hover lift */
-.stat-item.stat-box:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 48px rgba(0,0,0,0.6), 0 0 80px rgba(0,0,0,0.45);
-}
-
-/* Big number */
-.stat-number {
-  font-family: 'Anton', Impact, Arial Black, sans-serif;
-  font-weight:900;
-  font-size: clamp(28px, 5.2vw, 48px);
-  color: var(--accent);
-  text-shadow: 0 6px 24px rgba(0,0,0,0.6), 0 0 18px rgba(225,29,72,0.12);
-  line-height:1;
-  display:inline-block;
-}
-
-/* small suffix (like /4) */
-.stat-number sup {
-  font-size: .36em;
-  margin-left:6px;
-  color: rgba(255,255,255,0.85);
-  font-weight:800;
-  vertical-align: super;
-  opacity:0.95;
-}
-
-/* label under number */
-.stat-box-label {
-  font-size:14px;
-  color: rgba(255,255,255,0.86);
-  font-weight:700;
-  letter-spacing:0.8px;
-  margin-top:6px;
-}
-
-/* optional small description line */
-.stat-box-sub {
-  font-size:12px;
-  color: rgba(255,255,255,0.66);
-  margin-top:4px;
-  font-weight:600;
-}
-
-/* color variants: use on the container (inline style or class) */
-.stat-box.pink  { --accent: #e11d48; }
-.stat-box.blue  { --accent: #3b82f6; }
-.stat-box.gold  { --accent: #fbbf24; }
-.stat-box.purple{ --accent: #a855f7; }
-
-/* Responsive tweaks */
-@media (max-width:600px){
-  .stat-item.stat-box { padding:20px; min-height:120px; }
-  .stat-number { font-size: clamp(22px, 8vw, 36px); }
-  .stats-container { gap:16px; }
-}
-
-/* ===== Fix: bắt buộc căn giữa hàng 3 ô bất chấp padding parent ===== */
-.stats-highlights {
-  display: flex;
-  flex-wrap: nowrap;           /* 1 hàng trên desktop */
-  justify-content: center;     /* nội dung trong nhóm căn giữa */
-  align-items: center;
-  gap: 32px;
-  /* đặt kích thước cố định cho vùng nhóm, chỉnh nếu cần */
-  max-width: 1100px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 20px;
-  /* BƯỚC QUAN TRỌNG: center theo viewport, không theo parent */
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0 auto 36px auto; /* fallback */
-}
-
-/* ===== đảm bảo 3 ô bằng nhau ===== */
-.stat-box {
-  width: 340px;      /* cố định chiều rộng */
-  height: 300px;     /* cố định chiều cao */
-  min-width: 260px;
-  box-sizing: border-box;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 28px 20px;
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 12px 36px rgba(0,0,0,0.55);
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-  text-align: center;
-  color: #fff;
-  overflow: hidden;
-  transition: transform .28s ease, box-shadow .28s ease;
-}
-
-/* giữ số lớn đều nhau */
-.stat-box .big {
-  font-size: 52px;
-  line-height: 1;
-  color: #e11d48 !important;
-  animation: textBlinkGlow 1.4s infinite ease-in-out;
-  transform: translateY(-8px);
-}
-
-/* responsive */
-@media (max-width: 1120px) {
-  .stat-box { width: 300px; height: 280px; }
-  .stat-box .big { font-size: 46px; }
-}
-@media (max-width: 820px) {
-  .stats-highlights {
-    flex-wrap: wrap;
-    left: 50%;
-    transform: translateX(-50%);
-    justify-content: center;
-  }
-  .stat-box { width: 320px; height: 280px; margin-bottom: 16px; }
-  .stat-box .big { font-size: 44px; }
-}
-@media (max-width: 520px) {
-  .stat-box { width: 92%; max-width: 420px; height: 240px; }
-  .stat-box .big { font-size: 36px; }
-}
-
-/* ===== STATs wrapper: căn giữa tiêu đề và group ===== */
+/* ====== CLEAN: Centered Character Stats (single definitive block) ====== */
+/* Wrapper for title + boxes */
 .stats-inner {
-  max-width: 1200px;      /* cùng max-width dùng cho portfolio-content */
-  margin: 0 auto;         /* center group + title trong viewport */
-  padding: 40px 20px;     /* nếu muốn khoảng cách trên/dưới */
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;    /* căn giữa tiêu đề và nhóm */
+  align-items: center;
 }
 
-/* đảm bảo tiêu đề chính giữa và có glow (dùng keyframes textBlinkGlow có sẵn) */
+/* Title: centered + glow */
 .stats-inner h2 {
   text-align: center;
   margin: 0 0 28px 0;
@@ -1420,27 +1244,29 @@ html, body {
   font-weight: 900;
 }
 
-/* ===== Hàng 3 ô: flex ngang, group căn giữa theo wrapper ===== */
+/* Group of 3 boxes: center inside wrapper (NO left/transform) */
 .stats-highlights {
   display: flex;
-  flex-wrap: nowrap;              /* 1 hàng trên desktop */
-  justify-content: center;        /* căn giữa theo wrapper */
+  flex-wrap: nowrap;
+  justify-content: center;
   align-items: center;
   gap: 36px;
-  width: 100%;                    /* chiếm hết max-width của stats-inner */
+  width: 100%;
   box-sizing: border-box;
 
-  /* GHI ĐÈ bất kỳ rule left/transform cũ */
+  /* ensure no legacy positioning leaks in */
   position: static !important;
   left: auto !important;
+  right: auto !important;
   transform: none !important;
   margin: 0 auto !important;
   padding: 0 !important;
 }
 
-/* ===== Stat box: đều kích thước, nội dung căn giữa ===== */
+/* Each box equal size */
 .stat-box {
-  flex: 0 0 340px;                /* cố định mỗi ô = 340px, đảm bảo đều nhau */
+  flex: 0 0 340px;        /* fixed width per item, ensures equal size */
+  width: 340px;
   height: 300px;
   box-sizing: border-box;
   position: relative;
@@ -1462,7 +1288,7 @@ html, body {
   transition: transform .28s ease, box-shadow .28s ease;
 }
 
-/* top badge */
+/* badge top-right */
 .stat-box .badge {
   position: absolute;
   right: 14px;
@@ -1477,7 +1303,7 @@ html, body {
   z-index: 3;
 }
 
-/* number lớn đỏ + glow */
+/* big number: red + neon glow (uses your keyframes) */
 .stat-box .big {
   font-family: 'Anton', Impact, Arial Black, sans-serif;
   font-weight: 900;
@@ -1490,7 +1316,7 @@ html, body {
   z-index: 2;
 }
 
-/* suffix small */
+/* small suffix */
 .stat-box .big sup {
   font-size: .36em;
   margin-left: 8px;
@@ -1499,7 +1325,7 @@ html, body {
   vertical-align: super;
 }
 
-/* label */
+/* label text */
 .stat-box .label {
   font-size: 14px;
   font-weight: 800;
@@ -1514,18 +1340,18 @@ html, body {
   box-shadow: 0 28px 70px rgba(0,0,0,0.65);
 }
 
-/* responsive: wrap thành 2 hoặc 1 cột khi cần */
+/* responsive behavior */
 @media (max-width: 1120px) {
-  .stat-box { flex: 0 0 300px; height: 280px; }
+  .stat-box { flex: 0 0 300px; width: 300px; height: 280px; }
   .stat-box .big { font-size: 46px; }
 }
 @media (max-width: 820px) {
   .stats-highlights { flex-wrap: wrap; gap: 20px; }
-  .stat-box { flex: 0 0 320px; height: 260px; margin-bottom: 8px; }
+  .stat-box { flex: 0 0 320px; width: 320px; height: 260px; margin-bottom: 8px; }
   .stat-box .big { font-size: 44px; }
 }
 @media (max-width: 520px) {
-  .stat-box { flex: 0 0 92%; height: 220px; max-width: 420px; }
+  .stat-box { flex: 0 0 92%; width: 92%; max-width: 420px; height: 220px; }
   .stat-box .big { font-size: 36px; }
   .stats-inner { padding: 20px 12px; }
 }
@@ -1616,26 +1442,23 @@ html, body {
     </div>
 
     <!-- CHARACTER STATS -->
-   <div class="portfolio-section">
+ <div class="portfolio-section">
   <div class="stats-inner">
     <h2>01. CHARACTER STATS</h2>
 
     <div class="stats-highlights" role="list" aria-label="Character highlights">
-      <!-- SAT -->
       <div class="stat-box" role="listitem" aria-label="SAT Score">
         <div class="badge">TOP 5%</div>
         <div class="big">1450</div>
         <div class="label">SAT SCORE</div>
       </div>
 
-      <!-- HSA -->
       <div class="stat-box" role="listitem" aria-label="HSA Score">
         <div class="badge">TOP 1.89%</div>
         <div class="big">103</div>
         <div class="label">HSA SCORE</div>
       </div>
 
-      <!-- UNIVERSITY GPA -->
       <div class="stat-box" role="listitem" aria-label="University GPA">
         <div class="big">3.48<sup>/4.0</sup></div>
         <div class="label">UNIVERSITY GPA</div>
