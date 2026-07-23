@@ -1531,7 +1531,8 @@ html, body {
 
   </div>
 
- /* ===== stats + abilities: cards + bars (paste at end of your <style>) ===== */
+<style>
+/* ===== stats + abilities: cards + bars (moved into a proper <style>) ===== */
 .stats-abilities{ max-width:1200px; margin:0 auto; padding:48px 24px; box-sizing:border-box; }
 
 /* section title */
@@ -1571,6 +1572,9 @@ html, body {
 .stat-caption{ font-size:12px; color:rgba(255,255,255,0.83); letter-spacing:1.8px; font-weight:800; margin-top:6px; }
 .stat-mini{ font-size:12px; color:rgba(255,255,255,0.6); margin-top:6px; }
 
+/* small progress inside stat-box (optional) */
+.stat-box .stat-fill{ height:8px; width:0; border-radius:6px; background:linear-gradient(90deg, var(--accent), rgba(255,255,255,0.12)); box-shadow:0 0 12px var(--accent); transition:width 1.2s cubic-bezier(.2,.9,.2,1); margin-top:12px; }
+
 /* --- ABILITIES GRID (2 columns: left 4, right 3) --- */
 .abilities-center{ display:flex; justify-content:center; margin-top:14px; }
 .abilities-grid{
@@ -1606,10 +1610,6 @@ html, body {
 
 /* when portfolio shown (.portfolio-screen.show) animate fills to their percentages */
 .portfolio-screen.show .ability-fill{ width: var(--percentage); }
-.portfolio-screen.show .stat-fill{ width: var(--percentage); }
-
-/* add small stat-fill for stat boxes (if you want transform to progress) */
-.stat-box .stat-fill{ height:8px; width:0; border-radius:6px; background:linear-gradient(90deg, var(--accent), rgba(255,255,255,0.12)); box-shadow:0 0 12px var(--accent); transition:width 1.2s cubic-bezier(.2,.9,.2,1); margin-top:12px; }
 .portfolio-screen.show .stat-box .stat-fill{ width: var(--percentage); }
 
 /* responsive */
@@ -1618,6 +1618,7 @@ html, body {
   .abilities-grid{ grid-template-columns: 1fr; }
   .ability-label{ flex-basis:140px; }
 }
+</style>
 
 <script>
 (function(){
