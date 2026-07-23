@@ -245,6 +245,46 @@ html, body {
   overflow: hidden;
   border: 4px solid rgba(255,255,255,0.8);
   box-shadow: 0 0 30px rgba(225,29,72,0.4), 0 0 60px rgba(225,29,72,0.2);
+
+  /* ===================================================
+   CHỈ SỬA LỖI "THE SELECTED HERO" (KHÔNG DÙNG CLASS CHUNG)
+   =================================================== */
+
+/* 1. Ép riêng khung thông báo cinematic thành nền đen tuyền */
+.cinematic, 
+#cinematic, 
+.selected-notice, 
+#selectedNotice {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #07060a !important;       /* Trả lại màu nền tối */
+  background-color: #07060a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 999999 !important;          /* Đè nổi lên trên cùng khi xuất hiện */
+}
+
+/* 2. Ép riêng chữ "THE SELECTED HERO" phát sáng Neon */
+.cinematic-text,
+.cinematic *,
+#cinematic *,
+.selected-notice *,
+#selectedNotice * {
+  color: #ffffff !important;
+  font-family: 'Anton', Impact, sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: 3px !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  text-shadow: 
+    0 0 10px #e11d48,
+    0 0 25px #e11d48,
+    0 0 50px #e11d48,
+    0 0 80px rgba(225, 29, 72, 0.9) !important;
+}
 }
 
     /* ---------- Intro (video only) ---------- */
