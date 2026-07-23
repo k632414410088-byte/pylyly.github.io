@@ -62,6 +62,19 @@
   animation: borderBlinkGlow 1.4s infinite ease-in-out !important;
 }
     
+/* 1. XÓA BỎ HOÀN TOÀN MỌI LỚP NỀN TỐI & MỜ (Bật nền vũ trụ xuyên suốt) */
+html, body, 
+#portfolioScreen, .portfolio-screen, 
+section, .section, 
+div, main,
+.stats-section, .character-stats {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important; /* Xóa vệt màu đen đè bên dưới */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 /* 2. TĂNG RỰC RỠ ĐỘ SÁNG & GHIM BACKGROUND CHẶT VÀO MÀN HÌNH */
 video, canvas, #bgVideo, .bg-video, .background-video {
   position: fixed !important;
@@ -166,102 +179,7 @@ video,
     text-shadow: 0 0 15px #e11d48, 0 0 30px #e11d48, 0 0 50px #e11d48, 0 0 70px #e11d48;
   }
 }
-
-/* ===== Adjust: stats numbers glow, boxes more opaque, abilities color mapping ===== */
-
-/* force accent-red and neon glow for stat numbers */
-:root {
-  --accent-red: #e11d48;
-  --ability-master: #e11d48;
-  --ability-elite: #10b981;
-  --ability-developing: #ec4899;
-}
-
-/* make the big numbers red + glow */
-.stat-box .stat-large {
-  color: var(--accent-red) !important;
-  text-shadow:
-    0 2px 6px rgba(225,29,72,0.9),
-    0 0 18px rgba(225,29,72,0.45),
-    0 0 36px rgba(225,29,72,0.18);
-  transition: text-shadow .25s ease, transform .18s ease;
-}
-
-/* optional extra glow on hover */
-.stat-box:hover .stat-large {
-  transform: translateY(-2px);
-  text-shadow:
-    0 4px 10px rgba(225,29,72,1),
-    0 0 28px rgba(225,29,72,0.6),
-    0 0 48px rgba(225,29,72,0.25);
-}
-
-/* make stat boxes slightly more opaque (đục hơn một chút) */
-.stat-box{
-  background: rgba(7,6,10,0.22) !important; /* was 0.04 -> now darker */
-  border: 1px solid rgba(255,255,255,0.08) !important;
-}
-
-/* ensure the tiny stat-fill bar uses the same red and is visible */
-.stat-box .stat-fill{
-  background: linear-gradient(90deg, var(--accent-red), rgba(255,255,255,0.10));
-  box-shadow: 0 0 18px rgba(225,29,72,0.35), inset 0 0 8px rgba(255,255,255,0.04);
-}
-
-/* abilities: make the background slightly darker/opaque */
-.ability{
-  background: rgba(7,6,10,0.18) !important; /* more opaque than before */
-  border: 1px solid rgba(255,255,255,0.08) !important;
-}
-
-/* ability-fill defaults (will be overridden by specific classes) */
-.ability .ability-fill{
-  width:0;
-  opacity:1;
-  filter: none;
-  background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
-  box-shadow: none;
-}
-
-/* MASTER = red (strong & neon) */
-.ability.master .ability-fill,
-.ability.master .ability-bar { /* ensure the bar area uses color */
-  background: rgba(225,29,72,0.08);
-}
-.ability.master .ability-fill{
-  background: linear-gradient(90deg, var(--ability-master), rgba(225,29,72,0.15));
-  box-shadow: 0 0 18px rgba(225,29,72,0.45);
-}
-
-/* ELITE = green */
-.ability.elite .ability-fill,
-.ability.elite .ability-bar {
-  background: rgba(16,185,129,0.06);
-}
-.ability.elite .ability-fill{
-  background: linear-gradient(90deg, var(--ability-elite), rgba(16,185,129,0.14));
-  box-shadow: 0 0 16px rgba(16,185,129,0.35);
-}
-
-/* DEVELOPING = pink/magenta */
-.ability.developing .ability-fill,
-.ability.developing .ability-bar {
-  background: rgba(236,72,153,0.05);
-}
-.ability.developing .ability-fill{
-  background: linear-gradient(90deg, var(--ability-developing), rgba(236,72,153,0.14));
-  box-shadow: 0 0 16px rgba(236,72,153,0.34);
-}
-
-/* show final widths when portfolio visible */
-.portfolio-screen.show .ability-fill{ width: var(--percentage) !important; }
-.portfolio-screen.show .stat-box .stat-fill{ width: var(--percentage) !important; }
-
-/* make ability-tag color match levels (optional) */
-.ability.master .ability-tag{ color: var(--ability-master); font-weight:900; }
-.ability.elite .ability-tag{ color: var(--ability-elite); font-weight:900; }
-.ability.developing .ability-tag{ color: var(--ability-developing); font-weight:900; }
-  
+    
  :root{
       --bg: #07060a;
       --accent: #e11d48;
@@ -270,63 +188,6 @@ video,
       --card-width: 460px;
       --card-media-height: 420px;
     }
-
-  /* Tăng độ đục cho các box (01 + 02) và làm stat số sáng hơn */
-.stat-box{
-  background: rgba(7,6,10,0.26) !important; /* đục hơn một chút */
-  border: 1px solid rgba(255,255,255,0.09) !important;
-}
-
-/* stat number neon red (giữ như yêu cầu) */
-.stat-box .stat-large {
-  color: var(--accent-red, #e11d48) !important;
-  text-shadow:
-    0 4px 12px rgba(225,29,72,0.95),
-    0 0 28px rgba(225,29,72,0.55),
-    0 0 54px rgba(225,29,72,0.22);
-}
-
-/* stat small progress bar */
-.stat-box .stat-fill{
-  background: linear-gradient(90deg, var(--accent-red, #e11d48), rgba(255,255,255,0.14));
-  box-shadow: 0 0 20px rgba(225,29,72,0.42), inset 0 0 8px rgba(255,255,255,0.04);
-}
-
-/* Abilities: nền card hơi đục hơn */
-.ability{
-  background: rgba(7,6,10,0.22) !important;
-  border: 1px solid rgba(255,255,255,0.09) !important;
-}
-
-/* Make ability bar base more visible */
-.ability .ability-bar{
-  background: rgba(255,255,255,0.04);
-}
-
-/* MASTER (red) - stronger, more opaque */
-.ability.master .ability-fill{
-  background: linear-gradient(90deg, var(--ability-master, #e11d48), rgba(225,29,72,0.18));
-  box-shadow: 0 0 20px rgba(225,29,72,0.48), inset 0 0 8px rgba(255,255,255,0.03);
-  opacity: 1;
-}
-
-/* ELITE (green) */
-.ability.elite .ability-fill{
-  background: linear-gradient(90deg, var(--ability-elite, #10b981), rgba(16,185,129,0.18));
-  box-shadow: 0 0 18px rgba(16,185,129,0.36), inset 0 0 6px rgba(255,255,255,0.02);
-  opacity: 1;
-}
-
-/* DEVELOPING (pink) */
-.ability.developing .ability-fill{
-  background: linear-gradient(90deg, var(--ability-developing, #ec4899), rgba(236,72,153,0.18));
-  box-shadow: 0 0 18px rgba(236,72,153,0.36), inset 0 0 6px rgba(255,255,255,0.02);
-  opacity: 1;
-}
-
-/* ensure animation runs when portfolio shown */
-.portfolio-screen.show .ability-fill{ width: var(--percentage) !important; }
-.portfolio-screen.show .stat-box .stat-fill{ width: var(--percentage) !important; }
 
    /* 1. Khóa thanh cuộn ngang toàn trang */
 html, body {
@@ -1444,96 +1305,119 @@ html, body {
       </div>
     </div>
 
-<section class="portfolio-section stats-abilities">
-  <div class="sa-layout">
-    <!-- LEFT: stats grid -->
-    <div class="sa-left">
-      <div class="sa-title-top">01. CHARACTER STATS</div>
-      <div class="stats-grid">
-        <div class="stat-box" style="--percentage:93%; --accent:#e11d48;">
-          <div class="stat-large">9.3<span class="small">/10</span></div>
-          <div class="stat-caption">HIGH SCHOOL GPA</div>
-          <div class="stat-fill" aria-hidden="true" style="--percentage:93%;"></div>
+    <!-- CHARACTER STATS -->
+    <div class="portfolio-section">
+      <h2>01. CHARACTER STATS</h2>
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-label">HIGH SCHOOL GPA</div>
+          <div class="stat-bar-wrapper">
+            <div class="stat-bar" style="--percentage: 93%; --color: #e11d48;">
+              <span class="stat-value">9.3/10</span>
+            </div>
+          </div>
+          <div class="stat-glow" style="--color: #e11d48;"></div>
         </div>
 
-        <div class="stat-box" style="--percentage:87%; --accent:#e11d48;">
-          <div class="stat-large">1450</div>
-          <div class="stat-caption">SAT SCORE</div>
-          <div class="stat-fill" aria-hidden="true" style="--percentage:87%;"></div>
+        <div class="stat-item">
+          <div class="stat-label">SAT SCORE</div>
+          <div class="stat-bar-wrapper">
+            <div class="stat-bar" style="--percentage: 87%; --color: #3b82f6;">
+              <span class="stat-value">1450</span>
+            </div>
+          </div>
+          <div class="stat-badge">TOP 5%</div>
+          <div class="stat-glow" style="--color: #3b82f6;"></div>
         </div>
 
-        <div class="stat-box" style="--percentage:90%; --accent:#e11d48;">
-          <div class="stat-large">103</div>
-          <div class="stat-caption">HSA SCORE</div>
-          <div class="stat-fill" aria-hidden="true" style="--percentage:90%;"></div>
+        <div class="stat-item">
+          <div class="stat-label">HSA SCORE</div>
+          <div class="stat-bar-wrapper">
+            <div class="stat-bar" style="--percentage: 90%; --color: #fbbf24;">
+              <span class="stat-value">103</span>
+            </div>
+          </div>
+          <div class="stat-badge">TOP 1.89%</div>
+          <div class="stat-glow" style="--color: #fbbf24;"></div>
         </div>
 
-        <div class="stat-box" style="--percentage:87%; --accent:#e11d48;">
-          <div class="stat-large">3.48<span class="small">/4.0</span></div>
-          <div class="stat-caption">UNIVERSITY GPA</div>
-          <div class="stat-fill" aria-hidden="true" style="--percentage:87%;"></div>
+        <div class="stat-item">
+          <div class="stat-label">UNIVERSITY GPA</div>
+          <div class="stat-bar-wrapper">
+            <div class="stat-bar" style="--percentage: 87%; --color: #a855f7;">
+              <span class="stat-value">3.48/4.0</span>
+            </div>
+          </div>
+          <div class="stat-glow" style="--color: #a855f7;"></div>
         </div>
-      </div>
-    </div>
-
-    <!-- CENTER: stacked titles -->
-    <div class="sa-center">
-      <div class="sa-main-title">01. CHARACTER STATS</div>
-      <div class="sa-subtitle">02. ABILITIES UNLOCKED</div>
-    </div>
-
-    <!-- RIGHT: abilities (two columns: left 4, right 3) -->
-    <div class="sa-right">
+            <!-- ABILITIES UNLOCKED -->
+    <div class="portfolio-section">
+      <h2>02. ABILITIES UNLOCKED</h2>
       <div class="abilities-grid">
-        <div class="abilities-col">
-          <div class="ability master" style="--percentage:100%;">
-            <div class="ability-label">MICROSOFT OFFICE</div>
-            <div class="ability-bar"><div class="ability-fill" style="--percentage:100%;"></div></div>
-            <div class="ability-tag">MASTER</div>
-          </div>
-
-          <div class="ability elite" style="--percentage:80%;">
-            <div class="ability-label">ENGLISH</div>
-            <div class="ability-bar"><div class="ability-fill" style="--percentage:80%;"></div></div>
-            <div class="ability-tag">ELITE</div>
-          </div>
-
-          <div class="ability master" style="--percentage:100%;">
-            <div class="ability-label">TEAMWORK</div>
-            <div class="ability-bar"><div class="ability-fill" style="--percentage:100%;"></div></div>
-            <div class="ability-tag">MASTER</div>
-          </div>
-
-          <div class="ability master" style="--percentage:100%;">
-            <div class="ability-label">PRESENTATION</div>
-            <div class="ability-bar"><div class="ability-fill" style="--percentage:100%;"></div></div>
-            <div class="ability-tag">MASTER</div>
+        <div class="ability-card" style="--ability-color: #e11d48;">
+          <div class="ability-icon">🖥️</div>
+          <h3>MICROSOFT OFFICE</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■■</div>
+            <span class="level-badge">MASTER</span>
           </div>
         </div>
 
-        <div class="abilities-col">
-          <div class="ability elite" style="--percentage:80%;">
-            <div class="ability-label">PROBLEM-SOLVING</div>
-            <div class="ability-bar"><div class="ability-fill" style="--percentage:80%;"></div></div>
-            <div class="ability-tag">ELITE</div>
+        <div class="ability-card" style="--ability-color: #3b82f6;">
+          <div class="ability-icon">🌐</div>
+          <h3>ENGLISH</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■□</div>
+            <span class="level-badge elite">ELITE</span>
           </div>
+        </div>
 
-          <div class="ability elite" style="--percentage:80%;">
-            <div class="ability-label">CREATIVITY</div>
-            <div class="ability-bar"><div class="ability-fill" style="--percentage:80%;"></div></div>
-            <div class="ability-tag">ELITE</div>
+        <div class="ability-card" style="--ability-color: #10b981;">
+          <div class="ability-icon">👥</div>
+          <h3>TEAMWORK</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■■</div>
+            <span class="level-badge">MASTER</span>
           </div>
+        </div>
 
-          <div class="ability developing" style="--percentage:40%;">
-            <div class="ability-label">PROGRAMMING</div>
-            <div class="ability-bar"><div class="ability-fill" style="--percentage:40%;"></div></div>
-            <div class="ability-tag">DEVELOPING</div>
+        <div class="ability-card" style="--ability-color: #f59e0b;">
+          <div class="ability-icon">🎤</div>
+          <h3>PRESENTATION</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■■</div>
+            <span class="level-badge">MASTER</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #8b5cf6;">
+          <div class="ability-icon">🧩</div>
+          <h3>PROBLEM-SOLVING</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■□</div>
+            <span class="level-badge elite">ELITE</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #ec4899;">
+          <div class="ability-icon">✨</div>
+          <h3>CREATIVITY</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■■■□</div>
+            <span class="level-badge elite">ELITE</span>
+          </div>
+        </div>
+
+        <div class="ability-card" style="--ability-color: #06b6d4;">
+          <div class="ability-icon">💻</div>
+          <h3>PROGRAMMING</h3>
+          <div class="ability-level">
+            <div class="level-bars">■■□□□</div>
+            <span class="level-badge developing">DEVELOPING</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
     <!-- MISSION FILES -->
     <div class="portfolio-section">
@@ -1816,3 +1700,6 @@ html, body {
 
 </body>
 </html>
+
+
+
