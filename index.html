@@ -12,6 +12,60 @@
 <style>
    <style>    
 
+  /* ===================================================
+   SỬA DỨT ĐIỂM LỖI MÀN HÌNH "THE SELECTED HERO" BỊ TRẮNG
+   =================================================== */
+
+/* 1. Ép trả lại nền đen tuyền phủ kín màn hình */
+#selectedNotice, 
+.selected-notice, 
+#cinematic, 
+.cinematic {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #07060a !important;       /* Ép nền đen tuyệt đối */
+  background-color: #07060a !important; /* Chống bị lột màu nền */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999999 !important;          /* Đè lên trên cùng */
+}
+
+/* 2. Ép chữ "THE SELECTED HERO" phát sáng Neon hồng đỏ rực rỡ */
+#selectedNotice, 
+.selected-notice, 
+#cinematic, 
+.cinematic,
+.cinematic-text, 
+#cineText {
+  color: #ffffff !important;
+  font-family: 'Anton', Impact, sans-serif !important;
+  font-size: clamp(28px, 5vw, 52px) !important;
+  font-weight: 900 !important;
+  letter-spacing: 4px !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  text-shadow: 
+    0 0 10px #e11d48,
+    0 0 25px #e11d48,
+    0 0 50px #e11d48,
+    0 0 80px rgba(225, 29, 72, 0.9) !important;
+  animation: pulseGlowHero 1.5s ease-in-out infinite alternate !important;
+}
+
+@keyframes pulseGlowHero {
+  from {
+    opacity: 0.85;
+    text-shadow: 0 0 10px #e11d48, 0 0 20px #e11d48;
+  }
+  to {
+    opacity: 1;
+    text-shadow: 0 0 20px #e11d48, 0 0 50px #e11d48, 0 0 80px #e11d48;
+  }
+}
+  
 /* ==========================================
    HIỆU ỨNG PHÁT SÁNG BLINK BLINK (NEON PULSE)
    ========================================== */
@@ -172,9 +226,6 @@ video, 
     text-shadow: 0 0 15px #e11d48, 0 0 30px #e11d48, 0 0 50px #e11d48, 0 0 70px #e11d48;
   }
 }
-check code:
-1. làm blink viền ảnh như tên
-2. sưar lỗi the selected hero
     
  :root{
       --bg: #07060a;
