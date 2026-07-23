@@ -11,6 +11,47 @@
 
   <style>    
 
+    /* 1. GHIM BACKGROUND CỐ ĐỊNH TOÀN MÀN HÌNH - KHÔNG BỊ CUỘN MẤT */
+#portfolioScreen video,
+.portfolio-screen video,
+#bgVideo,
+.bg-video,
+video {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: cover !important;
+  z-index: -1 !important; /* Đẩy video ra đằng sau cùng */
+  filter: brightness(1.25) contrast(1) blur(0px) !important; /* Tăng sáng & nét căng */
+  opacity: 1 !important;
+}
+
+/* 2. BỎ LỚP MỜ VÀ TỚI TRONG SUỐT CHO PORTFOLIO (Nền sáng rõ 100%) */
+#portfolioScreen,
+.portfolio-screen,
+.portfolio-overlay,
+.overlay,
+.bg-overlay {
+  background: transparent !important; /* Xóa sạch lớp phủ màu đen */
+  backdrop-filter: none !important; /* Xóa hiệu ứng mờ nhòe */
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 3. CHO PHÉP NỘI DUNG CHỮ/ẢNH CUỘN MƯỢT MÀ TRÊN NỀN CỐ ĐỊNH */
+body {
+  overflow-y: auto !important;
+  background: transparent !important;
+}
+
+#portfolioScreen,
+.portfolio-screen {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1; /* Cho chữ và ảnh nằm nổi lên trên video background */
+}
+
     /* 1. Tăng độ sáng tối đa và bỏ mờ cho Video / Ảnh Background */
 video, 
 #bgVideo, 
