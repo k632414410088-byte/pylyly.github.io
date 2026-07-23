@@ -83,15 +83,38 @@
     }
     .selection-overlay.visible{ opacity:1; pointer-events:auto; }
 
-    .selection-inner{ max-width:1200px; width:100%; text-align:center; padding-top:10px; }
+        .selection-inner{ max-width:1200px; width:100%; text-align:center; padding-top:60px; }
 
-    .selection-title{
+        .selection-title{
       font-size:36px;
       color:var(--muted);
       letter-spacing:6px;
       margin-bottom:28px;
       margin-top:12px;
       font-weight:800;
+      text-transform:uppercase;
+      text-shadow:0 0 20px #e11d48, 0 0 40px rgba(225,29,72,0.5);
+      filter: drop-shadow(0 0 15px #e11d48) drop-shadow(0 4px 15px rgba(0,0,0,0.4));
+      animation:glowFloat 3s ease-in-out infinite, titleBounce 2s ease-in-out infinite;
+      letter-spacing:8px;
+    }
+
+    @keyframes glowFloat{
+      0%, 100%{
+        text-shadow:0 0 20px #e11d48, 0 0 40px rgba(225,29,72,0.5);
+      }
+      50%{
+        text-shadow:0 0 30px #e11d48, 0 0 60px rgba(225,29,72,0.8);
+      }
+    }
+
+    @keyframes titleBounce{
+      0%, 100%{
+        transform:translateY(0);
+      }
+      50%{
+        transform:translateY(-8px);
+      }
     }
 
     .cards{
