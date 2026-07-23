@@ -266,6 +266,17 @@ html, body {
     0 0 50px rgba(225,29,72,0.55),
     inset 0 0 18px rgba(225,29,72,0.55) !important;
 }
+
+/* Portfolio fade in/out (minimal) */
+.portfolio-screen{
+  opacity: 0;
+  transition: opacity 900ms ease;
+  pointer-events: none;
+}
+.portfolio-screen.show{
+  opacity: 1;
+  pointer-events: auto;
+}
   
 </script>
     /* ---------- Intro (video only) ---------- */
@@ -1271,13 +1282,6 @@ html, body {
     <div class="cinematic-text" id="cineText"></div>
   </div>
 
-  <!-- Final placeholder (PYLYLY THE SELECTED HERO) -->
-  <div id="finalScreen" class="final-screen" aria-hidden="true" style="display:none;">
-    <div class="final-inner">
-      <h2 id="finalTitle"></h2>
-      <p id="finalSubtitle"></p>
-    </div>
-  </div>
 
   <!-- PORTFOLIO SCREEN -->
 <div id="portfolioScreen" class="portfolio-screen" aria-hidden="true" style="display:none;">
@@ -1572,9 +1576,7 @@ html, body {
 
       const cinematic = document.getElementById('cinematic');
       const cineText = document.getElementById('cineText');
-      const finalScreen = document.getElementById('finalScreen');
-      const finalTitle = document.getElementById('finalTitle');
-      const finalSubtitle = document.getElementById('finalSubtitle');
+      // final screen removed
       
       const portfolioScreen = document.getElementById('portfolioScreen');
       const portfolioBgVideo = document.getElementById('portfolioBgVideo');
@@ -1652,43 +1654,45 @@ html, body {
         requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
       }
 
-      function showPortfolio(){
-        // Fade out final screen
-        finalScreen.classList.remove('show');
-        setTimeout(()=>{
-          finalScreen.style.display = 'none';
-          // Show portfolio with fade in (2s)
-          portfolioScreen.style.display = 'block';
-          requestAnimationFrame(()=>{
-            portfolioScreen.classList.add('show');
-            portfolioScreen.setAttribute('aria-hidden','false');
-            window.scrollTo(0, 0);
-          });
+     function showPortfolio(){
+  // Hiện portfolio với fade-in (CSS sẽ điều khiển opacity)
+  portfolioScreen.style.display = 'block';
+  // forçar reflow / requestAnimationFrame để bật transition
+  requestAnimationFrame(()=> {
+    portfolioScreen.classList.add('show');
+    portfolioScreen.setAttribute('aria-hidden','false');
+    window.scrollTo(0, 0);
+  });
+}
         }, 450);
       }
 
       // select handlers
       selectPy.addEventListener('click', ()=> {
-        selection.classList.remove('visible');
-        setTimeout(()=> { selection.style.display = 'none'; showFinal('Pylyly'); }, 420);
-        setTimeout(()=> { showPortfolio(); }, 2500);
-      });
+  selection.classList.remove('visible');
+  setTimeout(()=> {
+    selection.style.display = 'none';
+    showPortfolio();
+  }, 420);
+});
 
       selectIron.addEventListener('click', ()=> {
-        const msgs = [
-          'IRON MAN SELECTED',
-          'Checking availability...',
-          "Tony Stark is currently unavailable.",
-          'IRON MAN WILL RETURN.',
-          "BUT TODAY'S HERO IS...",
-          'PYLYLY'
-        ];
-        selection.classList.remove('visible');
-        setTimeout(()=> { selection.style.display='none'; playCinematic(msgs, 2500); }, 420);
-        const total = msgs.length * 2500 + 400;
-        setTimeout(()=> { showFinal('Pylyly'); }, total);
-        setTimeout(()=> { showPortfolio(); }, total + 2500);
-      });
+  const msgs = [
+    'IRON MAN SELECTED',
+    'Checking availability...',
+    "Tony Stark is currently unavailable.",
+    'IRON MAN WILL RETURN.',
+    "BUT TODAY'S HERO IS...",
+    'PYLYLY'
+  ];
+  selection.classList.remove('visible');
+  setTimeout(()=> {
+    selection.style.display = 'none';
+    playCinematic(msgs, 2500);
+  }, 420);
+  const total = msgs.length * 2500 + 400;
+  setTimeout(()=> { showPortfolio(); }, total);
+});
 
       // keyboard access
       document.querySelectorAll('.card').forEach(card => {
