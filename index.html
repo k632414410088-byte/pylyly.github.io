@@ -11,73 +11,45 @@
 
   <style>    
 
-/* ==========================================
-   1. GHIM BACKGROUND CỐ ĐỊNH & XUYÊN SUỐT
-   ========================================== */
-/* Ghim video nền cố định toàn màn hình */
-video, #bgVideo, .bg-video, .background-video {
+/* 1. XÓA BỎ HOÀN TOÀN MỌI LỚP NỀN TỐI & MỜ (Bật nền vũ trụ xuyên suốt) */
+html, body, 
+#portfolioScreen, .portfolio-screen, 
+section, .section, 
+div, main,
+.stats-section, .character-stats {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important; /* Xóa vệt màu đen đè bên dưới */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 2. TĂNG RỰC RỠ ĐỘ SÁNG & GHIM BACKGROUND CHẶT VÀO MÀN HÌNH */
+video, canvas, #bgVideo, .bg-video, .background-video {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
   object-fit: cover !important;
-  z-index: -999 !important; /* Đẩy ra sau cùng */
+  z-index: -99999 !important; /* Đẩy sâu ra đằng sau */
+  filter: brightness(1.5) contrast(1.1) blur(0px) !important; /* Tăng sáng rực rỡ */
+  opacity: 1 !important;
 }
 
-/* Xóa màu nền đen của tất cả các phần nội dung bên dưới */
-body, 
-#portfolioScreen, 
-.portfolio-screen, 
-section, 
-.section, 
-.stats-section, 
-.character-stats,
-.next-chapter-grid {
-  background: transparent !important; /* Giúp nền vũ trụ hiện xuyên suốt khi cuộn */
+/* 3. SỬA LỖI CUỘN: Cho phép toàn trang cuộn tự do trên nền cố định */
+html, body {
+  min-height: 100vh !important;
+  height: auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 }
 
-
-/* ==========================================
-   2. HIỆU ỨNG PHÁT SÁNG NHẤP NHÁY (BLINK/PULSE)
-   ========================================== */
-/* Nhịp nhấp nháy cho Chữ */
-@keyframes textGlowBlink {
-  0%, 100% {
-    text-shadow: 0 0 10px #ff77bc, 0 0 20px #ff77bc, 0 0 35px #ff007f;
-    opacity: 1;
-  }
-  50% {
-    text-shadow: 0 0 3px #ff77bc, 0 0 8px #ff77bc;
-    opacity: 0.8;
-  }
-}
-
-/* Nhịp nhấp nháy cho Viền Ảnh */
-@keyframes borderGlowBlink {
-  0%, 100% {
-    box-shadow: 0 0 15px #ff77bc, 0 0 30px #ff007f, inset 0 0 10px #ff77bc;
-    border-color: #ffffff;
-  }
-  50% {
-    box-shadow: 0 0 5px rgba(255, 119, 188, 0.4);
-    border-color: rgba(255, 255, 255, 0.6);
-  }
-}
-
-/* Áp dụng nhấp nháy cho TÊN "LÊ PHƯƠNG LINH" */
-#portfolioScreen h1, 
-.portfolio-screen h1, 
-.hero-title {
-  animation: textGlowBlink 1.8s infinite alternate ease-in-out !important;
-}
-
-/* Áp dụng nhấp nháy cho VIỀN ẢNH ĐẠI DIỆN */
-#portfolioScreen img, 
-.portfolio-screen img, 
-.hero-avatar {
-  border: 3px solid #fff !important;
-  animation: borderGlowBlink 1.8s infinite alternate ease-in-out !important;
+#portfolioScreen, .portfolio-screen {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+  position: relative !important;
 }
 
     /* 1. Tăng độ sáng tối đa và bỏ mờ cho Video / Ảnh Background */
