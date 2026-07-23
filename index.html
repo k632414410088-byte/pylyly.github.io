@@ -10,14 +10,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton:wght@400&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg: #07060a;
-      --accent: #e11d48;
-      --muted: #b7c3cf;
-      --button-red: #e11d48;
-      --card-width: 460px;
-      --card-media-height: 420px;
-    }
+  :root {
+  --bg: #07060a;
+  --accent: #e11d48;
+  --muted: #b7c3cf;
+  --button-red: #e11d48;
+  
+  /* Cập nhật chiều rộng & chiều cao ảnh linh hoạt theo màn hình */
+  --card-width: min(380px, 42vw);
+  --card-media-height: clamp(200px, 45vh, 340px);
+}
 
     html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial; background:var(--bg); color:#fff; -webkit-font-smoothing:antialiased}
 
@@ -68,89 +70,85 @@
     }
 
     /* ---------- Selection overlay ---------- */
-          .selection-overlay{
-      position:fixed;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:10;
-      opacity:0;
-      pointer-events:none;
-      transition:opacity 1.8s ease;
-      padding:40px;
-      overflow:hidden;
-      overflow-y:auto;
-    }
+       .selection-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.8s ease;
+  padding: 20px;
+  overflow: hidden; /* Tắt cuộn trang hoàn toàn */
+}
+
+.selection-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('1784777411576_2201971040815987897_6044169520360234710.mp4') center/cover;
+  opacity: 0.4;
+  z-index: -1;
+  filter: brightness(0.5);
+}
+
+.selection-overlay.visible { 
+  opacity: 1; 
+  pointer-events: auto; 
+}
+
+.selection-inner { 
+  max-width: 1100px; 
+  width: 100%; 
+  text-align: center; 
+  padding-top: 0; /* Bỏ padding top dư thừa */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+}
+
+.selection-title {
+  font-size: clamp(24px, 4vh, 36px); /* Co giãn theo chiều cao màn hình */
+  color: var(--muted);
+  margin-bottom: 20px;
+  margin-top: 0;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px #e11d48, 0 0 40px rgba(225,29,72,0.5);
+  filter: drop-shadow(0 0 15px #e11d48) drop-shadow(0 4px 15px rgba(0,0,0,0.4));
+  animation: glowFloat 3s ease-in-out infinite, titleBounce 2s ease-in-out infinite;
+  letter-spacing: 6px;
+}
+
+.cards {
+  display: flex;
+  gap: 32px; /* Giảm gap giữa 2 card */
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+.card {
+  width: var(--card-width);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  overflow: hidden;
+  padding-bottom: 16px;
+}
     
-    .selection-overlay::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:url('1784777411576_2201971040815987897_6044169520360234710.mp4') center/cover;
-      opacity:0.4;
-      z-index:-1;
-      filter: brightness(0.5);
-    }
-    .selection-overlay.visible{ opacity:1; pointer-events:auto; }
-
-        .selection-inner{ max-width:1200px; width:100%; text-align:center; padding-top:60px; }
-
-        .selection-title{
-      font-size:36px;
-      color:var(--muted);
-      letter-spacing:6px;
-      margin-bottom:28px;
-      margin-top:12px;
-      font-weight:800;
-      text-transform:uppercase;
-      text-shadow:0 0 20px #e11d48, 0 0 40px rgba(225,29,72,0.5);
-      filter: drop-shadow(0 0 15px #e11d48) drop-shadow(0 4px 15px rgba(0,0,0,0.4));
-      animation:glowFloat 3s ease-in-out infinite, titleBounce 2s ease-in-out infinite;
-      letter-spacing:8px;
-    }
-
-    @keyframes glowFloat{
-      0%, 100%{
-        text-shadow:0 0 20px #e11d48, 0 0 40px rgba(225,29,72,0.5);
-      }
-      50%{
-        text-shadow:0 0 30px #e11d48, 0 0 60px rgba(225,29,72,0.8);
-      }
-    }
-
-    @keyframes titleBounce{
-      0%, 100%{
-        transform:translateY(0);
-      }
-      50%{
-        transform:translateY(-8px);
-      }
-    }
-
-       .cards{
-      display:flex;
-      gap:60px;
-      justify-content:center;
-      align-items:stretch;
-      flex-wrap:wrap;
-      padding-bottom:40px;
-    }
-
-          .card{
-      width:var(--card-width);
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:18px;
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      align-items:stretch;
-      box-shadow:0 12px 40px rgba(2,6,23,0.6);
-      transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      cursor:pointer;
-      overflow:hidden;
-      padding-bottom:24px;
-    }
     .card:hover{ 
       transform:translateY(-12px) scale(1.02);
       box-shadow:0 30px 80px rgba(225,29,72,0.4), 0 0 40px rgba(225,29,72,0.2);
