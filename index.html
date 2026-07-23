@@ -125,19 +125,13 @@
       flex-wrap:wrap;
     }
 
-        .card{
-      width:var(--card-width);
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:18px;
-      padding:18px;
+          .cards{
       display:flex;
-      flex-direction:column;
+      gap:28px;
+      justify-content:center;
       align-items:stretch;
-      box-shadow:0 12px 40px rgba(2,6,23,0.6);
-      transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      cursor:pointer;
-      overflow:visible;
-      padding-bottom:24px
+      flex-wrap:wrap;
+      padding-bottom:40px;
     }
     .card:hover{ 
       transform:translateY(-20px) scale(1.03);
