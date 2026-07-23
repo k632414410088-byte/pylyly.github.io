@@ -284,6 +284,63 @@ video,
       --card-media-height: 420px;
     }
 
+  /* Tăng độ đục cho các box (01 + 02) và làm stat số sáng hơn */
+.stat-box{
+  background: rgba(7,6,10,0.26) !important; /* đục hơn một chút */
+  border: 1px solid rgba(255,255,255,0.09) !important;
+}
+
+/* stat number neon red (giữ như yêu cầu) */
+.stat-box .stat-large {
+  color: var(--accent-red, #e11d48) !important;
+  text-shadow:
+    0 4px 12px rgba(225,29,72,0.95),
+    0 0 28px rgba(225,29,72,0.55),
+    0 0 54px rgba(225,29,72,0.22);
+}
+
+/* stat small progress bar */
+.stat-box .stat-fill{
+  background: linear-gradient(90deg, var(--accent-red, #e11d48), rgba(255,255,255,0.14));
+  box-shadow: 0 0 20px rgba(225,29,72,0.42), inset 0 0 8px rgba(255,255,255,0.04);
+}
+
+/* Abilities: nền card hơi đục hơn */
+.ability{
+  background: rgba(7,6,10,0.22) !important;
+  border: 1px solid rgba(255,255,255,0.09) !important;
+}
+
+/* Make ability bar base more visible */
+.ability .ability-bar{
+  background: rgba(255,255,255,0.04);
+}
+
+/* MASTER (red) - stronger, more opaque */
+.ability.master .ability-fill{
+  background: linear-gradient(90deg, var(--ability-master, #e11d48), rgba(225,29,72,0.18));
+  box-shadow: 0 0 20px rgba(225,29,72,0.48), inset 0 0 8px rgba(255,255,255,0.03);
+  opacity: 1;
+}
+
+/* ELITE (green) */
+.ability.elite .ability-fill{
+  background: linear-gradient(90deg, var(--ability-elite, #10b981), rgba(16,185,129,0.18));
+  box-shadow: 0 0 18px rgba(16,185,129,0.36), inset 0 0 6px rgba(255,255,255,0.02);
+  opacity: 1;
+}
+
+/* DEVELOPING (pink) */
+.ability.developing .ability-fill{
+  background: linear-gradient(90deg, var(--ability-developing, #ec4899), rgba(236,72,153,0.18));
+  box-shadow: 0 0 18px rgba(236,72,153,0.36), inset 0 0 6px rgba(255,255,255,0.02);
+  opacity: 1;
+}
+
+/* ensure animation runs when portfolio shown */
+.portfolio-screen.show .ability-fill{ width: var(--percentage) !important; }
+.portfolio-screen.show .stat-box .stat-fill{ width: var(--percentage) !important; }
+
    /* 1. Khóa thanh cuộn ngang toàn trang */
 html, body {
   margin: 0;
@@ -1405,25 +1462,34 @@ html, body {
 
   <div class="stats-center">
     <div class="stats-grid">
-      <div class="ability master" style="--percentage:100%; --color:#e11d48;">
-  <div class="ability-label">MICROSOFT OFFICE</div>
-  <div class="ability-bar"><div class="ability-fill" style="--percentage:100%;"></div></div>
-  <div class="ability-tag">MASTER</div>
-</div>
-
-<div class="ability elite" style="--percentage:80%; --color:#10b981;">
-  <div class="ability-label">ENGLISH</div>
-  <div class="ability-bar"><div class="ability-fill" style="--percentage:80%;"></div></div>
-  <div class="ability-tag">ELITE</div>
-</div>
-
-<div class="ability developing" style="--percentage:40%; --color:#ec4899;">
-  <div class="ability-label">PROGRAMMING</div>
-  <div class="ability-bar"><div class="ability-fill" style="--percentage:40%;"></div></div>
-  <div class="ability-tag">DEVELOPING</div>
-</div>
-    </div>
+  <div class="stat-box" style="--percentage:93%; --accent:#e11d48;">
+    <div class="stat-large">9.3<span class="small">/10</span></div>
+    <div class="stat-caption">HIGH SCHOOL GPA</div>
+    <div class="stat-mini">Academic Power Level</div>
+    <div class="stat-fill" aria-hidden="true" style="--percentage:93%;"></div>
   </div>
+
+  <div class="stat-box" style="--percentage:87%; --accent:#e11d48;">
+    <div class="stat-large">1450</div>
+    <div class="stat-caption">SAT SCORE</div>
+    <div class="stat-mini">TOP 5%</div>
+    <div class="stat-fill" aria-hidden="true" style="--percentage:87%;"></div>
+  </div>
+
+  <div class="stat-box" style="--percentage:90%; --accent:#e11d48;">
+    <div class="stat-large">103</div>
+    <div class="stat-caption">HSA SCORE</div>
+    <div class="stat-mini">TOP 1.89%</div>
+    <div class="stat-fill" aria-hidden="true" style="--percentage:90%;"></div>
+  </div>
+
+  <div class="stat-box" style="--percentage:87%; --accent:#e11d48;">
+    <div class="stat-large">3.48<span class="small">/4.0</span></div>
+    <div class="stat-caption">UNIVERSITY GPA</div>
+    <div class="stat-mini">Current GPA</div>
+    <div class="stat-fill" aria-hidden="true" style="--percentage:87%;"></div>
+  </div>
+</div>
 
   <h2 class="sa-title" style="margin-top:36px;">02. ABILITIES UNLOCKED</h2>
 
