@@ -12,6 +12,56 @@
   <style>    
 
     /* ==========================================
+   HIỆU ỨNG PHÁT SÁNG BLINK BLINK (NEON PULSE)
+   ========================================== */
+
+/* 1. Animation nhấp nháy phát sáng cho Tên */
+@keyframes textBlinkGlow {
+  0%, 100% {
+    text-shadow: 
+      0 0 10px #ffffff,
+      0 0 20px #e11d48,
+      0 0 40px #e11d48,
+      0 0 70px #ff2a5f;
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 
+      0 0 3px #ffffff,
+      0 0 8px #e11d48,
+      0 0 15px #e11d48;
+    opacity: 0.85;
+  }
+}
+
+/* 2. Animation nhấp nháy phát sáng cho Viền Khung Ảnh */
+@keyframes borderBlinkGlow {
+  0%, 100% {
+    border-color: #ffffff !important;
+    box-shadow: 
+      0 0 20px #ffffff,
+      0 0 35px #e11d48,
+      0 0 70px #e11d48,
+      inset 0 0 15px #e11d48 !important;
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 
+      0 0 8px rgba(255, 255, 255, 0.3),
+      0 0 15px rgba(225, 29, 72, 0.4) !important;
+  }
+}
+
+/* Áp dụng vào đúng Class trong HTML của bạn */
+.portfolio-name {
+  animation: textBlinkGlow 1.4s infinite ease-in-out !important;
+}
+
+.profile-image-wrapper {
+  animation: borderBlinkGlow 1.4s infinite ease-in-out !important;
+}
+
+    /* ==========================================
    FIX LỖI MÀN HÌNH SELECTED HERO BỊ TRẮNG / CHÌM CHỮ
    ========================================== */
 #selectedNotice, 
