@@ -1326,118 +1326,77 @@ html, body {
   .stats-container { gap:16px; }
 }
 
-  /* --- 3 HIGHLIGHT STAT BOXES (Frosted glass) --- */
+/* ===== Fix: bắt buộc căn giữa hàng 3 ô bất chấp padding parent ===== */
 .stats-highlights {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 28px;
-  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;           /* 1 hàng trên desktop */
+  justify-content: center;     /* nội dung trong nhóm căn giữa */
+  align-items: center;
+  gap: 32px;
+  /* đặt kích thước cố định cho vùng nhóm, chỉnh nếu cần */
   max-width: 1100px;
-  margin: 18px auto 36px auto;
+  width: 100%;
   box-sizing: border-box;
-  align-items: stretch;
-  padding: 0 12px;
+  padding: 0 20px;
+  /* BƯỚC QUAN TRỌNG: center theo viewport, không theo parent */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 auto 36px auto; /* fallback */
 }
 
+/* ===== đảm bảo 3 ô bằng nhau ===== */
 .stat-box {
-  --accent: #e11d48;
+  width: 340px;      /* cố định chiều rộng */
+  height: 300px;     /* cố định chiều cao */
+  min-width: 260px;
+  box-sizing: border-box;
   position: relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:30px 22px;
-  border-radius:18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 20px;
+  border-radius: 18px;
   background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
   border: 1px solid rgba(255,255,255,0.06);
   box-shadow: 0 12px 36px rgba(0,0,0,0.55);
   backdrop-filter: blur(8px) saturate(120%);
   -webkit-backdrop-filter: blur(8px) saturate(120%);
-  text-align:center;
-  color:#fff;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
   transition: transform .28s ease, box-shadow .28s ease;
-  min-height:140px;
-  overflow:hidden;
 }
 
-/* top subtle line */
-.stat-box::after{
-  content:'';
-  position:absolute;
-  top:12px;
-  left:12px;
-  right:12px;
-  height:1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-  border-radius:1px;
-  pointer-events:none;
-}
-
-/* variants */
-.stat-box.sat  { --accent: #3b82f6; }
-.stat-box.hsa  { --accent: #fbbf24; color:#111; } /* darker text for gold bg feel */
-.stat-box.gpa  { --accent: #a855f7; }
-
-/* big number */
+/* giữ số lớn đều nhau */
 .stat-box .big {
-  font-family: 'Anton', Impact, Arial Black, sans-serif;
-  font-weight:900;
-  font-size: clamp(34px, 6.5vw, 52px);
-  color: var(--accent);
-  text-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  line-height:1;
-  display:inline-block;
+  font-size: 52px;
+  line-height: 1;
+  color: #e11d48 !important;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+  transform: translateY(-8px);
 }
-
-/* suffix (like /4.0) */
-.stat-box .big sup {
-  font-size: .36em;
-  margin-left:8px;
-  color: rgba(255,255,255,0.92);
-  font-weight:800;
-  vertical-align: super;
-}
-
-/* label and sub */
-.stat-box .label {
-  font-size:14px;
-  font-weight:800;
-  color: rgba(255,255,255,0.92);
-  margin-top:6px;
-  letter-spacing:0.6px;
-}
-
-.stat-box .sub {
-  font-size:12px;
-  color: rgba(255,255,255,0.75);
-  margin-top:6px;
-  font-weight:700;
-}
-
-/* badge top-right */
-.stat-box .badge {
-  position:absolute;
-  right:14px;
-  top:14px;
-  font-size:11px;
-  font-weight:900;
-  padding:6px 10px;
-  border-radius:8px;
-  background: rgba(0,0,0,0.35);
-  color: #f5f5f5;
-  border:1px solid rgba(255,255,255,0.06);
-  letter-spacing:0.6px;
-}
-
-/* hover */
-.stat-box:hover { transform: translateY(-6px); box-shadow: 0 22px 60px rgba(0,0,0,0.6); }
 
 /* responsive */
-@media (max-width:900px){
-  .stats-highlights { gap:18px; margin:12px auto 24px; }
-  .stat-box { padding:20px; min-height:120px; }
-  .stat-box .big { font-size: clamp(28px, 10vw, 40px); }
+@media (max-width: 1120px) {
+  .stat-box { width: 300px; height: 280px; }
+  .stat-box .big { font-size: 46px; }
+}
+@media (max-width: 820px) {
+  .stats-highlights {
+    flex-wrap: wrap;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: center;
+  }
+  .stat-box { width: 320px; height: 280px; margin-bottom: 16px; }
+  .stat-box .big { font-size: 44px; }
+}
+@media (max-width: 520px) {
+  .stat-box { width: 92%; max-width: 420px; height: 240px; }
+  .stat-box .big { font-size: 36px; }
 }
 
 /* ============ Title: căn giữa + glow (kế thừa textBlinkGlow) ============ */
