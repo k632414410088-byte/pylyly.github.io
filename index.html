@@ -62,19 +62,6 @@
   animation: borderBlinkGlow 1.4s infinite ease-in-out !important;
 }
     
-/* 1. XÓA BỎ HOÀN TOÀN MỌI LỚP NỀN TỐI & MỜ (Bật nền vũ trụ xuyên suốt) */
-html, body, 
-#portfolioScreen, .portfolio-screen, 
-section, .section, 
-div, main,
-.stats-section, .character-stats {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important; /* Xóa vệt màu đen đè bên dưới */
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
 /* 2. TĂNG RỰC RỠ ĐỘ SÁNG & GHIM BACKGROUND CHẶT VÀO MÀN HÌNH */
 video, canvas, #bgVideo, .bg-video, .background-video {
   position: fixed !important;
@@ -1689,81 +1676,6 @@ html, body {
     </div>
 
   </div>
-
-<style>
-/* ===== Layout: stats (left) + titles (center) + abilities (right) ===== */
-.stats-abilities { padding:56px 24px; box-sizing:border-box; max-width:1200px; margin:0 auto; }
-
-/* overall layout */
-.sa-layout{
-  display:flex;
-  gap:28px;
-  align-items:flex-start;
-  justify-content:space-between;
-}
-
-/* left column: stats */
-.sa-left{ flex:0 0 48%; }
-.sa-left .sa-title-top{ display:none; } /* we use center title */
-
-/* stats grid: 2x2 */
-.stats-grid{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:20px;
-}
-
-/* center column: stacked titles, centered vertically */
-.sa-center{
-  flex:0 0 18%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:12px;
-}
-.sa-main-title{
-  font-size:28px;
-  font-weight:900;
-  color:#fff;
-  letter-spacing:2px;
-  text-align:center;
-}
-.sa-subtitle{
-  font-size:28px;
-  font-weight:900;
-  color:#fff;
-  letter-spacing:2px;
-  margin-top:6px;
-  text-align:center;
-}
-
-/* right column: abilities */
-.sa-right{ flex:0 0 34%; }
-.abilities-grid{ display:flex; gap:16px; }
-.abilities-col{ display:flex; flex-direction:column; gap:12px; width:50%; }
-
-/* tweaks to stat/ability visuals already present */
-.stat-box{ min-height:120px; display:flex; flex-direction:column; justify-content:center; padding:20px; }
-.stat-caption{ margin-top:8px; font-size:13px; color:rgba(255,255,255,0.88); letter-spacing:1.6px; font-weight:800; }
-.stat-large{ font-size:34px; }
-
-/* ensure fills animate when portfolio shown */
-.portfolio-screen.show .stat-fill{ width: var(--percentage) !important; }
-.portfolio-screen.show .ability-fill{ width: var(--percentage) !important; }
-
-/* responsive: stack columns on small screens */
-@media (max-width:1100px){
-  .sa-layout{ flex-direction:column; gap:28px; align-items:center; }
-  .sa-left, .sa-right, .sa-center{ flex: 0 0 auto; width:100%; }
-  .abilities-grid{ flex-direction:row; gap:12px; }
-  .abilities-col{ width:50%; }
-}
-@media (max-width:700px){
-  .stats-grid{ grid-template-columns: 1fr; }
-  .abilities-col{ width:100%; }
-  .sa-center{ order: -1; } /* title appears above on small screens */
-}
-</style>
 
 <script>
 (function(){
