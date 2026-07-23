@@ -9,57 +9,66 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Anton:wght@400&display=swap" rel="stylesheet">
 
-<style>   
-  
+<style>
 /* ==========================================
-   HIỆU ỨNG PHÁT SÁNG BLINK BLINK (NEON PULSE)
+   1. ANIMATION PHÁT SÁNG BLINK BLINK
    ========================================== */
 
-/* 1. Animation nhấp nháy phát sáng cho Tên */
+/* Animation nhấp nháy cho Tên */
 @keyframes textBlinkGlow {
   0%, 100% {
     text-shadow: 
       0 0 10px #ffffff,
       0 0 20px #e11d48,
       0 0 40px #e11d48,
-      0 0 70px #ff2a5f;
+      0 0 70px #ff2a5f !important;
     opacity: 1;
   }
   50% {
     text-shadow: 
       0 0 3px #ffffff,
-      0 0 8px #e11d48,
-      0 0 15px #e11d48;
-    opacity: 0.85;
+      0 0 10px #e11d48,
+      0 0 20px #e11d48 !important;
+    opacity: 0.8;
   }
 }
 
-/* 2. Animation nhấp nháy phát sáng cho Viền Khung Ảnh */
-
+/* Animation nhấp nháy cho Viền Khung Ảnh */
 @keyframes borderBlinkGlow {
   0%, 100% {
     border-color: #ffffff !important;
     box-shadow: 
-      0 0 20px #ffffff,
-      0 0 35px #e11d48,
-      0 0 70px #e11d48,
+      0 0 15px #ffffff,
+      0 0 30px #e11d48,
+      0 0 60px #e11d48,
       inset 0 0 15px #e11d48 !important;
   }
   50% {
-    border-color: rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
     box-shadow: 
-      0 0 8px rgba(255, 255, 255, 0.3),
+      0 0 5px #ffffff,
       0 0 15px rgba(225, 29, 72, 0.4) !important;
   }
 }
 
-/* Áp dụng vào đúng Class trong HTML của bạn */
-  
-.portfolio-name {
-  animation: textBlinkGlow 1.4s infinite ease-in-out !important;
+/* ==========================================
+   2. ÉP HIỆU ỨNG TRỰC TIẾP VÀO THẺ HTML
+   ========================================== */
+
+/* Đội "mũ" cho TÊN "LÊ PHƯƠNG LINH" (Ép vào tất cả tiêu đề h1, h2, h3) */
+#portfolioScreen h1, #portfolioScreen h2, #portfolioScreen h3,
+.portfolio-screen h1, .portfolio-screen h2, .portfolio-screen h3,
+.portfolio-name, .hero-title, .character-name {
+  animation: textBlinkGlow 1.3s infinite ease-in-out !important;
 }
-.profile-image-wrapper {
-  animation: borderBlinkGlow 1.4s infinite ease-in-out !important;
+
+/* Đội "mũ" cho VIỀN ẢNH (Ép trực tiếp vào thẻ img và khung chứa) */
+#portfolioScreen img, .portfolio-screen img,
+.profile-image-wrapper, .profile-image-wrapper img,
+.hero-avatar, .hero-image {
+  border: 3px solid #ffffff !important;
+  border-radius: 20px !important; /* Giữ bo góc tròn cho ảnh */
+  animation: borderBlinkGlow 1.3s infinite ease-in-out !important;
 }
     
 /* 1. XÓA BỎ HOÀN TOÀN MỌI LỚP NỀN TỐI & MỜ (Bật nền vũ trụ xuyên suốt) */
