@@ -68,30 +68,29 @@
     }
 
     /* ---------- Selection overlay ---------- */
-       .selection-overlay{
+          .selection-overlay{
       position:fixed;
       inset:0;
       display:flex;
       align-items:center;
       justify-content:center;
-      background:linear-gradient(180deg, rgba(2,6,23,0.88), rgba(2,6,23,0.96));
       z-index:10;
       opacity:0;
       pointer-events:none;
       transition:opacity 1.8s ease;
       padding:40px;
+      overflow:hidden;
       overflow-y:auto;
-      background-image:url('1784777411576_2201971040815987897_6044169520360234710.mp4');
-      background-size:cover;
-      background-position:center;
-      background-attachment:fixed;
     }
+    
     .selection-overlay::before{
       content:'';
       position:absolute;
       inset:0;
-      background:linear-gradient(180deg, rgba(2,6,23,0.88), rgba(2,6,23,0.96));
+      background:url('1784777411576_2201971040815987897_6044169520360234710.mp4') center/cover;
+      opacity:0.4;
       z-index:-1;
+      filter: brightness(0.5);
     }
     .selection-overlay.visible{ opacity:1; pointer-events:auto; }
 
