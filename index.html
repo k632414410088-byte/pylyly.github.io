@@ -12,49 +12,53 @@
 <style>   
   
 /* ==========================================
-   HIỆU ỨNG PHÁT SÁNG BLINK BLINK (NEON PULSE)
-   ========================================== */
+   HIỆU ỨNG PHÁT SÁNG BLINK BLINK (NEON PULSE)
+   ========================================== */
 
 /* 1. Animation nhấp nháy phát sáng cho Tên */
 @keyframes textBlinkGlow {
-  0%, 100% {
-    text-shadow: 
-      0 0 10px #ffffff,
-      0 0 20px #e11d48,
-      0 0 40px #e11d48,
-      0 0 70px #ff2a5f;
-    opacity: 1;
-  }
-  50% {
-    text-shadow: 
-      0 0 3px #ffffff,
-      0 0 8px #e11d48,
-      0 0 15px #e11d48;
-    opacity: 0.85;
-  }
+  0%, 100% {
+    text-shadow: 
+      0 0 10px #ffffff,
+      0 0 20px #e11d48,
+      0 0 40px #e11d48,
+      0 0 70px #ff2a5f;
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 
+      0 0 3px #ffffff,
+      0 0 8px #e11d48,
+      0 0 15px #e11d48;
+    opacity: 0.85;
+  }
 }
 
 /* 2. Animation nhấp nháy phát sáng cho Viền Khung Ảnh */
 @keyframes borderBlinkGlow {
-  0%, 100% {
-    border-color: #ffffff !important;
-    box-shadow: 
-      0 0 20px #ffffff,
-      0 0 35px #e11d48,
-      0 0 70px #e11d48,
-      inset 0 0 15px #e11d48 !important;
-  }
-  50% {
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    box-shadow: 
-      0 0 8px rgba(255, 255, 255, 0.3),
-      0 0 15px rgba(225, 29, 72, 0.4) !important;
-  }
+  0%, 100% {
+    border-color: #ffffff !important;
+    box-shadow: 
+      0 0 20px #ffffff,
+      0 0 35px #e11d48,
+      0 0 70px #e11d48,
+      inset 0 0 15px #e11d48 !important;
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 
+      0 0 8px rgba(255, 255, 255, 0.3),
+      0 0 15px rgba(225, 29, 72, 0.4) !important;
+  }
 }
 
 /* Áp dụng vào đúng Class trong HTML của bạn */
 .portfolio-name {
-  animation: textBlinkGlow 1.4s infinite ease-in-out !important;
+  animation: textBlinkGlow 1.4s infinite ease-in-out !important;
+}
+
+.profile-image-wrapper {
+  animation: borderBlinkGlow 1.4s infinite ease-in-out !important;
 }
 
 .profile-image-wrapper {
@@ -62,44 +66,44 @@
 }
     
 /* 1. XÓA BỎ HOÀN TOÀN MỌI LỚP NỀN TỐI & MỜ (Bật nền vũ trụ xuyên suốt) */
-html, body, 
-#portfolioScreen, .portfolio-screen, 
-section, .section, 
+html, body, 
+#portfolioScreen, .portfolio-screen, 
+section, .section, 
 div, main,
 .stats-section, .character-stats {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important; /* Xóa vệt màu đen đè bên dưới */
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important; /* Xóa vệt màu đen đè bên dưới */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* 2. TĂNG RỰC RỠ ĐỘ SÁNG & GHIM BACKGROUND CHẶT VÀO MÀN HÌNH */
 video, canvas, #bgVideo, .bg-video, .background-video {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  object-fit: cover !important;
-  z-index: -99999 !important; /* Đẩy sâu ra đằng sau */
-  filter: brightness(1.5) contrast(1.1) blur(0px) !important; /* Tăng sáng rực rỡ */
-  opacity: 1 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: cover !important;
+  z-index: -99999 !important; /* Đẩy sâu ra đằng sau */
+  filter: brightness(1.5) contrast(1.1) blur(0px) !important; /* Tăng sáng rực rỡ */
+  opacity: 1 !important;
 }
 
 /* 3. SỬA LỖI CUỘN: Cho phép toàn trang cuộn tự do trên nền cố định */
 html, body {
-  min-height: 100vh !important;
-  height: auto !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
+  min-height: 100vh !important;
+  height: auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 }
 
 #portfolioScreen, .portfolio-screen {
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow: visible !important;
-  position: relative !important;
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+  position: relative !important;
 }
 
     /* 1. Tăng độ sáng tối đa và bỏ mờ cho Video / Ảnh Background */
