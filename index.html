@@ -11,6 +11,25 @@
 
   <style>    
 
+    /* 1. Tăng độ sáng tối đa và bỏ mờ cho Video / Ảnh Background */
+video, 
+#bgVideo, 
+.bg-video, 
+.background-video {
+  filter: brightness(1.1) contrast(1) blur(0px) !important; /* Tăng sáng & xóa mờ */
+  opacity: 1 !important; /* Hiện rõ nét 100% */
+}
+
+/* 2. Bỏ lớp mờ (blur) và làm trong suốt lớp phủ tối (Overlay) */
+.overlay, 
+.bg-overlay, 
+.portfolio-screen,
+#portfolioScreen {
+  backdrop-filter: none !important; /* Xóa hiệu ứng mờ nhòe */
+  -webkit-backdrop-filter: none !important;
+  background-color: rgba(0, 0, 0, 0.2) !important; /* Hạ độ tối xuống rất nhẹ (hoặc đổi thành 'transparent' nếu muốn bỏ hẳn tối) */
+}
+
 /* Dán đoạn này vào cuối thẻ <style> là xong ngay */
 .cinematic {
   position: fixed;
