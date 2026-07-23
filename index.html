@@ -278,7 +278,7 @@ html, body {
   pointer-events: auto;
 }
   
-</script>
+</style>
     /* ---------- Intro (video only) ---------- */
     .intro-stage{
       position:fixed;
@@ -1562,151 +1562,142 @@ html, body {
 
   </div>
 
-  <script>
-    (function(){
-      const introVideo = document.getElementById('introVideo');
-      const introStage = document.getElementById('introStage');
-      const selection = document.getElementById('selection');
+<script>
+(function(){
+  const introVideo = document.getElementById('introVideo');
+  const introStage = document.getElementById('introStage');
+  const selection = document.getElementById('selection');
 
-      const playOverlay = document.getElementById('playOverlay');
-      const playBtn = document.getElementById('playBtn');
+  const playOverlay = document.getElementById('playOverlay');
+  const playBtn = document.getElementById('playBtn');
 
-      const selectPy = document.getElementById('selectPy');
-      const selectIron = document.getElementById('selectIron');
+  const selectPy = document.getElementById('selectPy');
+  const selectIron = document.getElementById('selectIron');
 
-      const cinematic = document.getElementById('cinematic');
-      const cineText = document.getElementById('cineText');
-      // final screen removed
-      
-      const portfolioScreen = document.getElementById('portfolioScreen');
-      const portfolioBgVideo = document.getElementById('portfolioBgVideo');
+  const cinematic = document.getElementById('cinematic');
+  const cineText = document.getElementById('cineText');
+  // final screen removed
 
-      // Try to autoplay; if blocked, show play overlay and wait for user interaction.
-      function tryAutoplay(){
-        introVideo.play().then(()=>{
-          playOverlay.style.display = 'none';
-        }).catch(()=> {
-          playOverlay.style.display = 'flex';
-        });
-      }
+  const portfolioScreen = document.getElementById('portfolioScreen');
+  const portfolioBgVideo = document.getElementById('portfolioBgVideo');
 
-      // When user clicks play
-      playBtn.addEventListener('click', ()=> {
-        playOverlay.style.display = 'none';
-        introVideo.play().catch(()=>{ /* ignore */ });
+  // Try to autoplay; if blocked, show play overlay and wait for user interaction.
+  function tryAutoplay(){
+    introVideo.play().then(()=>{
+      playOverlay.style.display = 'none';
+    }).catch(()=> {
+      playOverlay.style.display = 'flex';
+    });
+  }
+
+  // When user clicks play
+  playBtn.addEventListener('click', ()=> {
+    playOverlay.style.display = 'none';
+    introVideo.play().catch(()=>{ /* ignore */ });
+  });
+
+  // If video plays (via autoplay or user), ensure overlay hidden
+  introVideo.addEventListener('play', ()=> {
+    playOverlay.style.display = 'none';
+  });
+
+  // When video ends -> fade intro out (2s), then fade selection in
+  introVideo.addEventListener('ended', () => {
+    introStage.classList.add('hidden');
+    setTimeout(()=> {
+      introStage.style.display = 'none';
+      selection.style.display = 'flex';
+      requestAnimationFrame(()=> {
+        selection.classList.add('visible');
+        selection.setAttribute('aria-hidden','false');
       });
+    }, 2000);
+  });
 
-      // If video plays (via autoplay or user), ensure overlay hidden
-      introVideo.addEventListener('play', ()=> {
-        playOverlay.style.display = 'none';
-      });
+  // If video metadata loads, attempt autoplay
+  if (introVideo.readyState >= 2) {
+    tryAutoplay();
+  } else {
+    introVideo.addEventListener('loadedmetadata', tryAutoplay);
+    setTimeout(tryAutoplay, 1200);
+  }
 
-      // When video ends -> fade intro out (2s), then fade selection in
-      introVideo.addEventListener('ended', () => {
-        introStage.classList.add('hidden');
-        setTimeout(()=> {
-          introStage.style.display = 'none';
-          selection.style.display = 'flex';
-          requestAnimationFrame(()=> {
-            selection.classList.add('visible');
-            selection.setAttribute('aria-hidden','false');
-          });
-        }, 2000);
-      });
-
-      // If video metadata loads, attempt autoplay
-      if (introVideo.readyState >= 2) {
-        tryAutoplay();
-      } else {
-        introVideo.addEventListener('loadedmetadata', tryAutoplay);
-        setTimeout(tryAutoplay, 1200);
+  // cinematic helper
+  function playCinematic(messages, interval = 2500){
+    cinematic.style.display = 'flex';
+    cinematic.classList.add('visible');
+    cinematic.setAttribute('aria-hidden','false');
+    let i = 0;
+    cineText.textContent = '';
+    function next(){
+      if(i >= messages.length){
+        cinematic.classList.remove('visible');
+        setTimeout(()=> { cinematic.style.display = 'none'; cinematic.setAttribute('aria-hidden','true'); }, 300);
+        return;
       }
+      cineText.style.opacity = '0';
+      setTimeout(()=> {
+        cineText.textContent = messages[i];
+        cineText.style.transition = 'opacity .18s ease';
+        cineText.style.opacity = '1';
+        i++;
+        setTimeout(next, interval);
+      }, 160);
+    }
+    next();
+  }
 
-      // cinematic helper
-      function playCinematic(messages, interval = 2500){
-        cinematic.style.display = 'flex';
-        cinematic.classList.add('visible');
-        cinematic.setAttribute('aria-hidden','false');
-        let i = 0;
-        cineText.textContent = '';
-        function next(){
-          if(i >= messages.length){
-            cinematic.classList.remove('visible');
-            setTimeout(()=> { cinematic.style.display = 'none'; cinematic.setAttribute('aria-hidden','true'); }, 300);
-            return;
-          }
-          cineText.style.opacity = '0';
-          setTimeout(()=> {
-            cineText.textContent = messages[i];
-            cineText.style.transition = 'opacity .18s ease';
-            cineText.style.opacity = '1';
-            i++;
-            setTimeout(next, interval);
-          }, 160);
-        }
-        next();
-      }
-
-      function showFinal(name){
-        finalTitle.textContent = name.toUpperCase();
-        finalSubtitle.textContent = (name.toLowerCase() === 'pylyly') ? 'THE SELECTED HERO' : 'ALTERNATE HERO';
-        finalScreen.style.display = 'flex';
-        requestAnimationFrame(()=> { finalScreen.classList.add('show'); finalScreen.setAttribute('aria-hidden','false'); });
-      }
-
-     function showPortfolio(){
-  // Hiện portfolio với fade-in (CSS sẽ điều khiển opacity)
-  portfolioScreen.style.display = 'block';
-  // forçar reflow / requestAnimationFrame để bật transition
-  requestAnimationFrame(()=> {
+  // show portfolio (fade-in controlled by CSS .show)
+  function showPortfolio(){
+    // Hiện portfolio với fade-in (CSS sẽ điều khiển opacity)
+    portfolioScreen.style.display = 'block';
+    // force reflow / trigger transition
+    void portfolioScreen.offsetWidth;
     portfolioScreen.classList.add('show');
     portfolioScreen.setAttribute('aria-hidden','false');
     window.scrollTo(0, 0);
+  }
+
+  // select handlers
+  selectPy.addEventListener('click', ()=> {
+    selection.classList.remove('visible');
+    setTimeout(()=> {
+      selection.style.display = 'none';
+      showPortfolio();
+    }, 420);
   });
-}
-        }, 450);
+
+  selectIron.addEventListener('click', ()=> {
+    const msgs = [
+      'IRON MAN SELECTED',
+      'Checking availability...',
+      "Tony Stark is currently unavailable.",
+      'IRON MAN WILL RETURN.',
+      "BUT TODAY'S HERO IS...",
+      'PYLYLY'
+    ];
+    selection.classList.remove('visible');
+    setTimeout(()=> {
+      selection.style.display = 'none';
+      playCinematic(msgs, 2500);
+    }, 420);
+    const total = msgs.length * 2500 + 400;
+    setTimeout(()=> { showPortfolio(); }, total);
+  });
+
+  // keyboard access
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' '){
+        const hero = card.getAttribute('data-hero');
+        if(hero === 'pylyly') selectPy.click();
+        else selectIron.click();
       }
+    });
+  });
 
-      // select handlers
-      selectPy.addEventListener('click', ()=> {
-  selection.classList.remove('visible');
-  setTimeout(()=> {
-    selection.style.display = 'none';
-    showPortfolio();
-  }, 420);
-});
-
-      selectIron.addEventListener('click', ()=> {
-  const msgs = [
-    'IRON MAN SELECTED',
-    'Checking availability...',
-    "Tony Stark is currently unavailable.",
-    'IRON MAN WILL RETURN.',
-    "BUT TODAY'S HERO IS...",
-    'PYLYLY'
-  ];
-  selection.classList.remove('visible');
-  setTimeout(()=> {
-    selection.style.display = 'none';
-    playCinematic(msgs, 2500);
-  }, 420);
-  const total = msgs.length * 2500 + 400;
-  setTimeout(()=> { showPortfolio(); }, total);
-});
-
-      // keyboard access
-      document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' || e.key === ' '){
-            const hero = card.getAttribute('data-hero');
-            if(hero === 'pylyly') selectPy.click();
-            else selectIron.click();
-          }
-        });
-      });
-
-    })();
-  </script>
+})();
+</script>
 
 </body>
 </html>
