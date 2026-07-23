@@ -1439,6 +1439,126 @@ html, body {
   .stat-box { padding:20px; min-height:120px; }
   .stat-box .big { font-size: clamp(28px, 10vw, 40px); }
 }
+
+  /* === Title: căn giữa + glow như tên === */
+.portfolio-section h2 {
+  text-align: center;
+  margin: 0 0 22px 0;
+  animation: textBlinkGlow 1.4s infinite ease-in-out; /* reuse keyframes you already have */
+  color: #fff; /* text color stays white, glow comes from animation */
+  letter-spacing: 3px;
+}
+
+/* === Highlight boxes container: lệch phải (group) và căn giữa nội dung trong box === */
+.stats-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  width: auto;
+  max-width: 1100px;
+  /* shift the whole group to the right */
+  margin-left: auto;    /* push group to right */
+  margin-right: 80px;   /* distance from right page edge, adjust as needed */
+  padding: 0 12px;
+  align-items: stretch;
+  justify-items: center; /* centers each box's content */
+  box-sizing: border-box;
+}
+
+/* === stat box base (frosted glass) === */
+.stat-box {
+  --accent: #e11d48;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 28px 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  text-align: center;
+  color: #fff;
+  transition: transform .28s ease, box-shadow .28s ease;
+  min-height: 140px;
+  overflow: hidden;
+}
+
+/* subtle top line */
+.stat-box::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+/* Badge top-right */
+.stat-box .badge {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.35);
+  color: #f5f5f5;
+  border: 1px solid rgba(255,255,255,0.06);
+  letter-spacing: 0.6px;
+}
+
+/* Big number: chuyển thành đỏ và bật blink/glow (dùng textBlinkGlow) */
+.stat-box .big {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-weight: 900;
+  font-size: clamp(34px, 6.5vw, 52px);
+  color: #e11d48 !important; /* force red */
+  text-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  line-height: 1;
+  display: inline-block;
+  animation: textBlinkGlow 1.4s infinite ease-in-out; /* same glow as title/name */
+}
+
+/* suffix like /4.0 stays subtle */
+.stat-box .big sup {
+  font-size: .36em;
+  margin-left: 8px;
+  color: rgba(255,255,255,0.92);
+  font-weight: 800;
+  vertical-align: super;
+}
+
+/* label under number (kept but subtle). If you want to remove label too, delete below .label or in HTML */
+.stat-box .label {
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.92);
+  margin-top: 6px;
+  letter-spacing: 0.6px;
+}
+
+/* hover effect */
+.stat-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.6);
+}
+
+/* responsive */
+@media (max-width:900px){
+  .stats-highlights { margin-left: 20px; margin-right: 20px; gap: 18px; }
+  .stat-box { padding: 20px; min-height: 120px; }
+  .stat-box .big { font-size: clamp(28px, 10vw, 40px); }
+  .portfolio-section h2 { text-align: center; }
+}
   
   </style>
 </head>
@@ -1531,29 +1651,26 @@ html, body {
 
 <div class="stats-highlights" role="list" aria-label="Character highlights">
   <!-- SAT -->
-  <div class="stat-box sat" role="listitem" aria-label="SAT Score">
+  <div class="stat-box" role="listitem" aria-label="SAT Score">
     <div class="big">1450</div>
     <div class="label">SAT SCORE</div>
-    <div class="sub">Kết quả xét hồ sơ</div>
     <div class="badge">TOP 5%</div>
   </div>
 
   <!-- HSA -->
-  <div class="stat-box hsa" role="listitem" aria-label="HSA Score">
+  <div class="stat-box" role="listitem" aria-label="HSA Score">
     <div class="big">103</div>
     <div class="label">HSA SCORE</div>
-    <div class="sub">Xếp hạng quốc gia</div>
     <div class="badge">TOP 1.89%</div>
   </div>
 
   <!-- UNIVERSITY GPA -->
-  <div class="stat-box gpa" role="listitem" aria-label="University GPA">
+  <div class="stat-box" role="listitem" aria-label="University GPA">
     <div class="big">3.48<sup>/4.0</sup></div>
     <div class="label">UNIVERSITY GPA</div>
-    <div class="sub">Điểm trung bình tại trường</div>
   </div>
 </div>
-
+      
 <script>
 (function(){
   const introVideo = document.getElementById('introVideo');
