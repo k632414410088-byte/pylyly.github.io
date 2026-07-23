@@ -77,6 +77,50 @@ html, body {
   box-shadow: 0 0 30px rgba(225,29,72,0.4), 0 0 60px rgba(225,29,72,0.2);
 }
 
+    <head>
+  <style>
+    /* ... các đoạn CSS cũ khác của bạn ... */
+
+    /* DÁN ĐOẠN CSS MỚI VÀO ĐÂY (NGAY TRƯỚC THẺ </style>) */
+    .selected-notice, 
+    #selectedNotice {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      background: #07060a !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      color: #ffffff;
+      font-family: 'Anton', Impact, sans-serif;
+      font-size: clamp(28px, 5vh, 48px);
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-align: center;
+      text-shadow: 
+        0 0 10px #e11d48,
+        0 0 20px #e11d48,
+        0 0 40px #e11d48,
+        0 0 80px rgba(225, 29, 72, 0.8);
+      animation: pulseGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from {
+        opacity: 0.85;
+        text-shadow: 0 0 10px #e11d48, 0 0 20px #e11d48, 0 0 30px #e11d48;
+      }
+      to {
+        opacity: 1;
+        text-shadow: 0 0 15px #e11d48, 0 0 30px #e11d48, 0 0 50px #e11d48, 0 0 70px #e11d48;
+      }
+    }
+  </style>
+</head>
+
     /* ---------- Intro (video only) ---------- */
     .intro-stage{
       position:fixed;
