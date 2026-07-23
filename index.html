@@ -245,32 +245,8 @@ html, body {
   overflow: hidden;
   border: 4px solid rgba(255,255,255,0.8);
   box-shadow: 0 0 30px rgba(225,29,72,0.4), 0 0 60px rgba(225,29,72,0.2);
-
- <!-- SỬA RÊNG LỖI MÀN HÌNH "THE SELECTED HERO" -->
-<script>
-  setInterval(function() {
-    var allElements = document.getElementsByTagName('*');
-    for (var i = 0; i < allElements.length; i++) {
-      var el = allElements[i];
-      // Tự động tìm đúng thẻ chứa chữ THE SELECTED HERO
-      if (el.children.length === 0 && el.textContent.trim().toUpperCase() === 'THE SELECTED HERO') {
-        // 1. Ép chữ phát sáng Neon
-        el.style.color = '#ffffff';
-        el.style.textShadow = '0 0 10px #e11d48, 0 0 25px #e11d48, 0 0 50px #e11d48, 0 0 80px #e11d48';
-        el.style.fontWeight = '900';
-        el.style.letterSpacing = '3px';
-        el.style.fontFamily = "'Anton', Impact, sans-serif";
-        
-        // 2. Ép toàn bộ khung bọc bên ngoài về nền đen tuyền
-        var parent = el.parentElement;
-        while (parent && parent !== document.body) {
-          parent.style.setProperty('background', '#07060a', 'important');
-          parent.style.setProperty('background-color', '#07060a', 'important');
-          parent = parent.parentElement;
-        }
-      }
     }
-  }, 100);
+  
 </script>
     /* ---------- Intro (video only) ---------- */
     .intro-stage{
