@@ -84,14 +84,21 @@
   overflow: hidden; /* Tắt cuộn trang hoàn toàn */
 }
 
+/* Xóa hoặc bỏ đoạn ::before cũ */
 .selection-overlay::before {
-  content: '';
+  display: none;
+}
+
+/* Style cho Video Background của màn Choose Your Hero */
+.selection-bg-video {
   position: absolute;
   inset: 0;
-  background: url('1784777411576_2201971040815987897_6044169520360234710.mp4') center/cover;
-  opacity: 0.4;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   z-index: -1;
-  filter: brightness(0.5);
+  filter: brightness(0.4) contrast(1.1); /* Làm tối nền để nổi bật nhân vật */
+  pointer-events: none;
 }
 
 .selection-overlay.visible { 
@@ -981,10 +988,19 @@
     </div>
   </div>
 
-  <!-- Selection overlay (hidden until intro completes) -->
-  <div id="selection" class="selection-overlay" aria-hidden="true" style="display:none;">
-    <div class="selection-inner">
-      <div class="selection-title">CHOOSE YOUR HERO</div>
+  <!-- Selection overlay -->
+<div id="selection" class="selection-overlay" aria-hidden="true" style="display:none;">
+  
+  <!-- VIDEO BACKGROUND CHO CHOOSE YOUR HERO -->
+  <video class="selection-bg-video" autoplay muted loop playsinline>
+    <!-- Nếu file nằm cùng thư mục trên GitHub Pages: -->
+    <source src="1784777411576_2201971040815987897_6044169520360234710.mp4" type="video/mp4">
+    <!-- Hoặc dùng link Raw chuẩn từ GitHub: -->
+    <!-- <source src="https://raw.githubusercontent.com/k632414410088-byte/pylyly.github.io/main/1784777411576_2201971040815987897_6044169520360234710.mp4" type="video/mp4"> -->
+  </video>
+
+  <div class="selection-inner">
+    <div class="selection-title">CHOOSE YOUR HERO</div>
 
       <div class="cards" role="list">
         <!-- IRON MAN -->
