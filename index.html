@@ -94,6 +94,7 @@ html, body {
   height: auto !important;
   overflow-x: hidden !important;
   overflow-y: auto !important;
+  background-color: #07060a !important;
 }
 
 #portfolioScreen, .portfolio-screen {
@@ -1929,7 +1930,7 @@ setTimeout(() => {
     setTimeout(()=> {
       selection.style.display = 'none';
       showPortfolio();
-    }, 420);
+    }, 800);
   });
 
   selectIron.addEventListener('click', ()=> {
@@ -1945,7 +1946,7 @@ setTimeout(() => {
     setTimeout(()=> {
       selection.style.display = 'none';
       playCinematic(msgs, 2500);
-    }, 420);
+    }, 800);
     const total = msgs.length * 2500 + 400;
     setTimeout(()=> { showPortfolio(); }, total);
   });
