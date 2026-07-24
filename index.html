@@ -1526,6 +1526,12 @@ html, body {
   .stats-vertical .stat-box.gpa { grid-column: auto !important; }
 }
 
+  /* FORCE two-column layout on desktop */ @media (min-width: 980px) { .portfolio-section .stats-two-col { display: grid !important; grid-template-columns: 1fr 1fr !important; grid-auto-flow: row !important; gap: 36px !important; align-items: start !important; width: 100% !important; max-width: 1200px !important; margin: 0 auto !important; box-sizing: border-box !important; }
+
+.portfolio-section .stats-two-col > .stats-col, .portfolio-section .stats-two-col > .abilities-col { width: 100% !important; max-width: none !important; margin: 0 auto !important; padding: 0 8px !important; box-sizing: border-box !important; } }
+
+/* allow stacking only on small screens */ @media (max-width: 979px) { .portfolio-section .stats-two-col { display: block !important; } }
+
   </style>
 </head>
 <body>
@@ -1621,9 +1627,9 @@ html, body {
 
      <div class="stats-vertical">
   <!-- TOP: two small boxes side-by-side -->
-  <div class="stat-box" role="group" aria-label="High School GPA">
-    <div class="big">9.3</div>
-    <div class="label">HIGH SCHOOL GPA</div>
+  <div class="stat-box" role="group" aria-label="HSA">
+    <div class="big">103</div>
+    <div class="label">HSA</div>
   </div>
 
   <div class="stat-box" role="group" aria-label="SAT Score">
