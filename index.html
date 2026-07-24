@@ -7,7 +7,8 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Anton:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>   
   
@@ -1202,7 +1203,223 @@ html, body {
   }
 }
 
+/* ========== POST-CREDIT / CONTACT SECTION ========== */
+.contact-section {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(7, 6, 10, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 80px 60px 100px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+}
 
+.contact-title {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-align: center;
+  margin: 0 0 12px 0;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+  text-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+}
+
+.contact-subtitle {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 14px;
+  font-weight: 700;
+  color: #e11d48;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-align: center;
+  margin: 0 0 16px 0;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+}
+
+.contact-tagline {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin: 0 0 60px 0;
+}
+
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+  background: rgba(51, 51, 102, 0.25) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 50px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+}
+
+.contact-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.contact-name {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.contact-icon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(225, 29, 72, 0.18) !important;
+  border: 1px solid rgba(225, 29, 72, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.contact-icon i {
+  font-size: 18px;
+  color: #e11d48;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact-label {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.contact-value {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.contact-link {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(225, 29, 72, 0.6);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #e11d48;
+  border-color: #e11d48;
+}
+
+.contact-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-label {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-input,
+.form-textarea {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #e11d48;
+  box-shadow: 0 0 12px rgba(225, 29, 72, 0.35);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  margin-top: 8px;
+  width: 100%;
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #1a0a0f;
+  background: linear-gradient(90deg, #ff8fa3, #e11d48);
+  border: none;
+  border-radius: 999px;
+  padding: 16px 24px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.form-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(225, 29, 72, 0.55);
+}
+
+@media (max-width: 900px) {
+  .contact-container {
+    flex-direction: column;
+    padding: 36px;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 60px 24px 80px;
+  }
+  .contact-container {
+    padding: 24px;
+  }
+}
   
   </style>
 </head>
@@ -1485,7 +1702,76 @@ html, body {
     </div>
   </div>
 </div>
-      
+<!-- POST-CREDIT / CONTACT SECTION -->
+<div class="contact-section">
+  <h2 class="contact-title">POST-CREDIT</h2>
+  <p class="contact-subtitle">THE STORY IS STILL BEING WRITTEN</p>
+  <p class="contact-tagline">Still figuring things out. Always open to the next challenge.</p>
+
+  <div class="contact-container">
+    <!-- LEFT: INFO -->
+    <div class="contact-info">
+      <h3 class="contact-name">LÊ PHƯƠNG LINH</h3>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="contact-details">
+          <span class="contact-label">Location</span>
+          <span class="contact-value">Hanoi, Vietnam</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div class="contact-details">
+          <span class="contact-label">Email</span>
+          <a class="contact-value contact-link" href="mailto:linhlp63.fyu@gmail.com">linhlp63.fyu@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+        <div class="contact-details">
+          <span class="contact-label">Phone</span>
+          <span class="contact-value">0358491096</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fa-brands fa-facebook-f"></i></div>
+        <div class="contact-details">
+          <span class="contact-label">Facebook</span>
+          <a class="contact-value contact-link" href="https://www.facebook.com/share/1DMANvQPsw/?mibextid=wwXIfr" target="_blank" rel="noopener">Lê Phương Linh</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <form class="contact-form" id="contactForm">
+      <div>
+        <label class="form-label" for="cf-name">Họ và tên</label>
+        <input class="form-input" type="text" id="cf-name" name="name" required>
+      </div>
+
+      <div>
+        <label class="form-label" for="cf-email">Địa chỉ Email</label>
+        <input class="form-input" type="email" id="cf-email" name="email" required>
+      </div>
+
+      <div>
+        <label class="form-label" for="cf-subject">Chủ đề</label>
+        <input class="form-input" type="text" id="cf-subject" name="subject" placeholder="VD: Cơ hội hợp tác / Liên hệ công việc">
+      </div>
+
+      <div>
+        <label class="form-label" for="cf-message">Tin nhắn</label>
+        <textarea class="form-textarea" id="cf-message" name="message" required></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">Gửi Tin Nhắn</button>
+    </form>
+  </div>
+</div>      
 <script>
 (function(){
   const introVideo = document.getElementById('introVideo');
@@ -1687,6 +1973,25 @@ document.querySelectorAll('.reel-next').forEach(btn => {
     reel.scrollLeft += 220;
   });
 });
+  // Contact form -> mở Gmail đã soạn sẵn, gửi tới linhlp63.fyu@gmail.com
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = document.getElementById('cf-name').value.trim();
+    const email = document.getElementById('cf-email').value.trim();
+    const subject = document.getElementById('cf-subject').value.trim() || 'Liên hệ từ Portfolio';
+    const message = document.getElementById('cf-message').value.trim();
+
+    const fullSubject = `[Portfolio] ${subject} - ${name}`;
+    const fullBody = `Họ và tên: ${name}\nEmail liên hệ: ${email}\n\nTin nhắn:\n${message}`;
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=linhlp63.fyu@gmail.com&su=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(fullBody)}`;
+
+    window.open(gmailUrl, '_blank');
+  });
+}
 })();
 </script>
 
