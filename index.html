@@ -908,14 +908,10 @@ html, body {
   left: 40px;
   top: 0;
   bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg,
-    rgba(225, 29, 72, 0) 0%,
-    rgba(225, 29, 72, 0.8) 25%,
-    rgba(225, 29, 72, 0.8) 75%,
-    rgba(225, 29, 72, 0) 100%);
+  width: 3px;
+  background: rgba(225, 29, 72, 0.9);
   animation: lineExpandStory 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  box-shadow: 0 0 15px rgba(225, 29, 72, 0.6);
+  box-shadow: 0 0 20px rgba(225, 29, 72, 0.8);
 }
 
 @keyframes lineExpandStory {
@@ -959,12 +955,12 @@ html, body {
   position: absolute;
   left: 24px;
   top: 30px;
-  width: 32px;
-  height: 32px;
-  background: radial-gradient(circle, #e11d48, rgba(225, 29, 72, 0.6));
-  border: 3px solid rgba(255, 255, 255, 0.8);
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, #e11d48, rgba(225, 29, 72, 0.8));
+  border: 3px solid rgba(255, 255, 255, 0.9);
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(225, 29, 72, 0.6);
+  box-shadow: 0 0 25px rgba(225, 29, 72, 0.8), inset 0 0 10px rgba(225, 29, 72, 0.6);
   animation: dotPulse 2s ease-in-out infinite;
 }
 
