@@ -1561,6 +1561,66 @@ html, body {
     padding: 36px 24px;
   }
 }
+
+  /* ===== PORTFOLIO TOP-LEFT QUICK NAV (5 equal boxes) ===== */
+.portfolio-nav {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 15;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: calc(100% - 48px);
+}
+
+.portfolio-nav .nav-box {
+  width: 108px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  background: rgba(15, 15, 20, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: #fff;
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.25;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.portfolio-nav .nav-box:hover,
+.portfolio-nav .nav-box.active {
+  border-color: rgba(225, 29, 72, 0.7);
+  background: rgba(225, 29, 72, 0.18);
+  box-shadow: 0 0 15px rgba(225, 29, 72, 0.45);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 700px) {
+  .portfolio-nav {
+    top: 12px;
+    left: 12px;
+    gap: 6px;
+  }
+  .portfolio-nav .nav-box {
+    width: 68px;
+    height: 50px;
+    font-size: 8.5px;
+    border-radius: 10px;
+  }
+}
   
   </style>
 </head>
@@ -1641,7 +1701,14 @@ html, body {
 
   <!-- PORTFOLIO SCREEN -->
 <div id="portfolioScreen" class="portfolio-screen" aria-hidden="true" style="display:none;">
-  
+ <!-- TOP-LEFT QUICK NAV: 5 equal boxes -->
+  <nav class="portfolio-nav" id="portfolioNav" aria-label="Portfolio sections">
+    <a class="nav-box" data-target="chapter-intro">HOME</a>
+    <a class="nav-box" data-target="chapter-stats">CHARACTER<br>STATS</a>
+    <a class="nav-box" data-target="chapter-mission">MISSION<br>FILES</a>
+    <a class="nav-box" data-target="chapter-story">STORY<br>ARC</a>
+    <a class="nav-box" data-target="chapter-contact">POST<br>CREDIT</a>
+  </nav> 
   <!-- VIDEO BACKGROUND MỚI CHO PORTFOLIO -->
   <video id="portfolioBgVideo" class="portfolio-bg-video" autoplay muted playsinline loop>
     <source src="1784777411561_2201971040815987897_6044169520360234710.mp4" type="video/mp4">
@@ -2268,6 +2335,37 @@ document.querySelectorAll('.universe-chapter-btn').forEach(btn => {
     });
   });
 });
+  // ===== TOP-LEFT QUICK NAV LOGIC =====
+document.querySelectorAll('.portfolio-nav .nav-box').forEach(box => {
+  box.addEventListener('click', () => {
+    const targetId = box.getAttribute('data-target');
+    const target = document.getElementById(targetId);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Highlight active nav box based on scroll position
+(function(){
+  const navBoxes = document.querySelectorAll('.portfolio-nav .nav-box');
+  const sectionIds = ['chapter-intro','chapter-stats','chapter-mission','chapter-story','chapter-contact'];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  function updateActiveNav(){
+    let currentId = sectionIds[0];
+    const scrollPos = window.scrollY + 120;
+    sections.forEach(sec => {
+      if(sec.offsetTop <= scrollPos){
+        currentId = sec.id;
+      }
+    });
+    navBoxes.forEach(box => {
+      box.classList.toggle('active', box.getAttribute('data-target') === currentId);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+})();
   
 })();
 </script>
