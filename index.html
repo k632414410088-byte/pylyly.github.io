@@ -1142,6 +1142,87 @@ html, body {
 /* Ẩn text bên trong bar nếu còn */
 .ability-bar .value { display:none !important; }
 
+  /* ===== Unified soft pink→red bars with glow ===== */
+/* Make wrapper visible so glow can show */
+.ability-bar-wrapper {
+  height: 18px !important;
+  border-radius: 12px !important;
+  background: rgba(255,255,255,0.02) !important;
+  border: 1px solid rgba(255,255,255,0.04) !important;
+  position: relative !important;
+  overflow: visible !important;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.45) !important;
+}
+
+/* The fill bar — width from --pct */
+.ability-bar {
+  display: block !important;
+  height: 100% !important;
+  width: var(--pct, 0%) !important;
+  min-width: 8px !important;
+  border-radius: 12px !important;
+  transition: width 900ms cubic-bezier(.22,.9,.34,1) !important;
+  position: relative !important;
+  z-index: 2 !important;
+  box-shadow: inset 0 -4px 10px rgba(255,255,255,0.03) !important;
+  overflow: visible !important;
+  /* unified soft gradient pink -> red (muted) */
+  background: linear-gradient(90deg, rgba(255,138,176,0.92) 0%, rgba(225,29,72,0.92) 100%) !important;
+  opacity: 0.92 !important;
+}
+
+/* Soft outer glow matching the gradient */
+.ability-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -8px;
+  right: 0;
+  bottom: -8px;
+  pointer-events: none;
+  filter: blur(14px);
+  opacity: 0.45;
+  background: linear-gradient(90deg, rgba(255,138,176,0.22), rgba(225,29,72,0.22)) !important;
+}
+
+/* Slight inner sheen to make it look lighter */
+.ability-bar::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 50%;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+  border-top-left-radius:12px;
+  border-top-right-radius:12px;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Ensure any old color classes do not override */
+.ability-bar.red, .ability-bar.blue, .ability-bar.gold, .ability-bar.purple {
+  background: linear-gradient(90deg, rgba(255,138,176,0.92) 0%, rgba(225,29,72,0.92) 100%) !important;
+}
+.ability-bar.red::after,
+.ability-bar.blue::after,
+.ability-bar.gold::after,
+.ability-bar.purple::after {
+  background: linear-gradient(90deg, rgba(255,138,176,0.22), rgba(225,29,72,0.22)) !important;
+}
+
+/* hide any inner value text */
+.ability-bar .value { display: none !important; }
+
+/* optional: slightly dim the right-level label so it doesn't compete visually */
+.ability-level { opacity: 0.9; color: rgba(255,255,255,0.92); font-weight:800; }
+
+/* responsive small tweaks */
+@media (max-width:720px){
+  .ability-bar-wrapper { height: 14px !important; }
+  .ability-bar::after { top: -6px; bottom: -6px; filter: blur(10px); opacity: 0.4; }
+}
+
   </style>
 </head>
 <body>
