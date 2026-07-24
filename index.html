@@ -1421,11 +1421,41 @@ html, body {
     padding: 24px;
   }
 }
+
+/* ===== CUSTOM STAR CURSOR ===== */
+* {
+  cursor: none !important;
+}
+
+#starCursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 12px #e11d48);
+  transition: transform 0.08s ease;
+}
+
+#starTrailCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99998;
+}
   
   </style>
 </head>
 <body>
-
+<div id="starCursor">✦</div>
+<canvas id="starTrailCanvas"></canvas>
   <!-- Intro stage (video only). If autoplay blocked, show play overlay. -->
   <div id="introStage" class="intro-stage" aria-hidden="false">
     <video id="introVideo" class="intro-video" autoplay muted playsinline>
@@ -1993,6 +2023,81 @@ if (contactForm) {
     window.open(gmailUrl, '_blank');
   });
 }
+  // ===== STAR CURSOR + GLOWING TRAIL =====
+const starCursor = document.getElementById('starCursor');
+const trailCanvas = document.getElementById('starTrailCanvas');
+const ctx = trailCanvas.getContext('2d');
+
+function resizeCanvas(){
+  trailCanvas.width = window.innerWidth;
+  trailCanvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+let particles = [];
+
+document.addEventListener('mousemove', (e) => {
+  starCursor.style.left = e.clientX + 'px';
+  starCursor.style.top = e.clientY + 'px';
+
+  // Tạo vài hạt sao nhỏ mỗi lần di chuột
+  for(let i = 0; i < 2; i++){
+    particles.push({
+      x: e.clientX + (Math.random() - 0.5) * 10,
+      y: e.clientY + (Math.random() - 0.5) * 10,
+      size: Math.random() * 3 + 1.5,
+      life: 1,
+      dx: (Math.random() - 0.5) * 0.6,
+      dy: (Math.random() - 0.5) * 0.6,
+      color: Math.random() > 0.5 ? '255,255,255' : '225,29,72'
+    });
+  }
+});
+
+function animateTrail(){
+  ctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+
+  particles.forEach((p, index) => {
+    p.life -= 0.02;
+    p.x += p.dx;
+    p.y += p.dy;
+
+    if(p.life <= 0){
+      particles.splice(index, 1);
+      return;
+    }
+
+    ctx.save();
+    ctx.globalAlpha = p.life;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.color}, ${p.life})`;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = `rgba(${p.color}, 0.9)`;
+    ctx.fill();
+    ctx.restore();
+  });
+
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+
+// Sao nhấp nháy khi click
+document.addEventListener('click', (e) => {
+  for(let i = 0; i < 12; i++){
+    const angle = (Math.PI * 2 * i) / 12;
+    particles.push({
+      x: e.clientX,
+      y: e.clientY,
+      size: Math.random() * 2.5 + 1,
+      life: 1,
+      dx: Math.cos(angle) * 2,
+      dy: Math.sin(angle) * 2,
+      color: '225,29,72'
+    });
+  }
+});
 })();
 </script>
 
