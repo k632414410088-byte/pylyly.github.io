@@ -635,10 +635,8 @@ html, body {
 
 /* ---------- ABILITIES UNLOCKED (bar style) ---------- */
 .abilities-section {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 16px 20px 48px;
-  box-sizing: border-box;
+  margin: 0 auto;   /* trước 40px auto */
+  padding: 0;        /* trước 16px 20px 48px */
 }
 
 .abilities-section h2 {
@@ -799,7 +797,7 @@ html, body {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
   gap: 36px !important;
-  align-items: start !important;
+  align-items: stretch !important;
 }
 
 .portfolio-section .stats-two-col .stats-col,
@@ -816,43 +814,34 @@ html, body {
   gap: 20px;
   box-sizing: border-box;
   padding-right: 8px;
+  height: 100%; 
 }
 
-.abilities-col { box-sizing: border-box; padding-left: 8px; }
+.abilities-col { box-sizing: border-box; padding-left: 8px; height: 100%; }
 
 /* stats grid: HSA + SAT side by side on top, GPA spans full width below */
 .stats-vertical {
   display: grid !important;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  align-items: start;
-  box-sizing: border-box;
+  grid-template-rows: 1fr auto;
+  gap: 14px;
+  align-items: stretch;
+  flex: 1 1 auto;
+  height: 100%
+  min-height: 0;
 }
 
 .stats-vertical .stat-box {
   width: 100% !important;
-  max-width: none !important;
-  min-height: 140px !important;
-  padding: 18px 16px !important;
-  border-radius: 14px !important;
-  box-sizing: border-box !important;
+  min-height: 0 !important;
+  padding: 12px 14px !important;
 }
 
-.stats-vertical .stat-box .big {
-  font-size: clamp(28px, 5.2vw, 42px) !important;
-  line-height: 1 !important;
-  transform: translateY(-4px) !important;
-}
-
-.stats-vertical .stat-box .label {
-  font-size: 13px !important;
-  margin-top: 8px !important;
-}
-
+.stats-vertical .stat-box .big { font-size: clamp(22px, 3.4vw, 32px) !important; }
+.stats-vertical .stat-box .label { font-size: 11px !important; margin-top: 4px !important; }
 .stats-vertical .stat-box.gpa {
-  grid-column: 1 / -1 !important;
-  min-height: 120px !important;
-  padding: 20px 16px !important;
+  min-height: 0 !important;       /* trước 120px */
+  padding: 14px 16px !important;  /* trước 20px 16px */
 }
 
 /* ability rows inside the two-column layout: fit the 540px inner width */
@@ -922,6 +911,7 @@ html, body {
     box-sizing: border-box !important;
   }
 }
+
 
 @media (max-width: 979px) {
   .portfolio-section .stats-two-col { display: block !important; }
