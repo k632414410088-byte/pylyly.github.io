@@ -1234,6 +1234,28 @@ html, body {
   opacity: 1 !important;
 }
 
+  /* Make ability-level labels softly glow / blink using existing keyframes */
+.ability-level {
+  color: #e11d48 !important;                           /* red */
+  font-weight: 900 !important;
+  letter-spacing: 1px;
+  text-shadow: 0 6px 18px rgba(225,29,72,0.20) !important;
+  animation: textBlinkGlow 1.4s infinite ease-in-out !important; /* reuse keyframes you already have */
+  -webkit-font-smoothing: antialiased;
+  transform-origin: center;
+  will-change: opacity, text-shadow, transform;
+}
+
+/* Optional: slightly stronger pulse on hover (nice touch) */
+.ability-level:hover {
+  animation-duration: 1s !important;
+  transform: translateY(-2px);
+  text-shadow: 0 12px 28px rgba(225,29,72,0.32) !important;
+}
+
+/* If you want faster blink globally, reduce duration (example) */
+/* .ability-level { animation-duration: 1.0s !important; } */
+
   </style>
 </head>
 <body>
