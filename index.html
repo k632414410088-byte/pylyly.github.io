@@ -1565,7 +1565,7 @@ html, body {
   </style>
 </head>
 <body>
-<div id="starCursor">✦</div>
+<div id="starCursor">✨</div>
 <canvas id="starTrailCanvas"></canvas>
   <!-- Intro stage (video only). If autoplay blocked, show play overlay. -->
   <div id="introStage" class="intro-stage" aria-hidden="false">
@@ -2164,7 +2164,7 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 let particles = [];
-const FADE_SPEED = 0.008; // ~2s ở 60fps (1 / 0.008 ≈ 125 frame ≈ 2.08s)
+const FADE_SPEED = 0.000005; // ~2s ở 60fps (1 / 0.008 ≈ 125 frame ≈ 2.08s)
 
 document.addEventListener('mousemove', (e) => {
   starCursor.style.left = e.clientX + 'px';
