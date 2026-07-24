@@ -1093,6 +1093,55 @@ html, body {
 /* Keep the right-level label if you want; if not, hide it: */
 /* .ability-level { display: none !important; } */
 
+  /* FORCE: show colored filled ability bars (override bất kỳ rule cũ) */
+.ability-bar-wrapper {
+  height: 18px !important;
+  border-radius: 12px !important;
+  background: rgba(255,255,255,0.03) !important;
+  border: 1px solid rgba(255,255,255,0.04) !important;
+  position: relative !important;
+  overflow: visible !important; /* cho phép glow hiển thị */
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.45) !important;
+}
+
+/* Bắt buộc ability-bar hiển thị & lấy width từ --pct */
+.ability-bar {
+  display: block !important;
+  height: 100% !important;
+  width: var(--pct, 0%) !important;
+  min-width: 6px !important; /* để nhìn thấy even very small */
+  border-radius: 12px !important;
+  transition: width 900ms cubic-bezier(.22,.9,.34,1) !important;
+  position: relative !important;
+  z-index: 2 !important;
+  box-shadow: inset 0 -6px 14px rgba(255,255,255,0.03) !important;
+}
+
+/* Nếu bạn muốn tất cả đều đỏ, dùng class .ability-bar.red (dùng !important để chắc chắn) */
+.ability-bar.red {
+  background: linear-gradient(90deg, #e11d48 0%, #ff6b8a 100%) !important;
+  box-shadow: 0 10px 30px rgba(225,29,72,0.14) !important;
+}
+
+/* Glow bên ngoài (mềm) */
+.ability-bar.red::after {
+  content: "";
+  position: absolute;
+  left: 0; top: -6px; right: 0; bottom: -6px;
+  background: linear-gradient(90deg, rgba(225,29,72,0.18), rgba(255,107,138,0.06));
+  filter: blur(10px);
+  opacity: .6;
+  pointer-events: none;
+}
+
+/* Nếu bạn có các biến màu khác, override tương tự */
+.ability-bar.blue { background: linear-gradient(90deg,#3b82f6,#86b7ff) !important; }
+.ability-bar.gold { background: linear-gradient(90deg,#f59e0b,#ffd86b) !important; }
+.ability-bar.purple { background: linear-gradient(90deg,#7c3aed,#c4b5fd) !important; }
+
+/* Ẩn text bên trong bar nếu còn */
+.ability-bar .value { display:none !important; }
+
   </style>
 </head>
 <body>
