@@ -781,6 +781,46 @@ html, body {
       .stats-inner { padding: 20px 12px; }
     }
 
+  /* Tăng kích cỡ chữ trong stat boxes */
+.stat-box .big {
+  /* tăng tối đa lên, nhưng vẫn responsive */
+  font-size: clamp(44px, 7vw, 68px) !important;
+  line-height: 1;
+  transform: translateY(-6px);
+}
+
+.stat-box .big sup {
+  font-size: .38em;
+  margin-left: 8px;
+}
+
+/* label nhỏ dưới số */
+.stat-box .label {
+  font-size: 16px !important;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+
+/* badge (top-right) hơi to hơn */
+.stat-box .badge {
+  font-size: 12px !important;
+  padding: 7px 12px !important;
+}
+
+/* Nếu muốn tăng chút khoảng cách giữa số và label (tuỳ chọn) */
+.stat-box { gap: 12px !important; }
+
+/* Điều chỉnh responsive nhỏ */
+@media (max-width: 1120px) {
+  .stat-box .big { font-size: clamp(38px, 8vw, 56px) !important; }
+  .stat-box .label { font-size: 15px !important; }
+}
+@media (max-width: 520px) {
+  .stat-box .big { font-size: clamp(28px, 10vw, 40px) !important; }
+  .stat-box .label { font-size: 14px !important; }
+}
+
   </style>
 </head>
 <body>
