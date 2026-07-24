@@ -922,6 +922,125 @@ html, body {
   .ability-level{ width:100%; text-align:left; margin-top:4px; }
 }
 
+/* ---------- ABILITIES UNLOCKED - bar style ---------- */
+.abilities-section {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 16px 20px 48px;
+  box-sizing: border-box;
+}
+
+.abilities-section h2 {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: clamp(20px, 3.2vw, 28px);
+  color: #fff;
+  margin: 0 0 18px 0;
+  letter-spacing: 3px;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+  text-align: left;
+}
+
+/* list */
+.ability-list {
+  display: grid;
+  gap: 14px;
+}
+
+/* row layout */
+.ability-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 26px rgba(0,0,0,0.45);
+}
+
+/* left label */
+.ability-name {
+  width: 260px;
+  min-width: 140px;
+  color: rgba(255,255,255,0.92);
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+/* center bar wrapper */
+.ability-bar-wrapper {
+  flex: 1 1 auto;
+  height: 18px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.04);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.45);
+}
+
+/* empty track glow */
+.ability-bar-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  pointer-events: none;
+}
+
+/* filled bar (use --pct inline) */
+.ability-bar {
+  --pct: 60%;
+  height: 100%;
+  width: var(--pct);
+  border-radius: 12px;
+  transition: width 900ms cubic-bezier(.22,.9,.34,1);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45), inset 0 -6px 20px rgba(255,255,255,0.02);
+}
+
+/* color variants (apply to .ability-bar) */
+.ability-bar.red    { background: linear-gradient(90deg,#e11d48,#ff6b8a); box-shadow:0 8px 30px rgba(225,29,72,0.14); }
+.ability-bar.blue   { background: linear-gradient(90deg,#2563eb,#60a5fa); box-shadow:0 8px 30px rgba(59,130,246,0.12); }
+.ability-bar.gold   { background: linear-gradient(90deg,#f59e0b,#fcd34d); box-shadow:0 8px 30px rgba(245,158,11,0.12); }
+.ability-bar.purple { background: linear-gradient(90deg,#7c3aed,#a78bfa); box-shadow:0 8px 30px rgba(124,58,237,0.12); }
+
+/* right level badge */
+.ability-level {
+  min-width: 120px;
+  text-align: right;
+  font-weight:900;
+  letter-spacing:1px;
+  color: rgba(255,255,255,0.95);
+  font-size:13px;
+}
+
+/* level color */
+.ability-level.master{ color:#fbbf24; }
+.ability-level.elite{ color:#3b82f6; }
+.ability-level.developing{ color:#a78bfa; }
+
+/* small numeric label on bar (optional) */
+.ability-bar .value {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight:800;
+  color: rgba(255,255,255,0.98);
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  font-size: 13px;
+  padding-left:6px;
+}
+
+/* responsive: stack on narrow screens */
+@media (max-width: 720px){
+  .ability-row { flex-direction: column; align-items:flex-start; gap:10px; }
+  .ability-name { width:100%; }
+  .ability-level { width:100%; text-align:left; }
+  .ability-bar .value { right: 12px; }
+}
+
   </style>
 </head>
 <body>
@@ -1036,90 +1155,76 @@ html, body {
   </div>
 </div>
 
-  <div class="abilities-section">
-  <h2>02. ABILITIES UNLOCKED</h2>
+  <div class="abilities-section" aria-labelledby="abilities-title">
+  <h2 id="abilities-title">02. ABILITIES UNLOCKED</h2>
 
   <div class="ability-list">
     <div class="ability-row">
       <div class="ability-name">MICROSOFT OFFICE</div>
-      <div class="ability-squares" aria-hidden="true">
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
+      <div class="ability-bar-wrapper" aria-hidden="true">
+        <div class="ability-bar red" style="--pct:100%;">
+          <span class="value">MASTER</span>
+        </div>
       </div>
       <div class="ability-level master">MASTER</div>
     </div>
 
     <div class="ability-row">
       <div class="ability-name">ENGLISH</div>
-      <div class="ability-squares" aria-hidden="true">
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq"></span>
+      <div class="ability-bar-wrapper" aria-hidden="true">
+        <div class="ability-bar blue" style="--pct:80%;">
+          <span class="value">ELITE</span>
+        </div>
       </div>
       <div class="ability-level elite">ELITE</div>
     </div>
 
     <div class="ability-row">
       <div class="ability-name">TEAMWORK</div>
-      <div class="ability-squares" aria-hidden="true">
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
+      <div class="ability-bar-wrapper" aria-hidden="true">
+        <div class="ability-bar red" style="--pct:100%;">
+          <span class="value">MASTER</span>
+        </div>
       </div>
       <div class="ability-level master">MASTER</div>
     </div>
 
     <div class="ability-row">
       <div class="ability-name">PRESENTATION</div>
-      <div class="ability-squares" aria-hidden="true">
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
+      <div class="ability-bar-wrapper" aria-hidden="true">
+        <div class="ability-bar red" style="--pct:100%;">
+          <span class="value">MASTER</span>
+        </div>
       </div>
       <div class="ability-level master">MASTER</div>
     </div>
 
     <div class="ability-row">
       <div class="ability-name">PROBLEM-SOLVING</div>
-      <div class="ability-squares" aria-hidden="true">
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq"></span>
+      <div class="ability-bar-wrapper" aria-hidden="true">
+        <div class="ability-bar blue" style="--pct:80%;">
+          <span class="value">ELITE</span>
+        </div>
       </div>
       <div class="ability-level elite">ELITE</div>
     </div>
 
     <div class="ability-row">
       <div class="ability-name">CREATIVITY</div>
-      <div class="ability-squares" aria-hidden="true">
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq"></span>
+      <div class="ability-bar-wrapper" aria-hidden="true">
+        <div class="ability-bar purple" style="--pct:80%;">
+          <span class="value">ELITE</span>
+        </div>
       </div>
       <div class="ability-level elite">ELITE</div>
     </div>
 
     <div class="ability-row">
       <div class="ability-name">PROGRAMMING</div>
-      <div class="ability-squares" aria-hidden="true">
-        <span class="sq filled"></span>
-        <span class="sq filled"></span>
-        <span class="sq"></span>
-        <span class="sq"></span>
-        <span class="sq"></span>
+      <div class="ability-bar-wrapper" aria-hidden="true">
+        <div class="ability-bar purple" style="--pct:40%;">
+          <span class="value">DEVELOPING</span>
+        </div>
       </div>
       <div class="ability-level developing">DEVELOPING</div>
     </div>
