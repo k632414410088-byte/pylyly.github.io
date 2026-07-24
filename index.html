@@ -1256,256 +1256,126 @@ html, body {
 /* If you want faster blink globally, reduce duration (example) */
 /* .ability-level { animation-duration: 1.0s !important; } */
 
-    /* ===== Two-column balanced layout: left stats (vertical) / right abilities (bars) ===== */
+    /* ===== Balanced two-column: exact matching visual widths ===== */
+
+/* ensure main grid is equal columns */
 .stats-two-col {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 36px 20px;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* two equal columns */
+  grid-template-columns: 1fr 1fr; /* equal halves */
   gap: 36px;
   align-items: start;
 }
 
-/* Left column (Character Stats) */
+/* unified section title for both columns */
+.section-title {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: clamp(26px, 3.6vw, 36px);
+  letter-spacing: 3px;
+  color: #fff;
+  margin: 0 0 18px 0;
+  font-weight: 900;
+  text-shadow: 0 6px 22px rgba(0,0,0,0.35);
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+  text-align: left;
+}
+
+/* Left column: stats (make padding match right content width visually) */
 .stats-col {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-/* left title */
-.stats-col h2 {
-  margin: 0 0 12px 0;
-  font-size: clamp(26px, 3.6vw, 36px);
-  animation: textBlinkGlow 1.4s infinite ease-in-out;
-  color: #fff;
-  letter-spacing: 3px;
-  font-weight: 900;
-  text-align: left;
-}
-
-/* vertical stack: each stat-box fills the column width */
-.stats-vertical {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-/* override any previous fixed widths so boxes match column width */
-.stats-vertical .stat-box {
-  width: 100% !important;
-  max-width: none !important;
-  min-height: 140px;
-  padding: 28px 22px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   box-sizing: border-box;
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.12));
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+  padding-right: 8px; /* small inner gutter */
 }
 
-/* number style */
-.stats-vertical .stat-box .big {
-  font-family: 'Anton', Impact, Arial Black, sans-serif;
-  font-size: clamp(36px, 6.5vw, 56px) !important;
-  color: #e11d48 !important;
-  animation: textBlinkGlow 1.4s infinite ease-in-out;
-  transform: translateY(-6px);
-}
-
-/* label */
-.stats-vertical .stat-box .label {
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 800;
-  color: rgba(255,255,255,0.92);
-  letter-spacing: 0.6px;
-}
-
-/* Right column (Abilities) */
-.abilities-col { display:block; }
-.abilities-section { width:100%; box-sizing:border-box; padding:0; }
-
-/* abilities title */
-.abilities-section h2 {
-  margin: 0 0 12px 0;
-  font-size: clamp(24px, 3.2vw, 32px);
-  animation: textBlinkGlow 1.4s infinite ease-in-out;
-  color: #fff;
-  letter-spacing: 3px;
-  font-weight:900;
-  text-align: left;
-}
-
-/* ability rows layout */
-.ability-list { display: grid; gap:14px; }
-
-/* ensure bar wrapper fills column width (so bar length = left box width) */
-.ability-row {
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:12px 14px;
-  border-radius:12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
-  border:1px solid rgba(255,255,255,0.04);
-  box-shadow: 0 8px 26px rgba(0,0,0,0.45);
-  box-sizing:border-box;
-}
-
-/* left name */
-.ability-name { width: 220px; min-width:120px; color:rgba(255,255,255,0.92); font-weight:800; font-size:13px; }
-
-/* bar wrapper fills remaining space -> match left column inner width */
-.ability-bar-wrapper { flex:1 1 auto; height:18px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.04); position:relative; overflow:visible; box-shadow: inset 0 2px 8px rgba(0,0,0,0.45); }
-
-/* the colored fill — width from --pct, unified soft pink→red */
-.ability-bar {
-  display:block;
-  height:100%;
-  width: var(--pct, 0%);
-  min-width:8px;
-  border-radius:12px;
-  transition: width 900ms cubic-bezier(.22,.9,.34,1);
-  position:relative;
-  z-index:2;
-  background: linear-gradient(90deg, rgba(255,138,176,0.92) 0%, rgba(225,29,72,0.92) 100%);
-  opacity:0.92;
-  box-shadow: inset 0 -4px 10px rgba(255,255,255,0.03);
-}
-/* glow around fill */
-.ability-bar::after{ content:""; position:absolute; left:0; top:-8px; right:0; bottom:-8px; pointer-events:none; filter:blur(14px); opacity:0.45; background: linear-gradient(90deg, rgba(255,138,176,0.22), rgba(225,29,72,0.22)); }
-
-/* right label (kept) — make red for consistency */
-.ability-level { min-width:110px; text-align:right; color:#e11d48 !important; font-weight:900; text-shadow: 0 6px 18px rgba(225,29,72,0.12); }
-
-/* small screen: stack columns */
-@media (max-width: 900px) {
-  .stats-two-col { grid-template-columns: 1fr; padding: 24px 14px; gap:20px; }
-  .ability-row { flex-direction: column; align-items:flex-start; }
-  .ability-name { width:100%; }
-  .ability-level { text-align:left; width:100%; margin-top:6px; }
-}
-
-  /* ========== UNIFORM TITLES ========== */
-/* apply same style to both section titles */
-.section-title {
-  font-family: 'Anton', Impact, Arial Black, sans-serif;
-  font-size: clamp(26px, 3.6vw, 36px);
-  letter-spacing: 3px;               /* same spacing */
-  color: #fff;
-  margin: 0 0 18px 0;
-  font-weight: 900;
-  text-shadow: 0 6px 22px rgba(0,0,0,0.35), 0 0 18px rgba(225,29,72,0.12);
-  animation: textBlinkGlow 1.4s infinite ease-in-out;
-  text-align: left;
-}
-
-/* ensure titles inside columns align on same row baseline */
-.stats-two-col { align-items: start; }
-
-/* ========== BALANCE LEFT BOXES VS RIGHT BARS ========== */
-/* make left stat boxes a bit smaller so visual weight matches right column */
+/* Reduce stat boxes so they don't dominate */
 .stats-vertical .stat-box {
   width: 100% !important;
   max-width: none !important;
-  min-height: 180px;              /* smaller than before */
-  padding: 20px 18px !important;
+  min-height: 160px;
+  padding: 22px 18px !important;
   border-radius: 14px;
   box-sizing: border-box;
 }
 
-/* slightly smaller big numbers so boxes don't dominate */
+/* Slightly smaller big numbers */
 .stats-vertical .stat-box .big {
-  font-size: clamp(32px, 5.5vw, 44px) !important;
+  font-size: clamp(30px, 5.2vw, 44px) !important;
   transform: translateY(-4px);
 }
 
-/* label under number */
-.stats-vertical .stat-box .label {
-  margin-top: 8px;
-  font-size: 13px;
+/* Right column: abilities */
+.abilities-col { box-sizing: border-box; padding-left: 8px; }
+
+/* Ability rows: use grid so bar width is exact and never cut off */
+:root {
+  --ability-name-w: 220px;   /* left label width in the row */
+  --ability-label-w: 140px;  /* right label width in the row */
 }
 
-/* ========== PREVENT BARS FROM BEING CUTOFF ========== */
-/* Reserve space on right of each row for the right label (so bar can go full length) */
 .ability-row {
-  position: relative;            /* for absolutely-positioned label */
-  padding: 12px 160px 12px 14px; /* right padding reserves space for .ability-level */
+  display: grid;
+  grid-template-columns: var(--ability-name-w) 1fr var(--ability-label-w);
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
   border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 26px rgba(0,0,0,0.45);
   box-sizing: border-box;
 }
 
-/* place the right label absolutely so it doesn't reduce bar width */
-.ability-level {
-  position: absolute;
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  min-width: 110px;
-  text-align: right;
-  color: #e11d48 !important;      /* keep red */
-  font-weight: 900;
-  text-shadow: 0 6px 18px rgba(225,29,72,0.12);
-  pointer-events: none;
-  z-index: 4;
-}
+/* left name and right label styles */
+.ability-name { color: rgba(255,255,255,0.92); font-weight:800; font-size:13px; padding-left:6px; }
+.ability-level { text-align:right; color:#e11d48 !important; font-weight:900; padding-right:6px; }
 
-/* the bar wrapper fills remaining area and isn't clipped */
+/* bar wrapper occupies the middle grid column and will have full available width */
 .ability-bar-wrapper {
-  height: 18px !important;
-  border-radius: 12px !important;
-  background: rgba(255,255,255,0.02) !important;
-  border: 1px solid rgba(255,255,255,0.04) !important;
-  position: relative !important;
-  overflow: visible !important; /* allow glow to show */
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.45) !important;
+  height: 18px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  position: relative;
+  overflow: visible; /* allow glow */
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.45);
 }
 
-/* the fill itself (use --pct inline) */
+/* the filled bar */
 .ability-bar {
-  display:block !important;
-  height:100% !important;
-  width: var(--pct, 0%) !important;
-  min-width: 6px !important;
-  border-radius: 12px !important;
-  transition: width 900ms cubic-bezier(.22,.9,.34,1) !important;
-  position: relative !important;
-  z-index: 2 !important;
-  background: linear-gradient(90deg, rgba(255,138,176,0.92) 0%, rgba(225,29,72,0.92) 100%) !important;
-  opacity:0.92 !important;
+  display: block;
+  height: 100%;
+  width: var(--pct, 0%);
+  min-width: 6px;
+  border-radius: 12px;
+  transition: width 900ms cubic-bezier(.22,.9,.34,1);
+  background: linear-gradient(90deg, rgba(255,138,176,0.92), rgba(225,29,72,0.92));
+  box-shadow: inset 0 -4px 10px rgba(255,255,255,0.03);
+  position: relative;
 }
 
-/* soft glow beyond the wrapper (visible because overflow:visible) */
-.ability-bar::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -8px;
-  right: 0;
-  bottom: -8px;
-  pointer-events: none;
-  filter: blur(14px);
-  opacity: 0.45;
-  background: linear-gradient(90deg, rgba(255,138,176,0.22), rgba(225,29,72,0.22)) !important;
+/* glow for the fill */
+.ability-bar::after{
+  content:"";
+  position:absolute;
+  left:0; top:-8px; right:0; bottom:-8px;
+  filter:blur(12px);
+  opacity:.45;
+  background: linear-gradient(90deg, rgba(255,138,176,0.22), rgba(225,29,72,0.22));
+  pointer-events:none;
 }
 
-/* small screens: don't absolutely position label (stacked layout) */
-@media (max-width:900px) {
-  .ability-row { padding: 12px 14px; }
-  .ability-level {
-    position: static;
-    transform: none;
-    text-align: left;
-    margin-top: 6px;
-  }
+/* responsive: stack right column rows on narrow screens */
+@media (max-width: 900px) {
+  .stats-two-col { grid-template-columns: 1fr; padding: 20px; }
+  .ability-row { grid-template-columns: 1fr; }
+  .ability-name { padding-left:0; }
+  .ability-level { text-align:left; padding-right:0; margin-top:6px; }
 }
 
   </style>
