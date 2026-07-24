@@ -1394,6 +1394,120 @@ html, body {
   .ability-level { text-align:left; width:100%; margin-top:6px; }
 }
 
+  /* ========== UNIFORM TITLES ========== */
+/* apply same style to both section titles */
+.section-title {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: clamp(26px, 3.6vw, 36px);
+  letter-spacing: 3px;               /* same spacing */
+  color: #fff;
+  margin: 0 0 18px 0;
+  font-weight: 900;
+  text-shadow: 0 6px 22px rgba(0,0,0,0.35), 0 0 18px rgba(225,29,72,0.12);
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+  text-align: left;
+}
+
+/* ensure titles inside columns align on same row baseline */
+.stats-two-col { align-items: start; }
+
+/* ========== BALANCE LEFT BOXES VS RIGHT BARS ========== */
+/* make left stat boxes a bit smaller so visual weight matches right column */
+.stats-vertical .stat-box {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 180px;              /* smaller than before */
+  padding: 20px 18px !important;
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+/* slightly smaller big numbers so boxes don't dominate */
+.stats-vertical .stat-box .big {
+  font-size: clamp(32px, 5.5vw, 44px) !important;
+  transform: translateY(-4px);
+}
+
+/* label under number */
+.stats-vertical .stat-box .label {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+/* ========== PREVENT BARS FROM BEING CUTOFF ========== */
+/* Reserve space on right of each row for the right label (so bar can go full length) */
+.ability-row {
+  position: relative;            /* for absolutely-positioned label */
+  padding: 12px 160px 12px 14px; /* right padding reserves space for .ability-level */
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+/* place the right label absolutely so it doesn't reduce bar width */
+.ability-level {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 110px;
+  text-align: right;
+  color: #e11d48 !important;      /* keep red */
+  font-weight: 900;
+  text-shadow: 0 6px 18px rgba(225,29,72,0.12);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* the bar wrapper fills remaining area and isn't clipped */
+.ability-bar-wrapper {
+  height: 18px !important;
+  border-radius: 12px !important;
+  background: rgba(255,255,255,0.02) !important;
+  border: 1px solid rgba(255,255,255,0.04) !important;
+  position: relative !important;
+  overflow: visible !important; /* allow glow to show */
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.45) !important;
+}
+
+/* the fill itself (use --pct inline) */
+.ability-bar {
+  display:block !important;
+  height:100% !important;
+  width: var(--pct, 0%) !important;
+  min-width: 6px !important;
+  border-radius: 12px !important;
+  transition: width 900ms cubic-bezier(.22,.9,.34,1) !important;
+  position: relative !important;
+  z-index: 2 !important;
+  background: linear-gradient(90deg, rgba(255,138,176,0.92) 0%, rgba(225,29,72,0.92) 100%) !important;
+  opacity:0.92 !important;
+}
+
+/* soft glow beyond the wrapper (visible because overflow:visible) */
+.ability-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -8px;
+  right: 0;
+  bottom: -8px;
+  pointer-events: none;
+  filter: blur(14px);
+  opacity: 0.45;
+  background: linear-gradient(90deg, rgba(255,138,176,0.22), rgba(225,29,72,0.22)) !important;
+}
+
+/* small screens: don't absolutely position label (stacked layout) */
+@media (max-width:900px) {
+  .ability-row { padding: 12px 14px; }
+  .ability-level {
+    position: static;
+    transform: none;
+    text-align: left;
+    margin-top: 6px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1485,7 +1599,7 @@ html, body {
 
     <!-- LEFT: CHARACTER STATS (vertical) -->
     <div class="stats-col">
-      <h2>01. CHARACTER STATS</h2>
+      <h2 class="section-title">01. CHARACTER STATS</h2>
 
       <div class="stats-vertical">
         <div class="stat-box" role="group" aria-label="SAT Score">
@@ -1508,7 +1622,7 @@ html, body {
     <!-- RIGHT: ABILITIES UNLOCKED (bars) -->
     <div class="abilities-col" aria-labelledby="abilities-title">
       <div class="abilities-section">
-        <h2 id="abilities-title">02. ABILITIES UNLOCKED</h2>
+        <h2 id="abilities-title" class="section-title">02. ABILITIES UNLOCKED</h2>
 
         <div class="ability-list">
           <div class="ability-row">
