@@ -1450,6 +1450,118 @@ html, body {
   pointer-events: none;
   z-index: 99998;
 }
+
+  /* ===== ENTER THE UNIVERSE CARD ===== */
+.universe-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+  background: #07060a;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.universe-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.universe-card {
+  max-width: 520px;
+  width: 100%;
+  background: rgba(15, 15, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(225, 29, 72, 0.4);
+  border-radius: 20px;
+  padding: 50px 40px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(225, 29, 72, 0.35), 0 0 60px rgba(255,255,255,0.08);
+}
+
+.universe-title {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0 0 30px 0;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+}
+
+.universe-begin-btn {
+  width: 100%;
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #1a0a0f;
+  background: linear-gradient(90deg, #ff8fa3, #e11d48);
+  border: none;
+  border-radius: 999px;
+  padding: 16px 24px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  margin-bottom: 34px;
+}
+
+.universe-begin-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(225, 29, 72, 0.55);
+}
+
+.universe-chapter-label {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 18px 0;
+}
+
+.universe-chapters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.universe-chapter-btn {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 13px 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.universe-chapter-btn:hover {
+  border-color: #e11d48;
+  background: rgba(225,29,72,0.15);
+  box-shadow: 0 0 15px rgba(225,29,72,0.35);
+  transform: translateX(4px);
+}
+
+@media (max-width: 600px) {
+  .universe-card {
+    padding: 36px 24px;
+  }
+}
   
   </style>
 </head>
@@ -1510,6 +1622,23 @@ html, body {
     <div class="cinematic-text" id="cineText"></div>
   </div>
 
+  <!-- ENTER THE UNIVERSE CARD -->
+<div id="universeOverlay" class="universe-overlay" aria-hidden="true">
+  <div class="universe-card">
+    <h2 class="universe-title">ENTER THE UNIVERSE...</h2>
+
+    <button id="beginJourneyBtn" class="universe-begin-btn">BEGIN THE JOURNEY</button>
+
+    <p class="universe-chapter-label">Choose a chapter to explore</p>
+    <div class="universe-chapters">
+      <button class="universe-chapter-btn" data-target="chapter-intro">Introduction</button>
+      <button class="universe-chapter-btn" data-target="chapter-stats">Character Stats</button>
+      <button class="universe-chapter-btn" data-target="chapter-mission">Mission Files</button>
+      <button class="universe-chapter-btn" data-target="chapter-story">Story Arc</button>
+      <button class="universe-chapter-btn" data-target="chapter-contact">Post-Credit</button>
+    </div>
+  </div>
+</div>
 
   <!-- PORTFOLIO SCREEN -->
 <div id="portfolioScreen" class="portfolio-screen" aria-hidden="true" style="display:none;">
@@ -1522,7 +1651,7 @@ html, body {
   <div class="portfolio-overlay"></div>
     
     <!-- Hero Section -->
-    <div class="portfolio-content">
+    <div class="portfolio-content"> id="chapter-intro">
       <div class="portfolio-left">
         <h1 class="portfolio-name">LÊ PHƯƠNG LINH</h1>
         <p class="portfolio-subtitle">Foreign Trade University | International Economics</p>
@@ -1534,7 +1663,7 @@ html, body {
       </div>
     </div>
 <!-- CHARACTER STATS SECTION -->
-<div class="stats-section">
+<div class="stats-section"> id="chapter-stats">
   <h2 class="stats-title">CHARACTER STATS</h2>
   
   <div class="stats-container">
@@ -1562,7 +1691,7 @@ html, body {
 </div>
 
   <!-- MISSION FILES SECTION -->
-<div class="mission-section">
+<div class="mission-section"> id="chapter-mission">
   <h2 class="mission-title">MISSION FILES</h2>
   
   <div class="mission-timeline">
@@ -1600,7 +1729,7 @@ html, body {
 </div>
 
 <!-- STORY ARC SECTION -->
-<div class="story-arc-section">
+<div class="story-arc-section"> id="chapter-story">
   <h2 class="story-arc-title">STORY ARC</h2>
   
   <div class="story-arc-timeline">
@@ -1734,7 +1863,7 @@ html, body {
   </div>
 </div>
 <!-- POST-CREDIT / CONTACT SECTION -->
-<div class="contact-section">
+<div class="contact-section"> id="chapter-contact">
   <h2 class="contact-title">POST-CREDIT</h2>
   <p class="contact-subtitle">THE STORY IS STILL BEING WRITTEN</p>
   <p class="contact-tagline">Still figuring things out. Always open to the next challenge.</p>
@@ -1959,7 +2088,7 @@ setTimeout(() => {
     selection.classList.remove('visible');
     setTimeout(()=> {
       selection.style.display = 'none';
-      showPortfolio();
+      showUniverseCard();
     }, 800);
   });
 
@@ -1978,7 +2107,7 @@ setTimeout(() => {
       playCinematic(msgs, 2500);
     }, 800);
     const total = msgs.length * 2500 + 400;
-    setTimeout(()=> { showPortfolio(); }, total);
+    setTimeout(()=> { showUniverseCard(); }, total);
   });
 
   document.querySelectorAll('.card').forEach(card => {
@@ -2098,6 +2227,45 @@ document.addEventListener('click', (e) => {
     });
   }
 });
+  // ===== ENTER THE UNIVERSE CARD LOGIC =====
+const universeOverlay = document.getElementById('universeOverlay');
+const beginJourneyBtn = document.getElementById('beginJourneyBtn');
+
+function showUniverseCard(){
+  universeOverlay.style.display = 'flex';
+  void universeOverlay.offsetWidth;
+  universeOverlay.classList.add('visible');
+  universeOverlay.setAttribute('aria-hidden','false');
+}
+
+function hideUniverseCard(callback){
+  universeOverlay.classList.remove('visible');
+  setTimeout(()=> {
+    universeOverlay.style.display = 'none';
+    universeOverlay.setAttribute('aria-hidden','true');
+    if(callback) callback();
+  }, 800);
+}
+
+beginJourneyBtn.addEventListener('click', ()=> {
+  hideUniverseCard(()=> {
+    showPortfolio();
+  });
+});
+
+document.querySelectorAll('.universe-chapter-btn').forEach(btn => {
+  btn.addEventListener('click', ()=> {
+    const targetId = btn.getAttribute('data-target');
+    hideUniverseCard(()=> {
+      showPortfolio();
+      setTimeout(()=> {
+        const target = document.getElementById(targetId);
+        if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    });
+  });
+});
+  
 })();
 </script>
 
