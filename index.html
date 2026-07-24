@@ -837,7 +837,7 @@ html, body {
 .stats-vertical {
   display: grid !important;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto 1fr;  /* ← Thay đổi: auto auto → auto 1fr */
   gap: 14px;
   align-items: stretch;
   flex: 1 1 auto;
@@ -847,7 +847,7 @@ html, body {
 
 .stats-vertical .stat-box {
   width: 100% !important;
-  min-height: 120px !important;
+  min-height: 0 !important;  /* ← Thay đổi: 120px → 0 */
   padding: 12px 14px !important;
 }
 
@@ -860,6 +860,11 @@ html, body {
   margin-top: 4px !important; 
 }
 
+.stats-vertical .stat-box:nth-child(3) {
+  grid-column: 1 / -1;  /* ← Thêm: GPA span toàn bộ width */
+  min-height: 0 !important;
+}
+  
 /* ability rows inside the two-column layout: fit the 540px inner width */
 .portfolio-section .stats-two-col .ability-list .ability-row {
   display: grid !important;
