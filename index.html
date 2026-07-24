@@ -1101,6 +1101,48 @@ html, body {
   box-shadow: 0 8px 25px rgba(225, 29, 72, 0.4);
 }
 
+  /* Layout ngang cho story item cuối (Basketball Events) */
+.story-item:nth-child(4) {
+  padding-left: 120px;
+}
+
+.story-item:nth-child(4) .story-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.story-item:nth-child(4) .story-top {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+  margin-bottom: 30px;
+}
+
+.story-item:nth-child(4) .story-image-main {
+  flex: 1;
+  height: 350px;
+  margin-bottom: 0;
+}
+
+.story-item:nth-child(4) .story-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .story-item:nth-child(4) .story-top {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .story-item:nth-child(4) .story-image-main {
+    height: 250px;
+  }
+}
+
 @media (max-width: 768px) {
   .story-arc-section {
     padding: 60px 30px;
@@ -1154,6 +1196,8 @@ html, body {
   }
 }
 
+
+  
   </style>
 </head>
 <body>
@@ -1404,33 +1448,47 @@ html, body {
         </div>
       </div>
     </div>
-        <!-- STORY 4 -->
-    <div class="story-item">
-      <div class="story-dot"></div>
-      
-      <div class="story-content">
-        <div class="story-image-main">
-          <img src="https://raw.githubusercontent.com/k632414410088-byte/pylyly.github.io/main/BRO%201.jpg" alt="Basketball Events">
-        </div>
-        
-        <div class="story-text">
-          <h3 class="story-org">BASKETBALL EVENTS</h3>
-          <p class="story-role">HANOI OPEN CUP 3x3 | 2023 • HANOI BUFFALOES | VBA 2026 | STAFF</p>
-          <p class="story-desc">Supporting the organization and execution of basketball events.</p>
-        </div>
-        
-        <div class="story-reel-container">
-          <button class="reel-btn reel-prev">←</button>
-          <div class="story-photo-reel">
-            <img src="https://raw.githubusercontent.com/k632414410088-byte/pylyly.github.io/main/BRO%205.jpg" alt="Photo 1">
-            <img src="https://raw.githubusercontent.com/k632414410088-byte/pylyly.github.io/main/BRO%204.jpg" alt="Photo 2">
-            <img src="https://raw.githubusercontent.com/k632414410088-byte/pylyly.github.io/main/BRO%202.jpg" alt="Photo 3">
-            <img src="https://raw.githubusercontent.com/k632414410088-byte/pylyly.github.io/main/BRO%203.jpg" alt="Photo 4">
-          </div>
-          <button class="reel-btn reel-next">→</button>
-        </div>
-      </div>
-    </div>
+   /* Layout ngang cho story item cuối (Basketball Events) */
+.story-item:nth-child(4) {
+  padding-left: 120px;
+}
+
+.story-item:nth-child(4) .story-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.story-item:nth-child(4) .story-top {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+  margin-bottom: 30px;
+}
+
+.story-item:nth-child(4) .story-image-main {
+  flex: 1;
+  height: 350px;
+  margin-bottom: 0;
+}
+
+.story-item:nth-child(4) .story-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .story-item:nth-child(4) .story-top {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .story-item:nth-child(4) .story-image-main {
+    height: 250px;
+  }
+}
   </div>
 </div>
       
