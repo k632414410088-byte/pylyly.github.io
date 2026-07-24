@@ -2088,7 +2088,8 @@ function showPortfolio(){
   // Trigger count-up animation after portfolio is shown
   setTimeout(() => {
     countUpNumbers();
-    initMissionObserver(); 
+    initMissionObserver();
+    updateActiveNav();
   }, 300);
 }
 
@@ -2347,26 +2348,24 @@ document.querySelectorAll('.portfolio-nav .nav-box').forEach(box => {
 });
 
 // Highlight active nav box based on scroll position
-(function(){
-  const navBoxes = document.querySelectorAll('.portfolio-nav .nav-box');
-  const sectionIds = ['chapter-intro','chapter-stats','chapter-mission','chapter-story','chapter-contact'];
-  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+const navBoxes = document.querySelectorAll('.portfolio-nav .nav-box');
+const navSectionIds = ['chapter-intro','chapter-stats','chapter-mission','chapter-story','chapter-contact'];
 
-  function updateActiveNav(){
-    let currentId = sectionIds[0];
-    const scrollPos = window.scrollY + 120;
-    sections.forEach(sec => {
-      if(sec.offsetTop <= scrollPos){
-        currentId = sec.id;
-      }
-    });
-    navBoxes.forEach(box => {
-      box.classList.toggle('active', box.getAttribute('data-target') === currentId);
-    });
-  }
+function updateActiveNav(){
+  const sections = navSectionIds.map(id => document.getElementById(id)).filter(Boolean);
+  let currentId = navSectionIds[0];
+  const scrollPos = window.scrollY + 120;
+  sections.forEach(sec => {
+    if(sec.offsetTop <= scrollPos){
+      currentId = sec.id;
+    }
+  });
+  navBoxes.forEach(box => {
+    box.classList.toggle('active', box.getAttribute('data-target') === currentId);
+  });
+}
 
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
-  updateActiveNav();
+window.addEventListener('scroll', updateActiveNav, { passive: true });
 })();
   
 })();
