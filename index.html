@@ -832,6 +832,19 @@ html, body {
     next();
   }
 
+function showPortfolio(){
+  portfolioScreen.style.display = 'block';
+  void portfolioScreen.offsetWidth;
+  portfolioScreen.classList.add('show');
+  portfolioScreen.setAttribute('aria-hidden','false');
+  window.scrollTo(0, 0);
+  
+  // Trigger count-up animation after portfolio is shown
+  setTimeout(() => {
+    countUpNumbers();
+  }, 300);
+}
+
 function countUpNumbers() {
   const statNumbers = document.querySelectorAll('.stat-number');
   
