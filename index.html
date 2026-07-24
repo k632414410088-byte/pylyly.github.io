@@ -1378,6 +1378,103 @@ html, body {
   .ability-level { text-align:left; padding-right:0; margin-top:6px; }
 }
 
+  /* ===== OVERRIDE: force both columns to have identical inner width & alignment ===== */
+/* Apply only inside portfolio-section to avoid affecting other pages */
+.portfolio-section .stats-two-col {
+  max-width: 1200px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 24px 10px !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 36px !important;
+  align-items: start !important;
+}
+
+/* Force each column to use the exact same inner max-width and be centered inside the half */
+.portfolio-section .stats-two-col .stats-col,
+.portfolio-section .stats-two-col .abilities-section {
+  max-width: 540px !important;  /* tune this value to make them visually match */
+  margin: 0 auto !important;
+  padding: 0 6px !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure .stat-box uses column width, not previous fixed widths */
+.portfolio-section .stats-two-col .stats-vertical .stat-box {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 140px !important;
+  padding: 18px 16px !important;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+}
+
+/* Reduce the big number so left column doesn't visually overpower right */
+.portfolio-section .stats-two-col .stats-vertical .stat-box .big {
+  font-size: clamp(28px, 5.2vw, 42px) !important;
+  line-height: 1 !important;
+}
+
+/* Make ability rows use a strict 3-column grid that fits inside the 540px inner width */
+.portfolio-section .stats-two-col .ability-list .ability-row {
+  display: grid !important;
+  grid-template-columns: 160px 1fr 110px !important; /* name / bar / label */
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 10px 10px !important;
+  border-radius: 12px !important;
+  box-sizing: border-box !important;
+}
+
+/* Left name and right label padding + sizing */
+.portfolio-section .stats-two-col .ability-row .ability-name {
+  padding-left: 6px !important;
+  min-width: 0 !important;
+}
+.portfolio-section .stats-two-col .ability-row .ability-level {
+  padding-right: 6px !important;
+  text-align: right !important;
+}
+
+/* Bar wrapper must occupy the middle column fully and not be clipped */
+.portfolio-section .stats-two-col .ability-bar-wrapper {
+  height: 18px !important;
+  border-radius: 12px !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure bar fill width computed from --pct and visible */
+.portfolio-section .stats-two-col .ability-bar {
+  display: block !important;
+  height: 100% !important;
+  width: var(--pct, 0%) !important;
+  min-width: 6px !important;
+  border-radius: 12px !important;
+  transition: width .9s cubic-bezier(.22,.9,.34,1) !important;
+  position: relative !important;
+}
+
+/* If any old rule still forces a max-width or transform, null them here */
+.portfolio-section .stats-two-col,
+.portfolio-section .stats-two-col * {
+  transform: none !important;
+  left: auto !important;
+  right: auto !important;
+  position: static !important;
+}
+
+/* Responsive: collapse to single column on small screens */
+@media (max-width: 900px) {
+  .portfolio-section .stats-two-col { grid-template-columns: 1fr !important; padding: 18px 12px !important; }
+  .portfolio-section .stats-two-col .stats-col,
+  .portfolio-section .stats-two-col .abilities-section { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  .portfolio-section .stats-two-col .ability-row { grid-template-columns: 1fr !important; }
+  .portfolio-section .stats-two-col .ability-level { text-align: left !important; padding-right: 0 !important; }
+}
+
   </style>
 </head>
 <body>
