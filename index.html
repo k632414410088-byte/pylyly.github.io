@@ -525,6 +525,123 @@ html, body {
   justify-content:center;
 }
 
+  /* ========== CHARACTER STATS SECTION ========== */
+.stats-section {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(7, 6, 10, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 80px 60px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+}
+
+.stats-title {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-align: center;
+  margin: 0 0 60px 0;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+  text-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  flex: 0 1 280px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.12) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(225, 29, 72, 0.4), inset 0 0 20px rgba(225, 29, 72, 0.1);
+  border-color: rgba(225, 29, 72, 0.3);
+}
+
+.stat-number {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: clamp(48px, 8vw, 72px);
+  font-weight: 900;
+  color: #e11d48;
+  line-height: 1;
+  margin: 0 0 16px 0;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+  text-shadow: 0 10px 30px rgba(225, 29, 72, 0.4);
+  letter-spacing: 2px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-label {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 12px 0;
+}
+
+.stat-note {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .stats-container {
+    gap: 24px;
+  }
+  .stat-card {
+    flex: 0 1 calc(50% - 12px);
+    padding: 30px 20px;
+  }
+  .stat-number {
+    font-size: clamp(40px, 6vw, 56px);
+    min-height: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-section {
+    padding: 60px 30px;
+  }
+  .stats-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .stat-card {
+    flex: 1 1 auto;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -606,7 +723,33 @@ html, body {
         </div>
       </div>
     </div>
+<!-- CHARACTER STATS SECTION -->
+<div class="stats-section">
+  <h2 class="stats-title">CHARACTER STATS</h2>
+  
+  <div class="stats-container">
+    <!-- SAT Score Card -->
+    <div class="stat-card">
+      <div class="stat-number" data-target="1450">0000</div>
+      <div class="stat-label">SAT Score</div>
+      <div class="stat-note">Top 5%</div>
+    </div>
 
+    <!-- HSA Card -->
+    <div class="stat-card">
+      <div class="stat-number" data-target="103">000</div>
+      <div class="stat-label">HSA</div>
+      <div class="stat-note">Top 1.89%</div>
+    </div>
+
+    <!-- GPA Card -->
+    <div class="stat-card">
+      <div class="stat-number" data-target="3.48">0.00</div>
+      <div class="stat-label">University GPA</div>
+      <div class="stat-note">/4.0</div>
+    </div>
+  </div>
+</div>
 </div>
       
 <script>
@@ -689,13 +832,51 @@ html, body {
     next();
   }
 
-  function showPortfolio(){
-    portfolioScreen.style.display = 'block';
-    void portfolioScreen.offsetWidth;
-    portfolioScreen.classList.add('show');
-    portfolioScreen.setAttribute('aria-hidden','false');
-    window.scrollTo(0, 0);
-  }
+ function showPortfolio(){
+  portfolioScreen.style.display = 'block';
+  void portfolioScreen.offsetWidth;
+  portfolioScreen.classList.add('show');
+  portfolioScreen.setAttribute('aria-hidden','false');
+  window.scrollTo(0, 0);
+  
+  // Trigger count-up animation after portfolio is shown
+  setTimeout(() => {
+    countUpNumbers();
+  }, 300);
+}
+
+function countUpNumbers() {
+  const statNumbers = document.querySelectorAll('.stat-number');
+  
+  statNumbers.forEach(el => {
+    const target = parseFloat(el.getAttribute('data-target'));
+    const isDecimal = target % 1 !== 0;
+    const duration = 2000;
+    const startTime = Date.now();
+    
+    function update() {
+      const now = Date.now();
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      const current = target * progress;
+      
+      if (isDecimal) {
+        el.textContent = current.toFixed(2);
+      } else {
+        el.textContent = Math.floor(current).toString().padStart(4, '0');
+      }
+      
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = isDecimal ? target.toFixed(2) : target.toString().padStart(4, '0');
+      }
+    }
+    
+    update();
+  });
+}
 
   selectPy.addEventListener('click', ()=> {
     selection.classList.remove('visible');
