@@ -642,6 +642,218 @@ html, body {
   }
 }
 
+  /* ========== MISSION FILES SECTION ========== */
+.mission-section {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(7, 6, 10, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 80px 60px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+}
+
+.mission-title {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-align: center;
+  margin: 0 0 80px 0;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+  text-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+}
+
+.mission-timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(225, 29, 72, 0) 0%, 
+    rgba(225, 29, 72, 0.5) 50%, 
+    rgba(225, 29, 72, 0) 100%);
+  transform: translateY(-50%);
+  animation: lineExpand 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes lineExpand {
+  0% {
+    opacity: 0;
+    width: 0;
+    left: 50%;
+    right: auto;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+}
+
+.mission-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.mission-card {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.12) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  animation: cardSlideIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+.mission-card:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.mission-card:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+@keyframes cardSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mission-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(225, 29, 72, 0.4), inset 0 0 20px rgba(225, 29, 72, 0.1);
+  border-color: rgba(225, 29, 72, 0.3);
+}
+
+.mission-number {
+  font-family: 'Anton', Impact, Arial Black, sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  color: #e11d48;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 12px 0;
+  animation: textBlinkGlow 1.4s infinite ease-in-out;
+}
+
+.mission-title-card {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mission-company {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(225, 29, 72, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 12px 0;
+  text-shadow: 0 0 8px rgba(225, 29, 72, 0.2);
+}
+
+.mission-role {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 8px 0;
+  line-height: 1.5;
+}
+
+.mission-desc {
+  font-family: 'Poppins', system-ui, Arial;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .mission-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .timeline-line {
+    width: 2px !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    animation: lineExpandVertical 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  
+  @keyframes lineExpandVertical {
+    0% {
+      opacity: 0;
+      height: 0;
+      top: 50%;
+    }
+    100% {
+      opacity: 1;
+      height: 100%;
+      top: 0;
+    }
+  }
+  
+  .mission-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .mission-section {
+    padding: 60px 30px;
+  }
+  
+  .mission-container {
+    gap: 30px;
+  }
+  
+  .mission-card {
+    padding: 30px 20px;
+  }
+  
+  .mission-title-card {
+    font-size: 16px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -750,6 +962,34 @@ html, body {
     </div>
   </div>
 </div>
+  <!-- MISSION FILES SECTION -->
+<div class="mission-section">
+  <h2 class="mission-title">MISSION FILES</h2>
+  
+  <div class="mission-timeline">
+    <div class="timeline-line"></div>
+    
+    <div class="mission-container">
+      <!-- MISSION 001 -->
+      <div class="mission-card">
+        <div class="mission-number">MISSION 001</div>
+        <div class="mission-title-card">ENTERING THE FINANCIAL WORLD</div>
+        <div class="mission-company">FPT Securities</div>
+        <div class="mission-role">Corporate Finance Advisory Intern</div>
+        <div class="mission-desc">Financial analysis & corporate advisory support</div>
+      </div>
+
+      <!-- MISSION 002 -->
+      <div class="mission-card">
+        <div class="mission-number">MISSION 002</div>
+        <div class="mission-title-card">THE TUTORING LAB</div>
+        <div class="mission-company">English Tutor</div>
+        <div class="mission-role">English Tutoring | Primary to High School</div>
+        <div class="mission-desc">HSA English preparation & academic support</div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
       
 <script>
@@ -842,6 +1082,7 @@ function showPortfolio(){
   // Trigger count-up animation after portfolio is shown
   setTimeout(() => {
     countUpNumbers();
+    initMissionObserver(); 
   }, 300);
 }
 
@@ -879,6 +1120,29 @@ function countUpNumbers() {
   });
 }
 
+  // Intersection Observer để trigger animation khi scroll vào
+function initMissionObserver() {
+  const missionSection = document.querySelector('.mission-section');
+  if (!missionSection) return;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+        entry.target.classList.add('animated');
+        // Animation tự động trigger qua CSS @keyframes
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  observer.observe(missionSection);
+}
+
+// Gọi hàm này khi portfolio được hiển thị
+// Thêm vào cuối hàm showPortfolio():
+setTimeout(() => {
+  countUpNumbers();
+  initMissionObserver();
+}, 300);
 
   selectPy.addEventListener('click', ()=> {
     selection.classList.remove('visible');
