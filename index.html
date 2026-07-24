@@ -1475,6 +1475,57 @@ html, body {
   .portfolio-section .stats-two-col .ability-level { text-align: left !important; padding-right: 0 !important; }
 }
 
+  /* ===== Stats: top two boxes side-by-side, bottom box spans full width ===== */
+
+/* Make stats-vertical a small grid: 2 cols; bottom row spans both */
+.stats-vertical {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+/* Each small stat box */
+.stats-vertical .stat-box {
+  width: 100% !important;
+  padding: 18px 14px !important;
+  min-height: 140px !important;     /* smaller boxes to balance with right column */
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+}
+
+/* Make the bottom GPA box span both columns */
+.stats-vertical .stat-box.gpa {
+  grid-column: 1 / -1 !important;   /* span full width of the 2-column grid */
+  min-height: 120px !important;     /* a bit shorter if you prefer */
+  padding: 20px 16px !important;
+}
+
+/* Tweak the big number so it fits the smaller boxes */
+.stats-vertical .stat-box .big {
+  font-size: clamp(28px, 5.2vw, 40px) !important;
+  transform: translateY(-4px) !important;
+}
+
+/* Label under number slightly smaller */
+.stats-vertical .stat-box .label {
+  font-size: 13px !important;
+  margin-top: 8px !important;
+}
+
+/* Ensure the left column inner width remains same as right (if you used previous overrides) */
+/* If you want to further reduce left width, change max-width on .stats-col or .abilities-section elsewhere. */
+
+/* Responsive: stack into single column on small screens */
+@media (max-width: 900px) {
+  .stats-vertical {
+    display: flex !important;
+    flex-direction: column;
+  }
+  .stats-vertical .stat-box.gpa { grid-column: auto !important; }
+}
+
   </style>
 </head>
 <body>
@@ -1568,24 +1619,25 @@ html, body {
     <div class="stats-col">
       <h2 class="section-title">01. CHARACTER STATS</h2>
 
-      <div class="stats-vertical">
-        <div class="stat-box" role="group" aria-label="SAT Score">
-          <div class="big">1450</div>
-          <div class="label">SAT SCORE</div>
-        </div>
+     <div class="stats-vertical">
+  <!-- TOP: two small boxes side-by-side -->
+  <div class="stat-box" role="group" aria-label="High School GPA">
+    <div class="big">9.3</div>
+    <div class="label">HIGH SCHOOL GPA</div>
+  </div>
 
-        <div class="stat-box" role="group" aria-label="HSA Score">
-          <div class="big">103</div>
-          <div class="label">HSA SCORE</div>
-        </div>
+  <div class="stat-box" role="group" aria-label="SAT Score">
+    <div class="big">1450</div>
+    <div class="label">SAT SCORE</div>
+  </div>
 
-        <div class="stat-box" role="group" aria-label="University GPA">
-          <div class="big">3.48<sup>/4.0</sup></div>
-          <div class="label">UNIVERSITY GPA</div>
-        </div>
-      </div>
-    </div>
-
+  <!-- BOTTOM: GPA spans full width (HSA + SAT) -->
+  <div class="stat-box gpa" role="group" aria-label="University GPA">
+    <div class="big">3.48<sup>/4.0</sup></div>
+    <div class="label">UNIVERSITY GPA</div>
+  </div>
+</div>
+      
     <!-- RIGHT: ABILITIES UNLOCKED (bars) -->
     <div class="abilities-col" aria-labelledby="abilities-title">
       <div class="abilities-section">
