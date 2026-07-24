@@ -678,12 +678,16 @@ html, body {
   top: 50%;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(90deg, 
-    rgba(225, 29, 72, 0) 0%, 
-    rgba(225, 29, 72, 0.5) 50%, 
-    rgba(225, 29, 72, 0) 100%);
+    rgba(225, 29, 72, 0.8) 0%,
+    rgba(225, 29, 72, 0.6) 30%,
+    rgba(225, 29, 72, 0.4) 70%,
+    rgba(255, 255, 255, 0.3) 100%);
   transform: translateY(-50%);
+  box-shadow: 
+    0 0 15px rgba(225, 29, 72, 0.6),
+    0 0 30px rgba(225, 29, 72, 0.3);
   animation: lineExpand 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   opacity: 0;
 }
@@ -1098,25 +1102,25 @@ html, body {
 }
 
 /* Layout ngang cho story item cuối (Basketball Events) - áp dụng mọi màn hình */
-.story-item:nth-child(4) .story-content {
+.story-item-basketball .story-content {
   display: flex;
   flex-direction: column;
 }
 
-.story-item:nth-child(4) .story-top {
+.story-item-basketball .story-top {
   display: flex;
   gap: 40px;
   align-items: stretch;
   margin-bottom: 30px;
 }
 
-.story-item:nth-child(4) .story-image-main {
+.story-item-basketball .story-image-main {
   flex: 1;
   height: 350px;
   margin-bottom: 0;
 }
 
-.story-item:nth-child(4) .story-text {
+.story-item-basketball .story-text {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1125,15 +1129,15 @@ html, body {
 }
 
 @media (max-width: 900px) {
-  .story-item:nth-child(4) .story-top {
+  .story-item-basketball .story-top {
     flex-direction: column;
     gap: 20px;
   }
 
-  .story-item:nth-child(4) .story-image-main {
+  .story-item-basketball .story-image-main {
     height: 250px;
   }
-}  
+}
 
 @media (max-width: 768px) {
   .story-arc-section {
@@ -1442,7 +1446,7 @@ html, body {
       </div>
     </div>
         <!-- STORY 4 -->
-    <div class="story-item">
+    <div class="story-item story-item-basketball">
       <div class="story-dot"></div>
       
       <div class="story-content">
